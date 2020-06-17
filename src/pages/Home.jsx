@@ -3,7 +3,7 @@ import {UserRegister,  UserLogin} from '../API/userAuth'
 
 const Home = () => {
 
-    UserLogin()
+    // UserLogin()
  
     
     return(
