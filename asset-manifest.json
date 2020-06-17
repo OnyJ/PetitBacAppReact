@@ -1,23 +1,19 @@
 {
   "files": {
-    "main.css": "/PetitBacAppReact/static/css/main.5f361e03.chunk.css",
-    "main.js": "/PetitBacAppReact/static/js/main.5df98b51.chunk.js",
-    "main.js.map": "/PetitBacAppReact/static/js/main.5df98b51.chunk.js.map",
+    "main.js": "/PetitBacAppReact/static/js/main.d8181e05.chunk.js",
+    "main.js.map": "/PetitBacAppReact/static/js/main.d8181e05.chunk.js.map",
     "runtime-main.js": "/PetitBacAppReact/static/js/runtime-main.a8b85893.js",
     "runtime-main.js.map": "/PetitBacAppReact/static/js/runtime-main.a8b85893.js.map",
-    "static/js/2.b40a88da.chunk.js": "/PetitBacAppReact/static/js/2.b40a88da.chunk.js",
-    "static/js/2.b40a88da.chunk.js.map": "/PetitBacAppReact/static/js/2.b40a88da.chunk.js.map",
+    "static/js/2.2472a71f.chunk.js": "/PetitBacAppReact/static/js/2.2472a71f.chunk.js",
+    "static/js/2.2472a71f.chunk.js.map": "/PetitBacAppReact/static/js/2.2472a71f.chunk.js.map",
     "index.html": "/PetitBacAppReact/index.html",
-    "precache-manifest.a5012573a9419d518a950ef882f205b4.js": "/PetitBacAppReact/precache-manifest.a5012573a9419d518a950ef882f205b4.js",
+    "precache-manifest.02f0e78b58748f07f0ceb2b7d05b0a86.js": "/PetitBacAppReact/precache-manifest.02f0e78b58748f07f0ceb2b7d05b0a86.js",
     "service-worker.js": "/PetitBacAppReact/service-worker.js",
-    "static/css/main.5f361e03.chunk.css.map": "/PetitBacAppReact/static/css/main.5f361e03.chunk.css.map",
-    "static/js/2.b40a88da.chunk.js.LICENSE.txt": "/PetitBacAppReact/static/js/2.b40a88da.chunk.js.LICENSE.txt",
-    "static/media/logo.svg": "/PetitBacAppReact/static/media/logo.5d5d9eef.svg"
+    "static/js/2.2472a71f.chunk.js.LICENSE.txt": "/PetitBacAppReact/static/js/2.2472a71f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a8b85893.js",
-    "static/js/2.b40a88da.chunk.js",
-    "static/css/main.5f361e03.chunk.css",
-    "static/js/main.5df98b51.chunk.js"
+    "static/js/2.2472a71f.chunk.js",
+    "static/js/main.d8181e05.chunk.js"
   ]
 }
