@@ -1,12 +1,12 @@
-export const UserRegister = () => {
+export const UserRegister = (email, password, password_confirmation, username) => {
     console.log(process.env.REACT_APP_BASE_URL);
     const api_url = process.env.REACT_APP_BASE_URL
     const data = {
         user: {
-            email: "lalala13@lalala.com", 
-            password: "lalala", 
-            password_confirmation: "lalala", 
-            username: 'lalala13'
+            email: email, 
+            password: password,
+            password_confirmation: password_confirmation, 
+            username: username
         }
     }
 
@@ -20,7 +20,6 @@ export const UserRegister = () => {
     .then(response => response.json())
     .then(response => console.log(response))
     .catch(error => console.log(error))
-  
      
 } 
 

@@ -17,6 +17,8 @@ import { act } from "react-dom/test-utils";
     currentUser: null,
     status: null, 
     isLoading: true,
+    isRegistered: false,
+    isLogged: false,
   };
   
 
@@ -29,7 +31,8 @@ import { act } from "react-dom/test-utils";
             token: action.token, 
             currentUser: action.user, 
             status: action.status,
-            isLoading: false
+            isLoading: false,
+            isLogged: true,
         }
       case LOGIN_FAIL: 
         return {
@@ -43,7 +46,16 @@ import { act } from "react-dom/test-utils";
             ...state, 
             type: LOGIN_LOADING,
             status: action.status,
-          }  
+          }
+      case REGISTER_SUCCESS:
+        return {
+                ...state, 
+                type: REGISTER_SUCCESS,
+                user: action.user,
+                status: action.status,
+                isLoading: false,
+                isRegistered: true,
+            }    
 
       default:
         return state
