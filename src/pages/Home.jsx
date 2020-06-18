@@ -5,13 +5,15 @@ import { GetProfile } from "../API/userAuth";
 import Cookies from "js-cookie";
 
 const Home = () => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(Cookies.get("user"))
-  );
-  console.log(Cookies.get("user"));
-  console.log(currentUser.id);
+  const [currentUser, setCurrentUser] = useState({})
+  
+
+  
   useEffect(() => {
+    setCurrentUser(JSON.parse( Cookies.get("user") ? Cookies.get("user") : null ));
     GetProfile(currentUser.id);
+
+    
   }, []);
 
   return (
