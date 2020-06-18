@@ -18,7 +18,9 @@ const Login = () => {
       user.then(function(result) {
         dispatch(loginSuccess(result))
         Cookies.set('token', result.token);
+        Cookies.set('user', result.user);
         console.log(Cookies.get('token'))
+        console.log(Cookies.get('user'))
       })
       // const obj = {email, password}
       console.log(user)

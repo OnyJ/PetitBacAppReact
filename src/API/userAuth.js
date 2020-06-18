@@ -70,6 +70,8 @@ export const Logout =  () => {
 
 export const GetProfile = () => {
     const api_url = process.env.REACT_APP_BASE_URL
-    fetch(`${api_url}`)
+    const user = Cookies.get('user')
+    console.log(user.id)
+    //fetch(`${api_url}`)
 
 }

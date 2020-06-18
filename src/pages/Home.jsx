@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import {UserRegister,  UserLogin} from '../API/userAuth'
+import {GetProfile} from '../API/userAuth'
 
 const Home = () => {
 
@@ -9,6 +10,7 @@ const Home = () => {
     console.log(currentUser)
     console.log(currentUser.token)
     console.log(currentUser.currentUser)
+    GetProfile()
     
     return(
     <>
