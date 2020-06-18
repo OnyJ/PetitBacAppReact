@@ -1,8 +1,11 @@
 import { createStore, combineReducers } from 'redux';
 import { applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import userAuthReducer from './UserAuth/userAuthReducer';
 
-const rootReducer = combineReducers({})
+const rootReducer = combineReducers({
+    auth: userAuthReducer
+})
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware) ); 
 store.subscribe(() => console.log(store.getState()));
