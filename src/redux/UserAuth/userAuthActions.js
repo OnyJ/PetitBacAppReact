@@ -3,8 +3,7 @@ import * as actionTypes from './userAuthTypes';
 export const loginSuccess = (response) => {
     return {
         type: actionTypes.LOGIN_SUCCESS,  
-        email: response.email, 
-        password: response.password,
+        user: response,
         isLogged: true,
     }
 }
@@ -36,5 +35,12 @@ export const registerFail = (response) => {
 export const registerLoading = () => {
     return {
         type: actionTypes.REGISTER_LOADING, 
+    }
+}
+
+
+export const logoutSuccess = () => {
+    return {
+        type: actionTypes.LOGOUT_SUCCESS, 
     }
 }

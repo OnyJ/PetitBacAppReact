@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import {UserLogin} from '../API/userAuth'
 import { loginSuccess } from '../redux/UserAuth/userAuthActions';
+import Cookies from 'js-cookie'
 
 const Login = () => {
   
@@ -13,9 +14,15 @@ const Login = () => {
     const login = (e) => {
       
       e.preventDefault()
-      UserLogin(email, password)
-      const obj = {email, password}
-      dispatch(loginSuccess(obj))
+      const user = UserLogin(email, password)
+      user.then(function(result) {
+        dispatch(loginSuccess(result))
+        Cookies.set('token', result.token);
+        console.log(Cookies.get('token'))
+      })
+      // const obj = {email, password}
+      console.log(user)
+       
     }
 
 

@@ -9,7 +9,7 @@ import {
     LOGOUT_FAIL,
     LOGOUT_LOADING
   } from "./userAuthTypes";
-import { act } from "react-dom/test-utils";
+  import Cookies from 'js-cookie'
   
 
   const initialState = {
@@ -28,10 +28,10 @@ import { act } from "react-dom/test-utils";
         return {
              ...state, 
             type: LOGIN_SUCCESS, 
-            token: action.token, 
-            currentUser: action.user, 
-            status: action.status,
+            token: action.user.token, 
+            currentUser: action.user.user,
             isLoading: false,
+            isRegistered: true,
             isLogged: true,
         }
       case LOGIN_FAIL: 
@@ -55,8 +55,16 @@ import { act } from "react-dom/test-utils";
                 status: action.status,
                 isLoading: false,
                 isRegistered: true,
-            }    
-
+            }
+      case LOGOUT_SUCCESS:
+        Cookies.remove('token')
+        return {
+          ...state, 
+          token: null, 
+          user: null, 
+          isLogged: false,
+        }
+        
       default:
         return state
     }
