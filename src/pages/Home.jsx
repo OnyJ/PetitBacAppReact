@@ -1,30 +1,30 @@
-import React, {useEffect} from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import {UserRegister,  UserLogin} from '../API/userAuth'
-import {GetProfile} from '../API/userAuth'
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { UserRegister, UserLogin } from "../API/userAuth";
+import { GetProfile } from "../API/userAuth";
+import Cookies from "js-cookie";
 
 const Home = () => {
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(Cookies.get("user"))
+  );
+  console.log(Cookies.get("user"));
+  console.log(currentUser.id);
+  useEffect(() => {
+    GetProfile(currentUser.id);
+  }, []);
 
-    // UserLogin()
-    const currentUser = useSelector(state => state.auth)
-    console.log(currentUser)
-    console.log(currentUser.token)
-    console.log(currentUser.currentUser)
-    GetProfile()
-    
-    return(
+  return (
     <>
-    {currentUser.currentUser == null &&
-    <h1> HOME LALALA</h1>
-    }
-    {currentUser.currentUser &&
-    <div>
-         <h1> HOME LALALA</h1>
-        <p>{currentUser.currentUser.email}</p>
-    </div>
-    }
+      {currentUser == null && <h1> HOME LALALA</h1>}
+      {currentUser && (
+        <div>
+          <h1> HOME LALALA</h1>
+          <p>{currentUser.email}</p>
+        </div>
+      )}
     </>
-    )
-}
+  );
+};
 
 export default Home;
