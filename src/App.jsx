@@ -3,7 +3,7 @@ import Home from "./application/pages/Home";
 import Login from "./authentication/pages/Login";
 import Signup from "./authentication/pages/Signup";
 import Navbar from "./application/components/Navbar";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App = () => {
   return (
