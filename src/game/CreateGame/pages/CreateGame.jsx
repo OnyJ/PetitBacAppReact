@@ -11,6 +11,7 @@ export const CreateGame = () => {
     const [categories, setCategories] = useState([])
     
     useEffect(()=>{
+      if (categories.length) 
         CreateAGame(currentUser, maxPlayer);
     },[categories])
    
