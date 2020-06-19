@@ -20,7 +20,7 @@ export const CreateGame = () => {
         
     }  
     
-    const CreateAGame = async (currentUser, maxGuests) => {
+    const CreateAGame = (currentUser, maxGuests) => {
       const api_url = process.env.REACT_APP_BASE_URL;
       console.log(maxPlayer, currentUser, categories)
       const data = {
@@ -31,7 +31,7 @@ export const CreateGame = () => {
         }
       }  
       
-      const response = fetch(`${api_url}games`, {
+      fetch(`${api_url}games`, {
         method: 'post', 
         headers: {
           "Content-Type":"application/json", 
