@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 // import { fetchGetProfile } from "../../authentication/fetchUserAuth";
 
 const Home = () => {
@@ -15,6 +16,9 @@ const Home = () => {
           <p>{currentUser.email}</p>
         </div>
       )}
+      <button>
+        <Link to="/current_game">See current Game</Link>
+      </button>
     </>
   );
 };

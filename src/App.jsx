@@ -4,6 +4,7 @@ import Login from "./authentication/pages/Login";
 import Signup from "./authentication/pages/Signup";
 import Navbar from "./application/components/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import CurrentGame from "./game/CurrentGame/pages/CurrentGame";
 
 const App = () => {
   return (
@@ -17,6 +18,9 @@ const App = () => {
           </Route>
           <Route path="/signup">
             <Signup />
+          </Route>
+          <Route path="/current_game">
+            <CurrentGame />
           </Route>
           <Route exact path="/">
             <Home />
