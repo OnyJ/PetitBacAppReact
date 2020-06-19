@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { SelectCategories } from "../../game/CreateGame/components/SelectCategories";
+import { CreateGame } from "../../game/CreateGame/pages/CreateGame";
 
 const Home = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -15,7 +15,7 @@ const Home = () => {
 
         </div>
       )}
-      <SelectCategories />
+      <CreateGame />
     </>
   );
 };

@@ -4,10 +4,12 @@ import React, { useEffect, useState } from "react";
 export const SelectCategories = () => {
   const [categories, setCategories] = useState([]);
   const [selectCategories, setSelectCategories] = useState([]);
+  const api_url = process.env.REACT_APP_BASE_URL;
   
   useEffect(()=>{
     async function fetchData() {
-      const response = await fetch('https://api-petitbac.herokuapp.com/categories', {
+        
+      const response = await fetch(`${api_url}categories`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -16,7 +18,6 @@ export const SelectCategories = () => {
         });
         const text = await response.json();
         setCategories(text);
-        console.log(text);
     }
     fetchData();
       
@@ -39,7 +40,7 @@ export const SelectCategories = () => {
       )}
       </ul>
       <h1> Selected Catégories</h1>
-          <ul>
+          <ul className="categories">
       {selectCategories.map(selectCategory =>
         
           <li key={selectCategory.id} >{selectCategory.name}</li>
