@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 const Login = () => {
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.auth.isLogged);
+  const auth = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,11 +20,13 @@ const Login = () => {
       Cookies.set("user", result.user);
       console.log(Cookies.get("token"));
       console.log(Cookies.get("user"));
+      
     });
     // const obj = {email, password}
-    console.log(user);
+    
   };
 
+    console.log(auth)
   return (
     <>
       <h1> Login </h1>
@@ -47,7 +50,7 @@ const Login = () => {
             <input type="submit" value="Envoyer" />
           </form>
         )}
-        {isLogged && <p>Tu es inscris</p>}
+        {isLogged && <p>Tu es inscrit</p>}
       </div>
     </>
   );

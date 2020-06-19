@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { UserRegister, UserLogin } from "../API/userAuth";
 import { GetProfile } from "../API/userAuth";
 import Cookies from "js-cookie";
+import Room from './Room'
+import Conversation from './Conversation'
 
 const Home = () => {
   const [currentUser, setCurrentUser] = useState(
@@ -23,6 +25,7 @@ const Home = () => {
           <p>{currentUser.email}</p>
         </div>
       )}
+      <Conversation/>
     </>
   );
 };
