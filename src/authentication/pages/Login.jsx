@@ -17,8 +17,6 @@ const Login = () => {
       dispatch(loginSuccess(result));
       Cookies.set("token", result.token);
       Cookies.set("user", result.user);
-      console.log(Cookies.get("token"));
-      console.log(Cookies.get("user"));
     });
   };
 

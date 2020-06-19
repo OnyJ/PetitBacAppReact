@@ -8,8 +8,6 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [password_confirmation, setPassword_confirmation] = useState("");
   const [username, setUsername] = useState("");
-  console.log(isRegistered);
-
   const test = (e) => {
     e.preventDefault();
     fetchUserRegister(email, password, password_confirmation, username);

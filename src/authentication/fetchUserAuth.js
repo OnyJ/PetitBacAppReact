@@ -24,8 +24,7 @@ export const fetchUserRegister = (
     body: JSON.stringify(data),
   })
     .then((response) => response.json())
-    .then((response) => console.log(response))
-    .catch((error) => console.log(error));
+    .catch((error) => console.error(error));
 };
 
 export const fetchUserLogin = async (email, password) => {
@@ -51,7 +50,7 @@ export const fetchUserLogin = async (email, password) => {
     const userToLog = { token, user };
     return userToLog;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     alert("Aucun utilisateur correspondant");
   }
 };
@@ -64,7 +63,7 @@ export const fetchUserLogout = () => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${Cookies.get("token")}`,
     },
-  }).then((response) => console.log(response));
+  });
 };
 
 export const fetchGetProfile = (id) => {
@@ -75,7 +74,5 @@ export const fetchGetProfile = (id) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${Cookies.get("token")}`,
     },
-  })
-    .then((response) => response.json())
-    .then((response) => console.log(response));
+  }).then((response) => response.json());
 };

@@ -10,7 +10,6 @@ const Navbar = () => {
   const logout = () => {
     fetchUserLogout();
     dispatch(logoutSuccess());
-    console.log("allo?");
   };
   return (
     <ul>
