@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { UserLogin } from "../API/userAuth";
-import { loginSuccess } from "../redux/UserAuth/userAuthActions";
+import { fetchUserLogin } from "../fetchUserAuth";
+import { loginSuccess } from "../redux/userAuthActions";
 import Cookies from "js-cookie";
 
 const Login = () => {
@@ -12,16 +12,12 @@ const Login = () => {
 
   const login = (e) => {
     e.preventDefault();
-    const user = UserLogin(email, password);
+    const user = fetchUserLogin(email, password);
     user.then(function (result) {
       dispatch(loginSuccess(result));
       Cookies.set("token", result.token);
       Cookies.set("user", result.user);
-      console.log(Cookies.get("token"));
-      console.log(Cookies.get("user"));
     });
-    // const obj = {email, password}
-    console.log(user);
   };
 
   return (
@@ -47,7 +43,7 @@ const Login = () => {
             <input type="submit" value="Envoyer" />
           </form>
         )}
-        {isLogged && <p>Tu es inscris</p>}
+        {isLogged && <p>Connexion réussie</p>}
       </div>
     </>
   );

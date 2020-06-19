@@ -41,5 +41,8 @@ export const registerLoading = () => {
 export const logoutSuccess = () => {
   return {
     type: actionTypes.LOGOUT_SUCCESS,
+    token: null,
+    currentUser: null,
+    isLogged: false,
   };
 };

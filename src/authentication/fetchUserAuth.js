@@ -1,14 +1,11 @@
-import { useSelector, useDispatch } from "react-redux";
-import { loginSuccess } from "../redux/UserAuth/userAuthActions";
 import Cookies from "js-cookie";
 
-export const UserRegister = (
+export const fetchUserRegister = (
   email,
   password,
   password_confirmation,
   username
 ) => {
-  console.log(process.env.REACT_APP_BASE_URL);
   const api_url = process.env.REACT_APP_BASE_URL;
   const data = {
     user: {
@@ -27,11 +24,10 @@ export const UserRegister = (
     body: JSON.stringify(data),
   })
     .then((response) => response.json())
-    .then((response) => console.log(response))
-    .catch((error) => console.log(error));
+    .catch((error) => console.error(error));
 };
 
-export const UserLogin = async (email, password) => {
+export const fetchUserLogin = async (email, password) => {
   const api_url = process.env.REACT_APP_BASE_URL;
   const data = {
     user: {
@@ -54,12 +50,12 @@ export const UserLogin = async (email, password) => {
     const userToLog = { token, user };
     return userToLog;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     alert("Aucun utilisateur correspondant");
   }
 };
 
-export const Logout = () => {
+export const fetchUserLogout = () => {
   const api_url = process.env.REACT_APP_BASE_URL;
   fetch(`${api_url}logout`, {
     method: "delete",
@@ -67,22 +63,16 @@ export const Logout = () => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${Cookies.get("token")}`,
     },
-  }).then((response) => console.log(response));
+  });
 };
 
-export const GetProfile = (id) => {
+export const fetchGetProfile = (id) => {
   const api_url = process.env.REACT_APP_BASE_URL;
-  // const select = useSelector((state) => state.auth);
-  // console.log(select);
-  // const { id, email } = Cookies.get("user");
-  // console.log(state.auth);
   fetch(`${api_url}/users/${id}`, {
     method: "get",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${Cookies.get("token")}`,
     },
-  })
-    .then((response) => response.json())
-    .then((response) => console.log(response));
+  }).then((response) => response.json());
 };

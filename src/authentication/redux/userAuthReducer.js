@@ -3,11 +3,11 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  REGISTER_LOADING,
+  // REGISTER_FAIL,
+  // REGISTER_LOADING,
   LOGOUT_SUCCESS,
-  LOGOUT_FAIL,
-  LOGOUT_LOADING,
+  // LOGOUT_FAIL,
+  // LOGOUT_LOADING,
 } from "./userAuthTypes";
 import Cookies from "js-cookie";
 
@@ -56,11 +56,13 @@ const userAuthReducer = (state = initialState, action) => {
       };
     case LOGOUT_SUCCESS:
       Cookies.remove("token");
+      Cookies.remove("user");
       return {
         ...state,
         token: null,
-        user: null,
+        currentUser: null,
         isLogged: false,
+        isRegistered: false,
       };
 
     default:
