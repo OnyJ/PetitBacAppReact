@@ -23,13 +23,13 @@ export const fetchGame = () => {
   );
 };
 
-let AuthUser = function (data) {
-  return google.login(data.username, data.password).then((token) => {
-    return token;
-  });
-};
-let userToken = AuthUser(data);
-console.log(userToken); // Promise { <pending> }
-userToken.then(function (result) {
-  console.log(result); // "Some User token"
-});
+// let AuthUser = function (data) {
+// return google.login(data.username, data.password).then((token) => {
+// return token;
+// });
+// };
+// let userToken = AuthUser(data);
+// console.log(userToken); // Promise { <pending> }
+// userToken.then(function (result) {
+// console.log(result); // "Some User token"
+// });
