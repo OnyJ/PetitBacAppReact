@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { UserLogin } from "../API/userAuth";
-import { loginSuccess } from "../redux/UserAuth/userAuthActions";
+import { UserLogin } from "../fetchUserAuth";
+import { loginSuccess } from "../redux/userAuthActions";
 import Cookies from "js-cookie";
 
 const Login = () => {
@@ -47,7 +47,7 @@ const Login = () => {
             <input type="submit" value="Envoyer" />
           </form>
         )}
-        {isLogged && <p>Tu es inscris</p>}
+        {isLogged && <p>Connexion réussie</p>}
       </div>
     </>
   );

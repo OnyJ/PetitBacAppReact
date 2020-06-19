@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { UserRegister, UserLogin } from "../API/userAuth";
-import { GetProfile } from "../API/userAuth";
+import {
+  UserRegister,
+  UserLogin,
+  GetProfile,
+} from "../../authentication/fetchUserAuth";
 import Cookies from "js-cookie";
 
 const Home = () => {
