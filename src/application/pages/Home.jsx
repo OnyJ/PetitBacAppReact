@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-// import { fetchGetProfile } from "../../authentication/fetchUserAuth";
+import { SelectCategories } from "../../game/CreateGame/components/SelectCategories";
 
 const Home = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -12,9 +12,10 @@ const Home = () => {
       {currentUser && (
         <div>
           <h1> HOME LALALA</h1>
-          <p>{currentUser.email}</p>
+
         </div>
       )}
+      <SelectCategories />
     </>
   );
 };
