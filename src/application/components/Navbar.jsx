@@ -1,14 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Logout } from "../../authentication/fetchUserAuth";
+import { fetchUserLogout } from "../../authentication/fetchUserAuth";
 import { logoutSuccess } from "../../authentication/redux/userAuthActions";
 
 const Navbar = () => {
   const dispatch = useDispatch();
 
   const logout = () => {
-    Logout();
+    fetchUserLogout();
     dispatch(logoutSuccess());
     console.log("allo?");
   };

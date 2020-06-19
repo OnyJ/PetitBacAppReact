@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { UserRegister } from "../fetchUserAuth";
+import { fetchUserRegister } from "../fetchUserAuth";
 
 const Signup = () => {
   const isRegistered = useSelector((state) => state.auth.isRegistered);
@@ -12,7 +12,7 @@ const Signup = () => {
 
   const test = (e) => {
     e.preventDefault();
-    UserRegister(email, password, password_confirmation, username);
+    fetchUserRegister(email, password, password_confirmation, username);
   };
 
   return (
