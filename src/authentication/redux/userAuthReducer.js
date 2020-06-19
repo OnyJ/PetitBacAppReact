@@ -56,11 +56,13 @@ const userAuthReducer = (state = initialState, action) => {
       };
     case LOGOUT_SUCCESS:
       Cookies.remove("token");
+      Cookies.remove("user");
       return {
         ...state,
         token: null,
-        user: null,
+        currentUser: null,
         isLogged: false,
+        isRegistered: false,
       };
 
     default:

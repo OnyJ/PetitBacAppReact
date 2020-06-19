@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { GetProfile } from "../../authentication/fetchUserAuth";
 import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(Cookies.get("user"))
-  );
-  console.log(Cookies.get("user"));
-  console.log(currentUser.id);
-  useEffect(() => {
-    GetProfile(currentUser.id);
-  }, []);
+  // const [currentUser, setCurrentUser] = useState(
+  // JSON.parse(Cookies.get("user"))
+  // );
+  const currentUser = useSelector((state) => state.auth.currentUser);
+
+  // console.log(Cookies.get("user"));
+  console.log(currentUser);
+  // useEffect(() => {
+  // GetProfile(currentUser.id);
+  // }, []);
 
   return (
     <>

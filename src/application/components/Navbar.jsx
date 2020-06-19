@@ -9,7 +9,8 @@ const Navbar = () => {
 
   const logout = () => {
     Logout();
-    dispatch(logoutSuccess);
+    dispatch(logoutSuccess());
+    console.log("allo?");
   };
   return (
     <ul>
