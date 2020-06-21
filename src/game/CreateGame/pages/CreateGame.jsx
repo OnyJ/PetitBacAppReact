@@ -3,7 +3,6 @@ import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux'
 import { SelectCategories } from "../components/SelectCategories";
 import Cookies from 'js-cookie'
-import { isElement } from 'react-dom/test-utils';
 
 
 export const CreateGame = ({isGameReady, gameIdForHome}) => {
@@ -113,17 +112,15 @@ export const CreateGame = ({isGameReady, gameIdForHome}) => {
        }
 
       
-        useEffect(() => {
-          console.log(testCateg + '##########################')
+        if (testCateg != '') {
+          console.log(testCateg )
           testCateg.forEach(categ => { 
           createJoinCategGame(gameId, categ.id)
           console.log(isReady)
           })
           isGameReady(isReady)
           gameIdForHome(gameId)
-        }, [isReady])
-         
-        
+        }
   
         
    
