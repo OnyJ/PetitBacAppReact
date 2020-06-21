@@ -6,23 +6,29 @@ import React, { useEffect, useState } from "react";
 import { fetchGame } from "../fetchCurrentGame";
 import { createPortal } from "react-dom";
 
-const GameGrid = () => {
+const GameGrid = (gameId) => {
   const [categories, setCategories] = useState([]);
+  const [id, setId] = useState(gameId);
+  console.log(id.gameId)
+  console.log(gameId.gameId + 'from gameGrid')
 
   useEffect(() => {
     async function fetchGame() {
       const API_URL = process.env.REACT_APP_BASE_URL;
-      const response = await fetch(`${API_URL}/games/1`, {
+      const response = await fetch(`${API_URL}/games/${id.gameId}`, {
         method: "get",
         headers: {
           "Content-Type": "application/json",
         },
       });
       const categoriesObject = await response.json();
+      console.log(categoriesObject)
       setCategories(categoriesObject[1]);
     }
     fetchGame();
-  }, []);
+  }, [id]);
+
+  console.log(categories)
 
   const showInputs = () => {};
   return (

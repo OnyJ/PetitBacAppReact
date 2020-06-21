@@ -6,11 +6,12 @@
 import React from "react";
 import GameGrid from "../components/GameGrid";
 
-const CurrentGame = () => {
+const CurrentGame = ({gameId}) => {
+  console.log(gameId + 'from current game')
   return (
     <>
       <h1>CurrentGame</h1>
-      <GameGrid />
+      <GameGrid gameId={gameId}/>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 
-export const SelectCategories = () => {
+export const SelectCategories = ({tg}) => {
   const [categories, setCategories] = useState([]);
   const [selectCategories, setSelectCategories] = useState([]);
   const api_url = process.env.REACT_APP_BASE_URL;
@@ -25,8 +25,12 @@ export const SelectCategories = () => {
   
   const transfer = (category) => {
     setCategories( categories.filter(element => element.id !== category.id) );
-    setSelectCategories([...selectCategories, category])
+    setSelectCategories([...selectCategories, category]) 
   };
+
+  useEffect(() => {
+    tg(selectCategories)
+  }, [selectCategories])
 
   return (
     <>
