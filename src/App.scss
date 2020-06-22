@@ -1,0 +1,15 @@
+$background-app-color: #4b4c7b;
+$background-navbar-color: #4d51f1;
+// $primary-button-color: #f9c75c;
+// $primary-button-color: #ffc107;
+// $primary-button-color-pressed: #e0a800;
+// color: s#E0A800
+
+body {
+  background-color: $background-app-color;
+  color: white;
+}
+
+.container {
+  max-width: 800px;
+}
