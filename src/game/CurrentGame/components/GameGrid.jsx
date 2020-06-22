@@ -3,12 +3,15 @@
 // Everyone is filling the categories form
 // There is a "Stop" button for the first player who finishes
 import React, { useEffect, useState } from "react";
+import {useSelector} from 'react-redux'
 import { fetchGame } from "../fetchCurrentGame";
 import { createPortal } from "react-dom";
+import Cookies from 'js-cookie'
 
 const GameGrid = (gameId) => {
   const [categories, setCategories] = useState([]);
   const [id, setId] = useState(gameId);
+  const auth = useSelector(state => state.auth)
   console.log(id.gameId)
   console.log(gameId.gameId + 'from gameGrid')
 
@@ -30,15 +33,24 @@ const GameGrid = (gameId) => {
 
   console.log(categories)
 
-  const showInputs = () => {};
+  const showInputs = (e) => {
+    e.preventDefault()
+    let data = {stop: true, user_id: auth.currentUser.id}
+    categories.map((category) => (
+      data[category.name] = e.target.elements.namedItem(category.name).value
+      
+    ))
+    console.log(data)
+  };
+  
   return (
     <>
       <h1>Game Grid</h1>
-      <form>
+      <form onSubmit={showInputs}>
         {categories.map((category) => (
           <div key={category.id}>
             <span>{category.name}</span>
-            <input type="text" label="" />
+            <input type="text" name={category.name} />
             <br />
           </div>
         ))}

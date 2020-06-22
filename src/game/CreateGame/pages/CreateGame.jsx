@@ -8,7 +8,6 @@ import Cookies from 'js-cookie'
 export const CreateGame = ({isGameReady, gameIdForHome}) => {
   const currentUser = useSelector(state => state.auth.currentUser)
   const auth = useSelector(state => state.auth)
-  console.log(auth)
   const [maxPlayer, setMaxPlayer] = useState('')
   const [categories, setCategories] = useState([])
   const [testCateg, setTestCateg] = useState([])
@@ -83,7 +82,6 @@ export const CreateGame = ({isGameReady, gameIdForHome}) => {
     }
     const createJoinCategGame = (gameId, categId) => {
 
-      console.log(gameId)
         const api_url = process.env.REACT_APP_BASE_URL;
        
         const dataCategGames = {
