@@ -15,20 +15,19 @@ const Home = () => {
 
   return (
     <>
-      {currentUser == null && <h1> HOME LALALA</h1>}
+      {currentUser == null && <h1> HOME </h1>}
       {currentUser && (
         <div>
-          <h1> HOME LALALA</h1>
+          <h1> HOME </h1>
+          <CreateGame isGameReady={isReady => setGameIsReady(isReady)} gameIdForHome={gameId => setGameId(gameId)}/>
         </div>
       )}
-      <CreateGame isGameReady={isReady => setGameIsReady(isReady)} gameIdForHome={gameId => setGameId(gameId)}/>
+      
 
       {gameIsReady == true &&
-      <div>
-      
-      <CurrentGame gameId={gameId}/>
-    
-    </div>
+        <div>
+          <CurrentGame gameId={gameId}/>
+        </div>
       
       }
 

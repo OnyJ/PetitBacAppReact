@@ -4,6 +4,9 @@
 // There are checkboxes to say if the answer is a word corresponding to the category or not.
 import React, {useState, useEffect} from 'react';
 import uniqid from 'uniqid'
+import history from '../../../history'
+import {Link} from 'react-router-dom'
+import GameFinished from './GameFinished'
 
 
 
@@ -22,11 +25,6 @@ const GameMarking = ({dataResults}) => {
   console.log(count)
   console.log(score)
 
-
-  // useEffect(() => {
-  //   setResults([...results, data]);
-  // }, [])
-
   console.log(count + ' from outside')
 
   const addScore = (int) => {
@@ -38,23 +36,24 @@ const GameMarking = ({dataResults}) => {
 
   return (
     <>
-    <h1>GameMarking</h1>
 
-    {results && 
-    <ul style={{listStyle: "none"}}>
-      {Object.keys(results).map(result => 
-        <li>
-          {results[result]}
-          <button onClick={() => addScore(1)}>V</button>
-          <button onClick={() => addScore(-1)}>X</button>
-        </li>
-        )}
-    </ul>
-    
+    {count !== Object.keys(results).length && 
+    <div>
+      <h1>GameMarking</h1>
+      <ul style={{listStyle: "none"}}>
+        {Object.keys(results).map(result => 
+          <li>
+            {results[result]}
+            <button onClick={() => addScore(1)}>V</button>
+            <button onClick={() => addScore(-1)}>X</button>
+          </li>
+          )}
+      </ul>
+    </div>
     }
 
     {count === Object.keys(results).length &&
-      <p> score est de {score}</p>
+      <GameFinished data={score}/>
     }
 
     

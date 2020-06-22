@@ -13,24 +13,13 @@ export const CreateGame = ({isGameReady, gameIdForHome}) => {
   const [testCateg, setTestCateg] = useState([])
   const [gameId, setGameId] = useState('')
   const [isReady, setIsReady] = useState(false)
+  const [isSent, setIsSent] = useState(false)
 
-  // console.log(testCateg[0].id)
-
-
-  // const osef = (value) => {
-  //   console.log('caca')
-  //   setTest(value)
-  // }
-    
-    // useEffect(()=>{
-    //   if (categories.length) 
-    //     CreateAGame(currentUser, maxPlayer);
-    // },[categories])
-   
     const create = async (e) => {
         e.preventDefault()
         setCategories( document.getElementsByClassName("categories")[0].innerText.split("\n") )
          CreateAGame(currentUser, maxPlayer)
+         setIsSent(true)
          console.log(testCateg)
          console.log(gameId)
         
@@ -109,12 +98,20 @@ export const CreateGame = ({isGameReady, gameIdForHome}) => {
     
     return(
     <>
-    <h1>Game creation</h1>    
-    <form onSubmit={create}>
-      <input type='number' value={maxPlayer} onChange={(e) => setMaxPlayer(e.target.value)} placeholder="max player"></input>
-      <SelectCategories tg={selectCategories => setTestCateg(selectCategories)}/>
-      <input type="submit" value="Envoyer"/>
-    </form>
+    {!isSent &&
+      <div>
+        <h1>Game creation</h1>    
+        <form onSubmit={create}>
+          <input type='number' value={maxPlayer} onChange={(e) => setMaxPlayer(e.target.value)} placeholder="max player"></input>
+          <SelectCategories tg={selectCategories => setTestCateg(selectCategories)}/>
+          <input type="submit" value="Envoyer"/>
+        </form>
+      </div>
+    }
+    {isSent && 
+      <>
+      </>
+    }
     </>
   )
 }
