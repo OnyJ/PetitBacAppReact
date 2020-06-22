@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from 'antd';
+import './App.scss';
 import Home from "./application/pages/Home";
 import Login from "./authentication/pages/Login";
 import Signup from "./authentication/pages/Signup";
