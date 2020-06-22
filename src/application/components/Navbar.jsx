@@ -16,9 +16,8 @@ const Navbar = () => {
     <ul>
       <li>
       <div className="App">
-        <Button type="primary"><Link to="/">Primary button</Link></Button>
+        <Button type="primary"><Link to="/">Home</Link></Button>
       </div>
-        <Link to="/">Home</Link>
       </li>
       <li>
         <Link to="/login">Login</Link>
