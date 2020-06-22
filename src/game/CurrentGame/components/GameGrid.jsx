@@ -6,17 +6,24 @@ import React, { useEffect, useState } from "react";
 import {useSelector} from 'react-redux'
 import { fetchGame } from "../fetchCurrentGame";
 import { createPortal } from "react-dom";
-import Cookies from 'js-cookie'
+import { useHistory } from "react-router-dom";
+import Cookies from 'js-cookie';
+import GameMarking from './GameMarking';
 
 const GameGrid = (gameId) => {
   const [categories, setCategories] = useState([]);
+  const [data, setData] = useState({})
   const [id, setId] = useState(gameId);
   const auth = useSelector(state => state.auth)
+  const [test, setTest] = useState(false)
+  const history = useHistory();
+
   console.log(id.gameId)
   console.log(gameId.gameId + 'from gameGrid')
 
   useEffect(() => {
     async function fetchGame() {
+      setCategories([])
       const API_URL = process.env.REACT_APP_BASE_URL;
       const response = await fetch(`${API_URL}/games/${id.gameId}`, {
         method: "get",
@@ -29,22 +36,29 @@ const GameGrid = (gameId) => {
       setCategories(categoriesObject[1]);
     }
     fetchGame();
-  }, [id]);
+  }, [test]);
 
   console.log(categories)
 
   const showInputs = (e) => {
     e.preventDefault()
-    let data = {stop: true, user_id: auth.currentUser.id}
+    setTest(true)
+    setData({stop: true, user_id: auth.currentUser.id})
+    let tmp = {}
     categories.map((category) => (
-      data[category.name] = e.target.elements.namedItem(category.name).value
-      
+      tmp[category.name] = e.target.elements.namedItem(category.name).value
     ))
+    setData({...data, ...tmp})
     console.log(data)
+      
+
   };
-  
+
   return (
     <>
+    {!test &&
+    
+    <div>
       <h1>Game Grid</h1>
       <form onSubmit={showInputs}>
         {categories.map((category) => (
@@ -56,6 +70,12 @@ const GameGrid = (gameId) => {
         ))}
         <input type="submit" value="STOP" />
       </form>
+
+    </div>
+    }
+        {test && 
+        <GameMarking dataResults={data}/>}
+      
     </>
   );
 };

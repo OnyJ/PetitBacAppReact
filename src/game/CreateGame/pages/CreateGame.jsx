@@ -15,37 +15,24 @@ export const CreateGame = ({isGameReady, gameIdForHome}) => {
   const [isReady, setIsReady] = useState(false)
 
   // console.log(testCateg[0].id)
-  console.log(gameId)
+
 
   // const osef = (value) => {
   //   console.log('caca')
   //   setTest(value)
   // }
     
-    useEffect(()=>{
-      if (categories.length) 
-        CreateAGame(currentUser, maxPlayer);
-    },[categories])
+    // useEffect(()=>{
+    //   if (categories.length) 
+    //     CreateAGame(currentUser, maxPlayer);
+    // },[categories])
    
-    const create = (e) => {
+    const create = async (e) => {
         e.preventDefault()
         setCategories( document.getElementsByClassName("categories")[0].innerText.split("\n") )
-        const api_url = process.env.REACT_APP_BASE_URL
-         console.log(categories)
-        // const data = {
-        //   join_category_games: {
-        //     category_id: category_id,
-        //     game_id: game_id
-        //   }
-        // }
-        // fetch(`${api_url}join_category_games`, {
-        //   method: 'post', 
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: 
-
-        // })
+         CreateAGame(currentUser, maxPlayer)
+         console.log(testCateg)
+         console.log(gameId)
         
     }  
     
@@ -68,18 +55,24 @@ export const CreateGame = ({isGameReady, gameIdForHome}) => {
         },
         body: JSON.stringify(data),
       })
-
-      fetch(`${api_url}games`, {
-        method: 'get', 
-        headers: {
-          "Content-Type":"application/json", 
-          Authorization: `Bearer ${Cookies.get("token")}`
-        },
-      })
       .then(response => response.json())
-      .then(response => setGameId(response[response.length -1].id))   
+      .then(response => setGameId(response.id))
 
+      console.log(gameId)
+      console.log(testCateg)      
     }
+
+    const osefTest = (gameId) => {
+      testCateg.forEach(categ => { 
+        console.log(gameId)
+        console.log(categ.id)
+        createJoinCategGame(gameId, categ.id)
+        console.log(isReady)
+        })
+        isGameReady(isReady)
+        gameIdForHome(gameId)
+    }
+
     const createJoinCategGame = (gameId, categId) => {
 
         const api_url = process.env.REACT_APP_BASE_URL;
@@ -109,22 +102,9 @@ export const CreateGame = ({isGameReady, gameIdForHome}) => {
     
        }
 
-      
-        if (testCateg != '') {
-          console.log(testCateg )
-          testCateg.forEach(categ => { 
-          createJoinCategGame(gameId, categ.id)
-          console.log(isReady)
-          })
-          isGameReady(isReady)
-          gameIdForHome(gameId)
-        }
-  
-        
-   
-      
+       osefTest(gameId)
 
-      
+           
   
     
     return(

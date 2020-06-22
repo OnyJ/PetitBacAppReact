@@ -25,9 +25,9 @@ const Home = () => {
 
       {gameIsReady == true &&
       <div>
-      <button>
+      
       <CurrentGame gameId={gameId}/>
-    </button>
+    
     </div>
       
       }
