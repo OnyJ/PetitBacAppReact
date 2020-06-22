@@ -19,7 +19,6 @@ const GameMarking = ({dataResults}) => {
 
   }, [])
   console.log(results)
-  console.log(results.length)
   console.log(count)
   console.log(score)
 
@@ -54,7 +53,7 @@ const GameMarking = ({dataResults}) => {
     
     }
 
-    {count === results.length &&
+    {count === Object.keys(results).length &&
       <p> score est de {score}</p>
     }
 
