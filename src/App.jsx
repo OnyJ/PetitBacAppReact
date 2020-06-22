@@ -6,6 +6,7 @@ import Login from "./authentication/pages/Login";
 import Signup from "./authentication/pages/Signup";
 import Navbar from "./application/components/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import CreateGame from "./game/CreateGame/pages/CreateGame";
 import CurrentGame from "./game/CurrentGame/pages/CurrentGame";
 import history from "./history";
 
@@ -22,8 +23,11 @@ const App = () => {
           <Route path="/signup">
             <Signup />
           </Route>
+          <Route path="/create_game">
+            <CreateGame />
+          </Route>
           <Route path="/current_game">
-            <CurrentGame />
+            <CurrentGame/>
           </Route>
           <Route exact path="/">
             <Home />

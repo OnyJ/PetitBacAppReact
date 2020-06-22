@@ -3,13 +3,19 @@
 // 2. GamerMarking
 // 3. GameFinished
 
-import React from "react";
+import React, {useState} from "react";
 import GameGrid from "../components/GameGrid";
+import {useLocation} from "react-router-dom";
 
-const CurrentGame = ({gameId}) => {
+const CurrentGame = () => {
+  let location = useLocation();
+  const [gameId, setGameId] = useState(location.testId)
+
   return (
     <>
       <GameGrid gameId={gameId}/>
+
+      <h1> CURRENT GAME</h1>
     </>
   );
 };

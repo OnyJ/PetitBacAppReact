@@ -20,6 +20,9 @@ const Navbar = () => {
       </div>
       </li>
       <li>
+        <Link to="/create_game">Créer une partie</Link>
+      </li>
+      <li>
         <Link to="/login">Login</Link>
       </li>
       <li>

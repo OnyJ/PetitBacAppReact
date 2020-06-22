@@ -3,9 +3,10 @@ import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux'
 import { SelectCategories } from "../components/SelectCategories";
 import Cookies from 'js-cookie'
+import {Link} from 'react-router-dom'
 
 
-export const CreateGame = ({isGameReady, gameIdForHome}) => {
+ const CreateGame = () => {
   const currentUser = useSelector(state => state.auth.currentUser)
   const auth = useSelector(state => state.auth)
   const [maxPlayer, setMaxPlayer] = useState('')
@@ -14,12 +15,12 @@ export const CreateGame = ({isGameReady, gameIdForHome}) => {
   const [gameId, setGameId] = useState('')
   const [isReady, setIsReady] = useState(false)
   const [isSent, setIsSent] = useState(false)
+ 
 
     const create = async (e) => {
         e.preventDefault()
         setCategories( document.getElementsByClassName("categories")[0].innerText.split("\n") )
          CreateAGame(currentUser, maxPlayer)
-         setIsSent(true)
          console.log(testCateg)
          console.log(gameId)
         
@@ -45,21 +46,8 @@ export const CreateGame = ({isGameReady, gameIdForHome}) => {
         body: JSON.stringify(data),
       })
       .then(response => response.json())
-      .then(response => setGameId(response.id))
+      .then(response => setGameId(response.id)) 
 
-      console.log(gameId)
-      console.log(testCateg)      
-    }
-
-    const osefTest = (gameId) => {
-      testCateg.forEach(categ => { 
-        console.log(gameId)
-        console.log(categ.id)
-        createJoinCategGame(gameId, categ.id)
-        console.log(isReady)
-        })
-        isGameReady(isReady)
-        gameIdForHome(gameId)
     }
 
     const createJoinCategGame = (gameId, categId) => {
@@ -83,22 +71,26 @@ export const CreateGame = ({isGameReady, gameIdForHome}) => {
         .then((response) => {
           if (response.ok === true) {
             setIsReady(true)
-            return response.json()
-            
+            return response.json()  
           }
           return response
         })
-    
        }
 
-       osefTest(gameId)
+      testCateg.forEach(categ => { 
+        console.log(gameId)
+        console.log(categ.id)
+        createJoinCategGame(gameId, categ.id)
+        console.log(isReady)
+        })
 
-           
-  
-    
+        const testPass = {
+          pathname: '/current_game', 
+          testId: gameId
+        }
     return(
     <>
-    {!isSent &&
+
       <div>
         <h1>Game creation</h1>    
         <form onSubmit={create}>
@@ -107,12 +99,13 @@ export const CreateGame = ({isGameReady, gameIdForHome}) => {
           <input type="submit" value="Envoyer"/>
         </form>
       </div>
-    }
-    {isSent && 
-      <>
-      </>
-    }
+      {isReady &&
+       <Link to={testPass}>current game</Link>
+      }
+      
+
     </>
   )
 }
 
+export default CreateGame

@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import Cookies from 'js-cookie';
 import GameMarking from './GameMarking';
 
-const GameGrid = (gameId) => {
+const GameGrid = ({gameId}) => {
   const [categories, setCategories] = useState([]);
   const [data, setData] = useState({})
   const [id, setId] = useState(gameId);
@@ -18,25 +18,29 @@ const GameGrid = (gameId) => {
   const [test, setTest] = useState(false)
   const history = useHistory();
 
-  console.log(id.gameId)
-  console.log(gameId.gameId + 'from gameGrid')
+  console.log(id)
+ 
 
   useEffect(() => {
-    async function fetchGame() {
+    const fetchGame = () => {
       setCategories([])
       const API_URL = process.env.REACT_APP_BASE_URL;
-      const response = await fetch(`${API_URL}/games/${id.gameId}`, {
+      fetch(`${API_URL}games/${id}`, {
         method: "get",
         headers: {
           "Content-Type": "application/json",
         },
-      });
-      const categoriesObject = await response.json();
-      console.log(categoriesObject)
-      setCategories(categoriesObject[1]);
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+      })
+      .then(response => setCategories(response[1]))
+       
     }
     fetchGame();
-  }, [test]);
+  }, []);
 
   console.log(categories)
 
@@ -49,8 +53,7 @@ const GameGrid = (gameId) => {
       tmp[category.name] = e.target.elements.namedItem(category.name).value
     ))
     setData({...data, ...tmp})
-    console.log(data)
-      
+    console.log(data) 
 
   };
 
