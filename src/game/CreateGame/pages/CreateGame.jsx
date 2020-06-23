@@ -116,27 +116,36 @@ export const CreateGame = ({ isGameReady, gameIdForHome }) => {
 
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <h2>Nombre max de joueurs :</h2>
-          <form onSubmit={create}>
-            <p>
-              <input
-                type="number"
-                value={maxPlayer}
-                onChange={(e) => setMaxPlayer(e.target.value)}
-                placeholder="max player"
-                className="form-control"
-              ></input>
-            </p>
+      <div className="create-game">
+        <p>
+          Mesdames et messieurs (surtout messieurs de l'équipe) Les éléments
+          sont centrés car ils sont dans center du composant parent. Normalement
+          ça s'aligne à gauche.
+        </p>
+        <p>
+          Et le Menu + pseudo + bouton [Créer une partie] disparaîtrons d'ici
+          peu
+        </p>
+        <h1>Création de partie</h1>
+        <form onSubmit={create}>
+          <input
+            type="number"
+            value={maxPlayer}
+            onChange={(e) => setMaxPlayer(e.target.value)}
+            placeholder="Nombre max de joueurs"
+            className="max-players form-control"
+          ></input>
+          <div className="row">
             <SelectCategories
               tg={(selectCategories) => setTestCateg(selectCategories)}
             />
+          </div>
+          <center>
             <Button variant="warning" type="submit">
               Envoyer
             </Button>
-          </form>
-        </div>
+          </center>
+        </form>
       </div>
     </>
   );
