@@ -1,17 +1,18 @@
 import React from "react";
 import { Button } from 'antd';
 import './App.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./application/pages/Home";
 import Login from "./authentication/pages/Login";
 import Signup from "./authentication/pages/Signup";
 import Navbar from "./application/components/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CurrentGame from "./game/CurrentGame/pages/CurrentGame";
+import "./App.scss";
 
 const App = () => {
   return (
     <>
-      <h1>This is a simple react app!</h1>
       <Router>
         <Navbar />
         <Switch>

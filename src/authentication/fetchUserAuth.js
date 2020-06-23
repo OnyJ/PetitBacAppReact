@@ -52,6 +52,7 @@ export const fetchUserLogin = async (email, password) => {
   } catch (error) {
     console.error(error);
     alert("Aucun utilisateur correspondant");
+    throw "error";
   }
 };
 

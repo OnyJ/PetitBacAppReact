@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchUserLogin } from "../fetchUserAuth";
 import { loginSuccess } from "../redux/userAuthActions";
 import Cookies from "js-cookie";
+import { Button, Form } from "react-bootstrap";
+import "../../App.scss";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -18,33 +20,48 @@ const Login = () => {
       Cookies.set("token", result.token);
       Cookies.set("user", result.user);
     });
+    user.catch((error) => console.log(error));
   };
 
   return (
     <>
-      <h1> Login </h1>
-      <div>
+      <div className="contain-authentication-form">
         {!isLogged && (
-          <form onSubmit={login}>
-            <input
-              type="text"
-              placeholder="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <input type="submit" value="Envoyer" />
-          </form>
+          <div className="authentication-form">
+            <Form onSubmit={login}>
+              <h1> Connexion </h1>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <Form.Text className="text-muted">
+                  Votre email ne sera pas divulgué.
+                </Form.Text>
+              </Form.Group>
+
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Mot de passe</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="1234"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Button type="submit" variant="warning">
+                Allez !
+              </Button>
+            </Form>
+          </div>
         )}
-        {isLogged && <p>Connexion réussie</p>}
       </div>
+      {isLogged && <p>Connexion réussie</p>}
     </>
   );
 };
