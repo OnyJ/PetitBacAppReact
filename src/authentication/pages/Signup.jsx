@@ -57,7 +57,7 @@ const Signup = () => {
               onChange={(e) => setPassword_confirmation(e.target.value)}
               required />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="warning" type="submit">
               Submit
             </Button>
           </Form>
