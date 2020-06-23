@@ -4,6 +4,7 @@ import { fetchUserLogin } from "../fetchUserAuth";
 import { loginSuccess } from "../redux/userAuthActions";
 import Cookies from "js-cookie";
 import { Button, Form } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 import "../../App.scss";
 
 const Login = () => {
@@ -61,7 +62,7 @@ const Login = () => {
           </div>
         )}
       </div>
-      {isLogged && <p>Connexion réussie</p>}
+      {isLogged && <Redirect to="/" />}
     </>
   );
 };

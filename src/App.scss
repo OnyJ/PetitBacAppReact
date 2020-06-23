@@ -33,7 +33,7 @@ body,
 
 html .container {
   max-width: 800px;
-  height: 85%;
+  height: 93%;
   background-color: $background-container-color;
 }
 
@@ -141,4 +141,28 @@ nav {
       color: black;
     }
   }
+}
+
+//  Create Game
+
+// .form-control {
+// max-width: 800px;
+// }
+//
+
+.create-game {
+  width: 100%;
+  button {
+    width: 100px;
+  }
+}
+
+.categories-container {
+  max-width: 50%;
+  min-width: 350px;
+  margin: 0;
+}
+
+.max-players {
+  max-width: 250px;
 }
