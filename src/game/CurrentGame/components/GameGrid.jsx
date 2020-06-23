@@ -6,47 +6,63 @@ import React, { useEffect, useState } from "react";
 import {useSelector} from 'react-redux'
 import { fetchGame } from "../fetchCurrentGame";
 import { createPortal } from "react-dom";
+import { useHistory } from "react-router-dom";
+import GameMarking from './GameMarking';
 import Cookies from 'js-cookie'
 import { Button, Form } from 'react-bootstrap';
 
 
-const GameGrid = (gameId) => {
+const GameGrid = ({gameId}) => {
   const [categories, setCategories] = useState([]);
+  const [data, setData] = useState({})
   const [id, setId] = useState(gameId);
   const auth = useSelector(state => state.auth)
-  console.log(id.gameId)
-  console.log(gameId.gameId + 'from gameGrid')
+  const [test, setTest] = useState(false)
+  const history = useHistory();
+
+  console.log(id)
+ 
 
   useEffect(() => {
-    async function fetchGame() {
+    const fetchGame = () => {
+      setCategories([])
       const API_URL = process.env.REACT_APP_BASE_URL;
-      const response = await fetch(`${API_URL}/games/${id.gameId}`, {
+      fetch(`${API_URL}games/${id}`, {
         method: "get",
         headers: {
           "Content-Type": "application/json",
         },
-      });
-      const categoriesObject = await response.json();
-      console.log(categoriesObject)
-      setCategories(categoriesObject[1]);
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+      })
+      .then(response => setCategories(response[1]))
+       
     }
     fetchGame();
-  }, [id]);
+  }, []);
 
   console.log(categories)
 
   const showInputs = (e) => {
     e.preventDefault()
-    let data = {stop: true, user_id: auth.currentUser.id}
+    setTest(true)
+    setData({stop: true, user_id: auth.currentUser.id})
+    let tmp = {}
     categories.map((category) => (
-      data[category.name] = e.target.elements.namedItem(category.name).value
-
+      tmp[category.name] = e.target.elements.namedItem(category.name).value
     ))
-    console.log(data)
+    setData({...data, ...tmp})
+    console.log(data) 
+
   };
 
   return (
     <>
+    {!test &&
+    
     <div className="container">
       <h1>Grille de jeu</h1>
       <form onSubmit={showInputs}>
@@ -61,7 +77,11 @@ const GameGrid = (gameId) => {
               Stop
         </Button>
       </form>
-      </div>
+    </div>
+    }
+        {test && 
+        <GameMarking dataResults={data}/>}
+
     </>
   );
 };

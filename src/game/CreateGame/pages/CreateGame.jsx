@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SelectCategories } from "../components/SelectCategories";
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie'
+import {Link} from 'react-router-dom'
 import { Button, Form } from "react-bootstrap";
 
-export const CreateGame = ({ isGameReady, gameIdForHome }) => {
+const CreateGame = ({ isGameReady, gameIdForHome }) => {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const auth = useSelector((state) => state.auth);
   const [maxPlayer, setMaxPlayer] = useState("");
@@ -21,10 +22,6 @@ export const CreateGame = ({ isGameReady, gameIdForHome }) => {
   //   console.log('caca')
   //   setTest(value)
   // }
-
-  useEffect(() => {
-    if (categories.length) CreateAGame(currentUser, maxPlayer);
-  }, [categories]);
 
   const create = (e) => {
     e.preventDefault();
@@ -150,3 +147,6 @@ export const CreateGame = ({ isGameReady, gameIdForHome }) => {
     </>
   );
 };
+
+export default CreateGame;
+

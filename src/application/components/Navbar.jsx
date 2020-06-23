@@ -11,6 +11,8 @@ const Navbar = () => {
   const logout = () => {
     fetchUserLogout();
     dispatch(logoutSuccess());
+    dispatch({type: 'RESET'})
+
   };
   return (
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
