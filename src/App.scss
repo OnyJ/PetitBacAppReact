@@ -1,5 +1,5 @@
-@import "~antd/dist/antd.css";
-@import "~bootstrap/scss/bootstrap";
+// @import "~antd/dist/antd.css";
+// @import "~bootstrap/scss/bootstrap";
 
 // Colors
 $background-app-color: #3b3c60;
@@ -31,8 +31,8 @@ body,
   }
 }
 
-.container {
-  max-width: 1800px;
+html .container {
+  max-width: 800px;
   height: 85%;
   background-color: $background-container-color;
 }
@@ -85,4 +85,19 @@ body,
       margin: 25px;
     }
   }
+}
+
+// Authentication
+
+.contain-authentication-form {
+  display: flex;
+  justify-content: center;
+}
+
+.contain-authentication-form .authentication-form {
+  margin-top: 10%;
+  padding: 30px;
+  border-radius: 20px;
+  width: 340px;
+  background-color: $background-container-color;
 }

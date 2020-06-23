@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchUserLogin } from "../fetchUserAuth";
 import { loginSuccess } from "../redux/userAuthActions";
 import Cookies from "js-cookie";
-import { Button, Form } from 'react-bootstrap';
-import '../../App.scss';
+import { Button, Form } from "react-bootstrap";
+import "../../App.scss";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -25,37 +25,43 @@ const Login = () => {
 
   return (
     <>
-      <h1> Login </h1>
-      <div>
+      <div className="contain-authentication-form">
         {!isLogged && (
-          <Form onSubmit={login} className="container">
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="text"
-              placeholder="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
+          <div className="authentication-form">
+            <Form onSubmit={login}>
+              <h1> Connexion </h1>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <Form.Text className="text-muted">
+                  Votre email ne sera divulgué à personne.
+                </Form.Text>
+              </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password"
-              placeholder="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required />
-            </Form.Group>
-            <Button type="submit" variant="primary">
-              Submit
-            </Button>
-          </Form>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Mot de passe</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Button type="submit" variant="warning">
+                Submit
+              </Button>
+            </Form>
+          </div>
         )}
-        {isLogged && <p>Connexion réussie</p>}
       </div>
+      {isLogged && <p>Connexion réussie</p>}
     </>
   );
 };
