@@ -10,7 +10,6 @@ const CurrentGame = ({gameId}) => {
   console.log(gameId + 'from current game')
   return (
     <>
-      <h1>CurrentGame</h1>
       <GameGrid gameId={gameId}/>
     </>
   );
