@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
-import { CreateGame } from "../../game/CreateGame/pages/CreateGame"
-import { Link } from "react-router-dom";
 import CurrentGame from '../../game/CurrentGame/pages/CurrentGame'
-import { CreateGame } from "../../game/CreateGame/pages/CreateGame";
+import  CreateGame  from "../../game/CreateGame/pages/CreateGame";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import CurrentGame from "../../game/CurrentGame/pages/CurrentGame";
 import "bootstrap/dist/css/bootstrap.css";
 
 const Home = () => {
