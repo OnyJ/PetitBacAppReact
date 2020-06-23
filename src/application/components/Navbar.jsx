@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from 'antd';
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchUserLogout } from "../../authentication/fetchUserAuth";
@@ -14,7 +15,9 @@ const Navbar = () => {
   return (
     <ul>
       <li>
-        <Link to="/">Home</Link>
+      <div className="App">
+        <Button type="primary"><Link to="/">Home</Link></Button>
+      </div>
       </li>
       <li>
         <Link to="/login">Login</Link>

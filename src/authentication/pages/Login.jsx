@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchUserLogin } from "../fetchUserAuth";
 import { loginSuccess } from "../redux/userAuthActions";
 import Cookies from "js-cookie";
+import { Button, Form } from 'react-bootstrap';
+import '../../App.scss';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -26,23 +28,31 @@ const Login = () => {
       <h1> Login </h1>
       <div>
         {!isLogged && (
-          <form onSubmit={login}>
-            <input
-              type="text"
+          <Form onSubmit={login} className="container">
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="text"
               placeholder="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <input
-              type="password"
+              required />
+              <Form.Text className="text-muted">
+                We'll never share your email with anyone else.
+              </Form.Text>
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password"
               placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <input type="submit" value="Envoyer" />
-          </form>
+              required />
+            </Form.Group>
+            <Button type="submit" variant="primary">
+              Submit
+            </Button>
+          </Form>
         )}
         {isLogged && <p>Connexion réussie</p>}
       </div>
