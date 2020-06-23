@@ -142,7 +142,7 @@ export const CreateGame = ({ isGameReady, gameIdForHome }) => {
           </div>
           <center>
             <Button variant="warning" type="submit">
-              Envoyer
+              Jouer
             </Button>
           </center>
         </form>
