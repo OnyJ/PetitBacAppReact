@@ -17,23 +17,26 @@ const Home = () => {
     const emojiFinger = "\u{1f449} ";
     return (
       <>
-        <center>
-          <p class="h5 mb-5">"Un Jeu du Petit Bac sur tous vos appareils !"</p>
-          <p class="h3 mb-4">
+        <center className="menu-logged-out">
+          <p className="h5 mb-5">
+            "Un Jeu du Petit Bac sur tous vos appareils !"
+          </p>
+          <p className="h3 mb-5">
             Vous n'êtes pas encore connecté au jeu {emojiShocked}
           </p>
-          <div>
-            {emojiFinger}
-            <Link to="/login">
-              <button class="btn btn-warning btn-lg">Login</button>
-            </Link>
-          </div>
-          <br />
-          <div>
-            {emojiFinger}
-            <Link to="/signup">
-              <button class="btn btn-warning btn-lg">Signup</button>
-            </Link>
+          <div className="menu-logged-out-buttons">
+            <div>
+              {emojiFinger}
+              <Link to="/login">
+                <button className="btn btn-warning btn-lg">Connexion</button>
+              </Link>
+            </div>
+            <div>
+              {emojiFinger}
+              <Link to="/signup">
+                <button className="btn btn-warning btn-lg">Inscription</button>
+              </Link>
+            </div>
           </div>
         </center>
       </>
@@ -69,7 +72,7 @@ const Home = () => {
           {isComputerScreen() && <h2 className="username pl-5">Pseudo</h2>}
         </div>
 
-        <center class="menu-buttons-div">
+        <center className="menu-buttons-div">
           <button
             onClick={() => setLaunchCreateGame(true)}
             className="btn btn-warning btn-lg"
@@ -94,9 +97,9 @@ const Home = () => {
 
   return (
     <>
-      <section class="container">
-        {/* {currentUser == null && <div>{loggedOutDisplay()}</div>} */}
-        {!currentUser && <div>{loggedInDisplay()}</div>}
+      <section className="container">
+        {currentUser == null && <div>{loggedOutDisplay()}</div>}
+        {currentUser && <div>{loggedInDisplay()}</div>}
       </section>
 
       {/* {gameIsReady == true && } */}
