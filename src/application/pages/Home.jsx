@@ -44,34 +44,59 @@ const Home = () => {
     console.log(gameIsReady);
     console.log(gameId);
 
-    return (
-      <div>
-        <h1>Logged in home</h1>
-        <p>Home Logo</p>
-        <p>User pseudo</p>
+    const isComputerScreen = () => {
+      return window.screen.availWidth > 375;
+    };
 
-        <button
-          onClick={() => setLaunchCreateGame(true)}
-          class="btn btn-warning btn-lg"
-        >
-          Créer une Partie
-        </button>
-        {launchCreateGame && (
-          <CreateGame
-            isGameReady={(isReady) => setGameIsReady(isReady)}
-            gameIdForHome={(gameId) => setGameId(gameId)}
-          />
-        )}
-        {gameIsReady == true && <CurrentGame gameId={gameId} />}
-      </div>
+    return (
+      <>
+        <div className="menu-header-div">
+          <div className="menu-title-div row">
+            <Link to="/">
+              <img
+                src={require("../assets/images/home3.png")}
+                alt="home_logo"
+                width="50px"
+                height="50px"
+              />
+            </Link>
+            {isComputerScreen() ? (
+              <h1 className="ml-3">Menu</h1>
+            ) : (
+              <h1 className="username">Pseudo</h1>
+            )}
+          </div>
+          {isComputerScreen() && <h2 className="username pl-5">Pseudo</h2>}
+        </div>
+
+        <center class="menu-buttons-div">
+          <button
+            onClick={() => setLaunchCreateGame(true)}
+            className="btn btn-warning btn-lg"
+          >
+            Créer une Partie
+          </button>
+          {launchCreateGame && (
+            <CreateGame
+              isGameReady={(isReady) => setGameIsReady(isReady)}
+              gameIdForHome={(gameId) => setGameId(gameId)}
+            />
+          )}
+          {gameIsReady == true && <CurrentGame gameId={gameId} />}
+          <br />
+          <button className="btn btn-warning btn-lg">
+            Rejoindre une Partie
+          </button>
+        </center>
+      </>
     );
   };
 
   return (
     <>
       <section class="container">
-        {currentUser == null && <div>{loggedOutDisplay()}</div>}
-        {currentUser && <div>{loggedInDisplay()}</div>}
+        {/* {currentUser == null && <div>{loggedOutDisplay()}</div>} */}
+        {!currentUser && <div>{loggedInDisplay()}</div>}
       </section>
 
       {/* {gameIsReady == true && } */}
