@@ -50,7 +50,7 @@ const Login = () => {
               required />
             </Form.Group>
             <Button type="submit" variant="warning">
-              Submit
+              Log in
             </Button>
           </Form>
         )}

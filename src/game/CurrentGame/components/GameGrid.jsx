@@ -7,6 +7,8 @@ import {useSelector} from 'react-redux'
 import { fetchGame } from "../fetchCurrentGame";
 import { createPortal } from "react-dom";
 import Cookies from 'js-cookie'
+import { Button, Form } from 'react-bootstrap';
+
 
 const GameGrid = (gameId) => {
   const [categories, setCategories] = useState([]);
@@ -38,24 +40,28 @@ const GameGrid = (gameId) => {
     let data = {stop: true, user_id: auth.currentUser.id}
     categories.map((category) => (
       data[category.name] = e.target.elements.namedItem(category.name).value
-      
+
     ))
     console.log(data)
   };
-  
+
   return (
     <>
-      <h1>Game Grid</h1>
+    <div className="container">
+      <h1>Grille de jeu</h1>
       <form onSubmit={showInputs}>
         {categories.map((category) => (
           <div key={category.id}>
             <span>{category.name}</span>
-            <input type="text" name={category.name} />
+            <input className="form-control" type="text" name={category.name} />
             <br />
           </div>
         ))}
-        <input type="submit" value="STOP" />
+        <Button variant="warning" type="submit">
+              Stop
+        </Button>
       </form>
+      </div>
     </>
   );
 };

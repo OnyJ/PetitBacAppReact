@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Button, Form } from 'react-bootstrap';
 
 
 export const SelectCategories = ({tg}) => {
@@ -34,19 +35,25 @@ export const SelectCategories = ({tg}) => {
 
   return (
     <>
-      <div className="container">
-        <h1> Catégories de jeu</h1>
-        <ul>
+    <div className="container">
+      <div className="row">
+        <h1>Catégories de jeu :</h1>
+        <ul className="categories">
           {categories.map(category =>
-            <li key={category.id} onClick={() => transfer(category)}>{category.name}</li>
+            <Button variant="btn btn-sm btn-warning" key={category.id} onClick={() => transfer(category)}>
+              {category.name}
+            </Button>
           )}
         </ul>
-        <h1> Catégories choisies</h1>
+        <h1>  Catégories choisies :</h1>
         <ul className="categories">
           {selectCategories.map(selectCategory =>
-            <li key={selectCategory.id} >{selectCategory.name} </li>
+            <Button variant="btn btn-sm btn-warning" key={selectCategory.id}>
+              {selectCategory.name}
+            </Button>
           )}
         </ul>
+        </div>
       </div>
     </>
   );

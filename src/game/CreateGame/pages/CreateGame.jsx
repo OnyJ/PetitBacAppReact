@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux'
 import { SelectCategories } from "../components/SelectCategories";
 import Cookies from 'js-cookie'
+import { Button, Form } from 'react-bootstrap';
+
 
 
 export const CreateGame = ({isGameReady, gameIdForHome}) => {
@@ -130,12 +132,16 @@ export const CreateGame = ({isGameReady, gameIdForHome}) => {
     return(
     <>
     <div className="container">
-      <h1>Game creation</h1>
+      <div className="row">
+      <h1>Nombre total de joueurs :</h1>
       <form onSubmit={create}>
-        <input type='number' value={maxPlayer} onChange={(e) => setMaxPlayer(e.target.value)} placeholder="max player" className="number_form"></input>
+        <p><input type='number' value={maxPlayer} onChange={(e) => setMaxPlayer(e.target.value)} placeholder="max player" className="form-control"></input></p>
         <SelectCategories tg={selectCategories => setTestCateg(selectCategories)}/>
-        <input type="submit" value="Envoyer" variant="warning"/>
+        <Button variant="warning" type="submit">
+              Envoyer
+        </Button>
       </form>
+    </div>
     </div>
     </>
   )
