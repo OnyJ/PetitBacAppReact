@@ -4,9 +4,11 @@ import {useSelector} from 'react-redux'
 import { SelectCategories } from "../components/SelectCategories";
 import Cookies from 'js-cookie'
 import {Link} from 'react-router-dom'
+import ScoreContext from '../../../ScoreContext'
 
 
  const CreateGame = () => {
+
   const currentUser = useSelector(state => state.auth.currentUser)
   const auth = useSelector(state => state.auth)
   const [maxPlayer, setMaxPlayer] = useState('')
@@ -15,6 +17,7 @@ import {Link} from 'react-router-dom'
   const [gameId, setGameId] = useState('')
   const [isReady, setIsReady] = useState(false)
   const [isSent, setIsSent] = useState(false)
+ 
  
 
     const create = async (e) => {
@@ -106,6 +109,8 @@ import {Link} from 'react-router-dom'
 
     </>
   )
+  
+
 }
 
 export default CreateGame

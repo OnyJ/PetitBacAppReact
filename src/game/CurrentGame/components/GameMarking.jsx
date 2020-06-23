@@ -2,59 +2,77 @@
 // Someone clicked on the stop button
 // Each line is an answer from another player.
 // There are checkboxes to say if the answer is a word corresponding to the category or not.
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import uniqid from 'uniqid'
 import history from '../../../history'
 import {Link} from 'react-router-dom'
 import GameFinished from './GameFinished'
-
+import scoreReducer from '../../../scoreReducer'
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const GameMarking = ({dataResults}) => {
 
   const [results, setResults] = useState([]);
   const [score, setScore] = useState(0)
-  const [count, setCount] = useState(0)
+  const [answer, setAnswer] = useState({})
+  const [isReady, setIsReady] = useState(false)
 
+  const dispatch = useDispatch()
+  const osef = useSelector(state => state.score)
+  console.log(osef)
 
+  console.log(answer)
   useEffect(() => {
     setResults(...results, dataResults)
 
   }, [])
-  console.log(results)
-  console.log(count)
+
+  const submitScore = (answer) => {
+    setIsReady(true)
+    let tmp = 0
+    for (const [key, value] of Object.entries(answer)) {
+      console.log(`${key}: ${value}`);
+      if (value === true) {
+        tmp += 1
+        console.log('+1') 
+      }
+    }
+    setScore(tmp)
+    sendGlobalScore(tmp + osef.score) 
+  }
+
+  const sendGlobalScore = (score) => {
+    dispatch({type: 'ADD_SCORE', score: score})
+  }
+
   console.log(score)
 
-  console.log(count + ' from outside')
-
-  const addScore = (int) => {
-    setCount(count + 1 )
-    setScore(score + int)
-    console.log(score)
-    console.log(count)
-  }
+  console.log(answer)
 
   return (
     <>
 
-    {count !== Object.keys(results).length && 
+    {(Object.keys(results).length && !isReady) && 
     <div>
       <h1>GameMarking</h1>
       <ul style={{listStyle: "none"}}>
         {Object.keys(results).map(result => 
           <li>
             {results[result]}
-            <button onClick={() => addScore(1)}>V</button>
-            <button onClick={() => addScore(-1)}>X</button>
+            <button onClick={() => setAnswer({...answer, [results[result]]: true})}>V</button>
+            <button onClick={() => setAnswer({...answer, [results[result]]: false})}>X</button>
           </li>
-          )}
+          )}          
       </ul>
+      <button onClick={() =>submitScore(answer)}>Valider réponses</button>
     </div>
     }
 
-    {count === Object.keys(results).length &&
+   {isReady && 
       <GameFinished data={score}/>
-    }
+
+   }
 
     
     </>

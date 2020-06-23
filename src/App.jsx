@@ -9,31 +9,33 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CreateGame from "./game/CreateGame/pages/CreateGame";
 import CurrentGame from "./game/CurrentGame/pages/CurrentGame";
 import history from "./history";
-
+import ScoreContext from './ScoreContext'
 const App = () => {
   return (
     <>
       <h1>This is a simple react app!</h1>
-      <Router history={history}>
-        <Navbar />
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route path="/create_game">
-            <CreateGame />
-          </Route>
-          <Route path="/current_game">
-            <CurrentGame/>
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
+      <ScoreContext.Provider value="score">
+        <Router history={history}>
+          <Navbar />
+          <Switch>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route path="/create_game">
+              <CreateGame />
+            </Route>
+            <Route path="/current_game">
+              <CurrentGame/>
+            </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
+      </ScoreContext.Provider>
     </>
   );
 };
