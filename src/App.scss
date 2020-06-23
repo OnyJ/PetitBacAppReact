@@ -1,1 +1,168 @@
-@import '~antd/dist/antd.css';
+// @import "~antd/dist/antd.css";
+// @import "~bootstrap/scss/bootstrap";
+
+// Colors
+$background-app-color: #3b3c60;
+$background-container-color: #4b4c7b;
+$background-navbar-color: #4d51f1;
+$primary-button-color: #ffc107;
+$primary-button-color-pressed: #e0a800;
+
+// Sizes
+
+$screen-small: 375px;
+$screen-large: 1200px;
+
+// Global
+
+html,
+body,
+#root {
+  // Corresponding to the body tag
+  background-color: $background-app-color;
+  color: white;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+
+  h1,
+  h2 {
+    color: white;
+  }
+}
+
+html .container {
+  max-width: 800px;
+  height: 93%;
+  background-color: $background-container-color;
+}
+
+// Precise Code Parts
+
+// Home Page
+
+.menu-header-div {
+  @media screen and (max-width: $screen-small) {
+    .menu-title-div {
+      padding: 20px 0px 50px 0px;
+    }
+    .username {
+      margin: 0 auto;
+      text-align: right;
+      padding-bottom: 10px;
+    }
+  }
+  @media screen and (min-width: $screen-large) {
+    .menu-title-div {
+      padding: 50px;
+    }
+  }
+}
+
+.menu-buttons-div {
+  button {
+    margin: 15px;
+    width: 300px;
+  }
+  @media screen and (max-width: $screen-small) {
+    button {
+      width: 250px;
+    }
+  }
+}
+
+.menu-logged-out {
+  padding-top: 100px;
+  .menu-logged-out-buttons {
+    div {
+      margin: 25px;
+    }
+  }
+}
+
+// Authentication
+
+.contain-authentication-form {
+  display: flex;
+  justify-content: center;
+}
+
+.authentication-form {
+  margin-top: 10%;
+  padding: 30px;
+  border-radius: 20px;
+  width: 340px;
+  background-color: $background-container-color;
+}
+
+// Navbar
+
+nav {
+  max-width: 800px;
+  margin: auto;
+
+  .dropdown {
+    margin-right: 45px;
+    .dropdown-toggle {
+      padding: 0;
+    }
+  }
+}
+
+.navbar-custom {
+  background-color: $background-navbar-color;
+  a,
+  .dropdown-toggle {
+    color: white;
+    &:hover {
+      color: yellow;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    :visited {
+      text-decoration: none;
+      color: white;
+    }
+  }
+
+  .navbar-brand a {
+    color: white;
+    &:hover {
+      color: yellow;
+      font-weight: 100;
+      text-decoration: none;
+    }
+  }
+
+  .dropdown-item {
+    color: black;
+    &:hover {
+      font-weight: normal;
+      color: black;
+    }
+  }
+}
+
+//  Create Game
+
+// .form-control {
+// max-width: 800px;
+// }
+//
+
+.create-game {
+  width: 100%;
+  button {
+    width: 100px;
+  }
+}
+
+.categories-container {
+  max-width: 50%;
+  min-width: 350px;
+  margin: 0;
+}
+
+.max-players {
+  max-width: 250px;
+}
