@@ -74,13 +74,6 @@ html .container {
 .menu-logged-out {
   padding-top: 100px;
   .menu-logged-out-buttons {
-    // Make the red zone fill the whole height
-    // Make the buttons be space-arounded
-    // height: 100%;
-    // display: flex;
-    // justify-content: space-around;
-    // flex-direction: column-reverse;
-    // background-color: red;
     div {
       margin: 25px;
     }
@@ -100,4 +93,52 @@ html .container {
   border-radius: 20px;
   width: 340px;
   background-color: $background-container-color;
+}
+
+// Navbar
+
+nav {
+  max-width: 800px;
+  margin: auto;
+
+  .dropdown {
+    margin-right: 45px;
+    .dropdown-toggle {
+      padding: 0;
+    }
+  }
+}
+
+.navbar-custom {
+  background-color: $background-navbar-color;
+  a,
+  .dropdown-toggle {
+    color: white;
+    &:hover {
+      color: yellow;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    :visited {
+      text-decoration: none;
+      color: white;
+    }
+  }
+
+  .navbar-brand a {
+    color: white;
+    &:hover {
+      color: yellow;
+      font-weight: 100;
+      text-decoration: none;
+    }
+  }
+
+  .dropdown-item {
+    color: black;
+    &:hover {
+      font-weight: normal;
+      color: black;
+    }
+  }
 }
