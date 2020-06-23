@@ -40,7 +40,7 @@ const Login = () => {
                   required
                 />
                 <Form.Text className="text-muted">
-                  Votre email ne sera divulgué à personne.
+                  Votre email ne sera pas divulgué.
                 </Form.Text>
               </Form.Group>
 
@@ -55,7 +55,7 @@ const Login = () => {
                 />
               </Form.Group>
               <Button type="submit" variant="warning">
-                Submit
+                Allez !
               </Button>
             </Form>
           </div>
