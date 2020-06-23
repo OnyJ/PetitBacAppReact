@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { CreateGame } from "../../game/CreateGame/pages/CreateGame";
 import { Link } from "react-router-dom";
 import CurrentGame from '../../game/CurrentGame/pages/CurrentGame'
-
+import Demo from '../../demo_actioncable/pages/Demo'
 
 const Home = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -31,7 +31,7 @@ const Home = () => {
     </div>
       
       }
-
+    <Demo />
      
     </>
   );
