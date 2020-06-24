@@ -11,16 +11,15 @@ const Navbar = () => {
   const logout = () => {
     fetchUserLogout();
     dispatch(logoutSuccess());
-    dispatch({type: 'RESET'})
-
+    dispatch({ type: "RESET" });
   };
   return (
-    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <nav className="navbar navbar-expand-lg navbar-dark navbar-custom bg-primary">
       <span className="navbar-brand">
         <Link to="/">Petit Bac</Link>
       </span>
       <button
-        class="navbar-toggler"
+        className="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarNavDropdown"
@@ -28,13 +27,13 @@ const Navbar = () => {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
-        <div class="nav-item dropdown my-2 my-lg-0">
+      <div className="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul className="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
+        <div className="nav-item dropdown my-2 my-lg-0">
           <a
-            class="nav-link dropdown-toggle"
+            className="nav-link dropdown-toggle text-light"
             href="#"
             id="navbarDropdownMenuLink"
             data-toggle="dropdown"
@@ -43,11 +42,14 @@ const Navbar = () => {
           >
             Compte
           </a>
-          <div class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">
+          <div
+            className="dropdown-menu "
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <a className="dropdown-item" href="#">
               Profil
             </a>
-            <a class="dropdown-item" onClick={logout} href="#">
+            <a className="dropdown-item" onClick={logout} href="#">
               Deconnexion
             </a>
           </div>

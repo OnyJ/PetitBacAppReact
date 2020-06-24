@@ -1,11 +1,12 @@
-// @import "~antd/dist/antd.css";
-// @import "~bootstrap/scss/bootstrap";
+@import "~antd/dist/antd.css";
+@import "~bootstrap/scss/bootstrap";
 
 // Colors
 $dark-dark-purple: #3b3c60;
 $dark-purple: #4b4c7b;
+$dark-blue-nav: #4d51f1;
 
-$background-app-color: #3b3c60;
+$background-app-color: lightgray;
 $background-container-color: white;
 $background-navbar-color: #4d51f1;
 
@@ -22,17 +23,10 @@ $screen-large: 1200px;
 html,
 body,
 #root {
-  // Corresponding to the body tag
   background-color: $background-app-color;
-  color: white;
   height: 100%;
   margin: 0px;
   padding: 0px;
-
-  h1,
-  h2 {
-    color: white;
-  }
 }
 
 html .container {
@@ -114,35 +108,37 @@ nav {
 }
 
 .navbar-custom {
-  background-color: $background-navbar-color;
-  a,
-  .dropdown-toggle {
-    color: white;
-    &:hover {
-      color: yellow;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    :visited {
-      text-decoration: none;
-      color: white;
-    }
-  }
+  // background-color: $background-navbar-color;
+  // a,
+  // .dropdown-toggle {
+  // color: white;
+  // &:hover {
+  // color: yellow;
+  // font-weight: bold;
+  // text-decoration: none;
+  // }
+  // :visited {
+  // text-decoration: none;
+  // color: white;
+  // }
+  // }
 
   .navbar-brand a {
+    font-size: 24px;
     color: white;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 6px;
     &:hover {
-      color: yellow;
-      font-weight: 100;
       text-decoration: none;
+      background-color: rgba(255, 255, 255, 0.2);
     }
   }
 
   .dropdown-item {
     color: black;
     &:hover {
-      font-weight: normal;
-      color: black;
+      color: white;
     }
   }
 }
