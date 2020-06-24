@@ -50,22 +50,7 @@ const WaitingRoom = () => {
           
       }, []);
 
-      // useEffect(() => {
-      //   if (channel)
-      //   channel.perform('received', {game_id: gameId})
-      // }, [])
-      
       console.log(players)
-  
-  /*useEffect(() => {
-    
-    if (stop) {
-      
-      alert("STOP !")
-    }
-      
-  }, [stop]);*/
-  
 
   return (
     <>

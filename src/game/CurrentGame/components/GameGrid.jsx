@@ -11,12 +11,14 @@ import { createPortal } from "react-dom";
 import GameMarking from './GameMarking';
 import Cookies from 'js-cookie'
 import { Button, Form } from 'react-bootstrap';
+import {useHistory} from 'react-router-dom'
 
 
 const GameGrid = ({gameId}) => {
+  let history = useHistory();
   const [categories, setCategories] = useState([]);
   const [channel, setChannel] = useState(null);
-  const [data, setData] = useState({})
+  const [answers, setAnswers] = useState({})
   const [id, setId] = useState(gameId);
   const auth = useSelector(state => state.auth)
   const [test, setTest] = useState(false) 
@@ -31,13 +33,20 @@ const GameGrid = ({gameId}) => {
 
             },
             received(data) {
-              if (data['stop'])
-                alert("stop")
+              console.log(data)
+               if (data['stop']) {
+                
+                console.log(data)
+                console.log(Object.values(data)[0])
+                console.log(answers)
+                this.perform('received', answers)
+              }
             }
             
           })
           
       }, []);
+
   
   useEffect(() => {
     const fetchGame = () => {
@@ -60,43 +69,71 @@ const GameGrid = ({gameId}) => {
     fetchGame();
   }, []);
 
-  const showInputs = (e) => {
-    e.preventDefault()
-    //setTest(true)
-    //setData({stop: true, user_id: auth.currentUser.id})
-    let tmp = {}
-    categories.map((category) => (
-      tmp[category.name] = e.target.elements.namedItem(category.name).value
-    ))
-    setData({...data, ...tmp})
-    channel.perform('received', {...tmp, stop: true})
+  const handleReceivedAnswers = (response) => {
+    alert('handle')
+    response.preventDefault()
+    console.log(response)
+    //e.preventDefault()
+    if (response['stop']) {
+      console.log(response)
+      console.log(answers)
+      channel.perform('received',  answers)
+    }
   };
 
-  return (
-    <>
-    {!test &&
-    
-    <div className="container">
-      <h1>Grille de jeu</h1>
-      <form onSubmit={showInputs}>
-        {categories.map((category) => (
-          <div key={category.id}>
-            <span>{category.name}</span>
-            <input className="form-control" type="text" name={category.name} />
-            <br />
-          </div>
-        ))}
-        <Button variant="warning" type="submit">
-              Stop
-        </Button>
-      </form>
-    </div>
-    }
-        {test && 
-        <GameMarking dataResults={data}/>}
+  const sendResponse = (tmp) => {
+    console.log(tmp)
+    setAnswers(tmp)
+    console.log(answers)
+    channel.perform('received', {stop: true})
+  }
 
-    </>
+  const handleClick = () => {
+  const test = document.getElementsByClassName('form-control')
+  let tmp = {}
+    for (let item of test) {
+      tmp[item.name] = item.value 
+    }
+    setAnswers(tmp)
+    channel.perform('stopping', {...tmp, stop: true})
+    
+  }
+
+  
+
+
+
+  return (
+    <ActionCableProvider cable={cable}>
+      {/* <ActionCableConsumer
+      channel={{channel:'GameChannel', game_id: gameId}}
+      onReceived={handleReceivedAnswers}> */}
+      {!test &&
+      
+      <div className="container">
+        <h1>Grille de jeu</h1>
+        <form>
+          {categories.map((category) => (
+            <div key={category.id}>
+              <span>{category.name}</span>
+              <input className="form-control" type="text" name={category.name}/>
+              <br />
+            </div>
+          ))}
+          <Button onClick={(handleClick)} variant="warning">
+                Stop
+          </Button>
+        </form>
+      </div>
+      }
+          {/* {test && 
+          <GameMarking dataResults={data}/>} */}
+
+      {/* </ActionCableConsumer> */}
+    </ActionCableProvider>
+
   );
 };
 
 export default GameGrid;
+// onChange={(e) => setAnswers({...answers, [e.target.name]: e.target.value})}
