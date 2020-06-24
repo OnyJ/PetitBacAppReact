@@ -16,6 +16,7 @@ import {useHistory} from 'react-router-dom'
 
 const GameGrid = ({gameId}) => {
   let history = useHistory();
+  const currentUser = useSelector(state => state.auth.currentUser)
   const [categories, setCategories] = useState([]);
   const [channel, setChannel] = useState(null);
   const [answers, setAnswers] = useState({})
@@ -25,7 +26,7 @@ const GameGrid = ({gameId}) => {
   const cable = actionCable.createConsumer('ws://localhost:3000/cable');
   
   useEffect(() => {
-        const sub = cable.subscriptions.create({ channel :'GameChannel', game_id: gameId},{
+        const sub = cable.subscriptions.create({ channel :'GameChannel', game_id: gameId,  user_id: currentUser.id},{
             initialized() {
               setChannel(this)              
             },
@@ -33,13 +34,15 @@ const GameGrid = ({gameId}) => {
 
             },
             received(data) {
-              console.log(data)
+             
                if (data['stop']) {
-                
-                console.log(data)
-                console.log(Object.values(data)[0])
-                console.log(answers)
-                this.perform('received', answers)
+                const test = document.getElementsByClassName('form-control')
+                let tmp = {}
+                  for (let item of test) {
+                    tmp[item.name] = item.value 
+                  }
+                console.log(tmp)
+                this.perform('received', tmp)
               }
             }
             
@@ -70,9 +73,12 @@ const GameGrid = ({gameId}) => {
   }, []);
 
   const handleReceivedAnswers = (response) => {
-    alert('handle')
-    response.preventDefault()
-    console.log(response)
+    const test = document.getElementsByClassName('form-control')
+    let tmp = {}
+      for (let item of test) {
+        tmp[item.name] = item.value 
+      }
+  
     //e.preventDefault()
     if (response['stop']) {
       console.log(response)
@@ -81,21 +87,9 @@ const GameGrid = ({gameId}) => {
     }
   };
 
-  const sendResponse = (tmp) => {
-    console.log(tmp)
-    setAnswers(tmp)
-    console.log(answers)
-    channel.perform('received', {stop: true})
-  }
 
   const handleClick = () => {
-  const test = document.getElementsByClassName('form-control')
-  let tmp = {}
-    for (let item of test) {
-      tmp[item.name] = item.value 
-    }
-    setAnswers(tmp)
-    channel.perform('stopping', {...tmp, stop: true})
+    channel.perform('stopping', { stop: true})
     
   }
 
