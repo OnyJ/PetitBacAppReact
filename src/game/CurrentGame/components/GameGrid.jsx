@@ -3,6 +3,8 @@
 // Everyone is filling the categories form
 // There is a "Stop" button for the first player who finishes
 import React, { useEffect, useState } from "react";
+import actionCable from 'actioncable';
+import { ActionCableProvider, ActionCableConsumer } from 'react-actioncable-provider';
 import {useSelector} from 'react-redux'
 import { fetchGame } from "../fetchCurrentGame";
 import { createPortal } from "react-dom";
@@ -13,11 +15,30 @@ import { Button, Form } from 'react-bootstrap';
 
 const GameGrid = ({gameId}) => {
   const [categories, setCategories] = useState([]);
+  const [channel, setChannel] = useState(null);
   const [data, setData] = useState({})
   const [id, setId] = useState(gameId);
   const auth = useSelector(state => state.auth)
   const [test, setTest] = useState(false) 
+  const cable = actionCable.createConsumer('ws://localhost:3000/cable');
+  
+  useEffect(() => {
+        const sub = cable.subscriptions.create({ channel :'GameChannel', game_id: gameId},{
+            initialized() {
+              setChannel(this)              
+            },
+            connected() {
 
+            },
+            received(data) {
+              if (data['stop'])
+                alert("stop")
+            }
+            
+          })
+          
+      }, []);
+  
   useEffect(() => {
     const fetchGame = () => {
       setCategories([])
@@ -41,13 +62,14 @@ const GameGrid = ({gameId}) => {
 
   const showInputs = (e) => {
     e.preventDefault()
-    setTest(true)
-    setData({stop: true, user_id: auth.currentUser.id})
+    //setTest(true)
+    //setData({stop: true, user_id: auth.currentUser.id})
     let tmp = {}
     categories.map((category) => (
       tmp[category.name] = e.target.elements.namedItem(category.name).value
     ))
     setData({...data, ...tmp})
+    channel.perform('received', {...tmp, stop: true})
   };
 
   return (
