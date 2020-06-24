@@ -88,38 +88,31 @@ const CreateGame = () => {
   };
   return (
     <>
-      <div className="create-game">
-        <p>
-          Mesdames et messieurs (surtout messieurs de l'équipe) Les éléments
-          sont centrés car ils sont dans center du composant parent. Normalement
-          ça s'aligne à gauche.
-        </p>
-        <p>
-          Et le Menu + pseudo + bouton [Créer une partie] disparaîtrons d'ici
-          peu
-        </p>
-        <h1>Création de partie</h1>
-        <form onSubmit={create}>
-          <input
-            type="number"
-            value={maxPlayer}
-            onChange={(e) => setMaxPlayer(e.target.value)}
-            placeholder="Nombre max de joueurs"
-            className="max-players form-control"
-          ></input>
-          <div className="row">
-            <SelectCategories
-              tg={(selectCategories) => setTestCateg(selectCategories)}
-            />
-          </div>
-          <center>
-            <Button variant="warning" type="submit">
-              Jouer
-            </Button>
-          </center>
-        </form>
-      </div>
-      {isReady && <Link to={testPass}>current game</Link>}
+      <section class="container">
+        <div className="create-game">
+          <h1 className="pt-3 pb-3">Création de partie</h1>
+          <form onSubmit={create}>
+            <input
+              type="number"
+              value={maxPlayer}
+              onChange={(e) => setMaxPlayer(e.target.value)}
+              placeholder="Nombre max de joueurs"
+              className="max-players form-control mb-3"
+            ></input>
+            <div className="row">
+              <SelectCategories
+                tg={(selectCategories) => setTestCateg(selectCategories)}
+              />
+            </div>
+            <center>
+              <Button variant="warning" type="submit">
+                Jouer
+              </Button>
+            </center>
+          </form>
+        </div>
+        {isReady && <Link to={testPass}>current game</Link>}
+      </section>
     </>
   );
 };

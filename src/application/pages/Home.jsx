@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import CurrentGame from '../../game/CurrentGame/pages/CurrentGame'
-import  CreateGame  from "../../game/CreateGame/pages/CreateGame";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import CurrentGame from "../../game/CurrentGame/pages/CurrentGame";
+import CreateGame from "../../game/CreateGame/pages/CreateGame";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 
 const Home = () => {
@@ -79,13 +85,8 @@ const Home = () => {
           >
             Créer une Partie
           </button>
-          {launchCreateGame && (
-            <CreateGame
-              isGameReady={(isReady) => setGameIsReady(isReady)}
-              gameIdForHome={(gameId) => setGameId(gameId)}
-            />
-          )}
-          {gameIsReady == true && <CurrentGame gameId={gameId} />}
+          {launchCreateGame && <Redirect to="/create_game" />}
+          {/* {gameIsReady == true && <CurrentGame gameId={gameId} />} */}
           <br />
           <button className="btn btn-warning btn-lg">
             Rejoindre une Partie
@@ -95,7 +96,6 @@ const Home = () => {
     );
   };
 
- 
   return (
     <>
       <section className="container">
@@ -104,7 +104,6 @@ const Home = () => {
       </section>
 
       {/* {gameIsReady == true && } */}
-
     </>
   );
 };
