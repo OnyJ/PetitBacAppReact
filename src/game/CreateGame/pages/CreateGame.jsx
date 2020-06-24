@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SelectCategories } from "../components/SelectCategories";
 import Cookies from "js-cookie";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import ScoreContext from "../../../ScoreContext";
 import { Button, Form } from "react-bootstrap";
 
@@ -17,6 +17,7 @@ const CreateGame = () => {
   const [isReady, setIsReady] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
+  // launchCreation
   const create = async (e) => {
     e.preventDefault();
     setCategories(
@@ -25,6 +26,8 @@ const CreateGame = () => {
     CreateAGame(currentUser, maxPlayer);
     console.log(testCateg);
     console.log(gameId);
+
+    // Trying redirect : return <Redirect to={testPass} />;
   };
 
   const CreateAGame = (currentUser, maxGuests) => {
@@ -82,6 +85,9 @@ const CreateGame = () => {
     console.log(isReady);
   });
 
+  //
+  // TestPass?
+
   const testPass = {
     pathname: "/current_game",
     testId: gameId,
@@ -101,6 +107,10 @@ const CreateGame = () => {
             ></input>
             <div className="row">
               <SelectCategories
+                //
+                // tg ?
+                // testCateg?
+
                 tg={(selectCategories) => setTestCateg(selectCategories)}
               />
             </div>
@@ -111,8 +121,8 @@ const CreateGame = () => {
             </center>
           </form>
         </div>
-        {isReady && <Link to={testPass}>current game</Link>}
       </section>
+      {isReady && <Link to={testPass}>current game</Link>}
     </>
   );
 };
