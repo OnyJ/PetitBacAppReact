@@ -20,9 +20,7 @@ const GameMarking = ({dataResults}) => {
 
   const dispatch = useDispatch()
   const osef = useSelector(state => state.score)
-  console.log(osef)
 
-  console.log(answer)
   useEffect(() => {
     setResults(...results, dataResults)
 
@@ -32,10 +30,8 @@ const GameMarking = ({dataResults}) => {
     setIsReady(true)
     let tmp = 0
     for (const [key, value] of Object.entries(answer)) {
-      console.log(`${key}: ${value}`);
       if (value === true) {
         tmp += 1
-        console.log('+1') 
       }
     }
     setScore(tmp)
@@ -45,10 +41,6 @@ const GameMarking = ({dataResults}) => {
   const sendGlobalScore = (score) => {
     dispatch({type: 'ADD_SCORE', score: score})
   }
-
-  console.log(score)
-
-  console.log(answer)
 
   return (
     <>

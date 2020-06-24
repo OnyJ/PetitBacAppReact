@@ -24,14 +24,10 @@ import { Button, Form } from "react-bootstrap";
         e.preventDefault()
         setCategories( document.getElementsByClassName("categories")[0].innerText.split("\n") )
          CreateAGame(currentUser, maxPlayer)
-         console.log(testCateg)
-         console.log(gameId)
-        
     }  
     
     const CreateAGame = (currentUser, maxGuests) => {
       const api_url = process.env.REACT_APP_BASE_URL;
-      console.log(maxPlayer, currentUser, categories)
       const data = {
         game: {
           creator_id: currentUser.id, 
@@ -81,15 +77,13 @@ import { Button, Form } from "react-bootstrap";
        }
 
       testCateg.forEach(categ => { 
-        console.log(gameId)
-        console.log(categ.id)
         createJoinCategGame(gameId, categ.id)
-        console.log(isReady)
         })
 
         const testPass = {
-          pathname: '/current_game', 
-          testId: gameId
+          pathname: '/waiting_room', 
+          testId: gameId, 
+          categories: testCateg
         }
         return (
           <>
@@ -125,7 +119,7 @@ import { Button, Form } from "react-bootstrap";
               </form>
             </div>
             {isReady &&
-              <Link to={testPass}>current game</Link>
+              <Link to={testPass}>Load game</Link>
             }
           </>
         );

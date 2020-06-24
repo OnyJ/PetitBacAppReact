@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import {useSelector} from 'react-redux'
 import { fetchGame } from "../fetchCurrentGame";
 import { createPortal } from "react-dom";
-import { useHistory } from "react-router-dom";
 import GameMarking from './GameMarking';
 import Cookies from 'js-cookie'
 import { Button, Form } from 'react-bootstrap';
@@ -17,11 +16,7 @@ const GameGrid = ({gameId}) => {
   const [data, setData] = useState({})
   const [id, setId] = useState(gameId);
   const auth = useSelector(state => state.auth)
-  const [test, setTest] = useState(false)
-  const history = useHistory();
-
-  console.log(id)
- 
+  const [test, setTest] = useState(false) 
 
   useEffect(() => {
     const fetchGame = () => {
@@ -44,8 +39,6 @@ const GameGrid = ({gameId}) => {
     fetchGame();
   }, []);
 
-  console.log(categories)
-
   const showInputs = (e) => {
     e.preventDefault()
     setTest(true)
@@ -55,8 +48,6 @@ const GameGrid = ({gameId}) => {
       tmp[category.name] = e.target.elements.namedItem(category.name).value
     ))
     setData({...data, ...tmp})
-    console.log(data) 
-
   };
 
   return (

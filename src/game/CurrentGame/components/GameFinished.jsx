@@ -15,11 +15,6 @@ const GameFinished = ({data}) => {
   const [score, setScore] = useState(data)
   const [goToScore, setGoToScore] = useState(false)
 
-
-    const playAgain = () => {
-      history.push('/login')
-    }
-
   return(
     <>
       

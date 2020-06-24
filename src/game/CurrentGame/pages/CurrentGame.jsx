@@ -9,7 +9,8 @@ import {useLocation} from "react-router-dom";
 
 const CurrentGame = () => {
   let location = useLocation();
-  const [gameId, setGameId] = useState(location.testId)
+  const [categories, setCategories] = useState(location.categories)
+  const [gameId, setGameId] = useState(location.gameId)
 
   return (
     <>

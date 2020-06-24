@@ -10,7 +10,6 @@ const Home = () => {
   const [gameIsReady, setGameIsReady] = useState();
   const [gameId, setGameId] = useState("");
   const [launchCreateGame, setLaunchCreateGame] = useState(false);
-  // GetProfile(currentUser.id);
 
   const loggedOutDisplay = () => {
     const emojiShocked = "\u{1f628} ";
@@ -44,9 +43,6 @@ const Home = () => {
   };
 
   const loggedInDisplay = () => {
-    console.log(gameIsReady);
-    console.log(gameId);
-
     const isComputerScreen = () => {
       return window.screen.availWidth > 375;
     };
@@ -87,9 +83,9 @@ const Home = () => {
           )}
           {gameIsReady == true && <CurrentGame gameId={gameId} />}
           <br />
-          <button className="btn btn-warning btn-lg">
+          <Link to='/join_a_game'><button className="btn btn-warning btn-lg">
             Rejoindre une Partie
-          </button>
+          </button></Link>
         </center>
       </>
     );
@@ -102,9 +98,6 @@ const Home = () => {
         {currentUser == null && <div>{loggedOutDisplay()}</div>}
         {currentUser && <div>{loggedInDisplay()}</div>}
       </section>
-
-      {/* {gameIsReady == true && } */}
-
     </>
   );
 };
