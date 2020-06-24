@@ -25,6 +25,7 @@ export const fetchUserRegister = (
   })
     .then((response) => response.json())
     .catch((error) => console.error(error));
+  fetchUserLogin(data.email, data.password);
 };
 
 export const fetchUserLogin = async (email, password) => {
