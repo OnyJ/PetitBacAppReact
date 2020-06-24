@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import CurrentGame from '../../game/CurrentGame/pages/CurrentGame'
-import  CreateGame  from "../../game/CreateGame/pages/CreateGame";
+import CurrentGame from "../../game/CurrentGame/pages/CurrentGame";
+import CreateGame from "../../game/CreateGame/pages/CreateGame";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -95,16 +95,14 @@ const Home = () => {
     );
   };
 
- 
   return (
     <>
       <section className="container">
-        {currentUser == null && <div>{loggedOutDisplay()}</div>}
-        {currentUser && <div>{loggedInDisplay()}</div>}
+        {/* {currentUser == null && <div>{loggedOutDisplay()}</div>} */}
+        {!currentUser && <div>{loggedInDisplay()}</div>}
       </section>
 
       {/* {gameIsReady == true && } */}
-
     </>
   );
 };
