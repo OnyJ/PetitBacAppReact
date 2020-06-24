@@ -40,24 +40,52 @@ html .container {
 // Home Page
 
 .menu-header-div {
-  @media screen and (max-width: $screen-small) {
-    .menu-title-div {
-      padding: 20px 0px 50px 0px;
-    }
-    .username {
-      margin: 0 auto;
-      text-align: right;
-      padding-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .menu-title-div {
+    padding: 15px;
+    width: 300px;
+    height: 100px;
+  }
+  .menu-user-div {
+    // text-align: right;
+  }
+
+  .menu-navbar {
+    Link {
+      &:hover {
+        // transform: rotate(45deg);
+      }
     }
   }
-  @media screen and (min-width: $screen-large) {
-    .menu-title-div {
-      padding: 50px;
+
+  .menu-icon {
+    &:hover {
     }
   }
+
+  // @media screen and (max-width: $screen-small) {
+  // .menu-title-div {
+  // padding: 20px 0px 50px 0px;
+  // }
+  // .username {
+  // margin: 0 auto;
+  // text-align: right;
+  // padding-bottom: 10px;
+  // }
+  // }
+  // @media screen and (min-width: $screen-large) {
+  // }
 }
 
 .menu-buttons-div {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
   button {
     margin: 15px;
     width: 300px;

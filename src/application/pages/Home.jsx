@@ -53,43 +53,73 @@ const Home = () => {
 
     return (
       <>
-        <div className="menu-header-div">
-          <div className="menu-title-div row">
-            <Link to="/">
-              <img
-                src={require("../assets/images/home3.png")}
-                alt="home_logo"
-                width="50px"
-                height="50px"
-              />
-            </Link>
-            {isComputerScreen() ? (
-              <h1 className="ml-3">Menu</h1>
-            ) : (
-              <h1 className="username">Pseudo</h1>
-            )}
+        <div className="menu-header-div pt-4">
+          <div className="menu-title-div bg-secondary card">
+            <div className="row">
+              <Link to="/">
+                <img
+                  src={require("../assets/images/home-yellow.png")}
+                  alt="home_logo"
+                  width="50px"
+                  height="50px"
+                  className="ml-4"
+                />
+              </Link>
+              <h1 className="ml-3 text-light pt-2">Menu</h1>
+            </div>
           </div>
-          {isComputerScreen() && <h2 className="username pl-5">Pseudo</h2>}
+          <div className="menu-user-div pr-3 text-right m-3">
+            <h2 className="username pl-5 h1">{currentUser.username}</h2>
+            <p className="h3">Niveau {currentUser.level}</p>
+          </div>
+        </div>
+
+        {isComputerScreen && <div className="mt-5"></div>}
+        <div className="menu-navbar">
+          <Link to="/">
+            <button type="button" class="btn btn-secondary m-3">
+              <img
+                className="menu-icon"
+                src={require("../assets/images/friends.png")}
+                alt="friends_icon"
+                width="47px"
+                height="47px"
+              />
+            </button>
+          </Link>
+          <Link to="/">
+            <button type="button" class="btn btn-secondary m-3">
+              <img
+                className="menu-icon"
+                src={require("../assets/images/history-parchment.png")}
+                alt="history_icon"
+                width="47px"
+                height="47px"
+              />
+            </button>
+          </Link>
         </div>
 
         <center className="menu-buttons-div">
-          <button
-            onClick={() => setLaunchCreateGame(true)}
-            className="btn btn-warning btn-lg"
-          >
-            Créer une Partie
-          </button>
-          {launchCreateGame && (
-            <CreateGame
-              isGameReady={(isReady) => setGameIsReady(isReady)}
-              gameIdForHome={(gameId) => setGameId(gameId)}
-            />
-          )}
-          {gameIsReady == true && <CurrentGame gameId={gameId} />}
-          <br />
-          <button className="btn btn-warning btn-lg">
-            Rejoindre une Partie
-          </button>
+          <div>
+            <button
+              onClick={() => setLaunchCreateGame(true)}
+              className="btn btn-warning btn-lg text-dark"
+            >
+              Créer une Partie
+            </button>
+            {launchCreateGame && (
+              <CreateGame
+                isGameReady={(isReady) => setGameIsReady(isReady)}
+                gameIdForHome={(gameId) => setGameId(gameId)}
+              />
+            )}
+            {gameIsReady === true && <CurrentGame gameId={gameId} />}
+            <br />
+            <button className="btn btn-warning btn-lg text-dark">
+              Rejoindre une Partie
+            </button>
+          </div>
         </center>
       </>
     );
@@ -97,9 +127,9 @@ const Home = () => {
 
   return (
     <>
-      <section className="container">
-        {/* {currentUser == null && <div>{loggedOutDisplay()}</div>} */}
-        {!currentUser && <div>{loggedInDisplay()}</div>}
+      <section className="container card border-primary">
+        {currentUser == null && <div>{loggedOutDisplay()}</div>}
+        {currentUser && <div>{loggedInDisplay()}</div>}
       </section>
 
       {/* {gameIsReady == true && } */}
