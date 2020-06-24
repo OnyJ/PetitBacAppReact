@@ -21,7 +21,7 @@ const GameMarking = ({dataResults}) => {
 
   const dispatch = useDispatch()
   const osef = useSelector(state => state.score)
-  console.log(osef)
+  console.log(dataResults)
 
   console.log(answer)
   useEffect(() => {
@@ -56,14 +56,19 @@ const GameMarking = ({dataResults}) => {
     <div className="container">
       {(Object.keys(results).length && !isReady) &&
       <div>
-        <h1>GameMarking</h1>
+        <h1>Correction :</h1>
         <ul style={{listStyle: "none"}}>
           {Object.keys(results).map(result =>
             <li>
-              <div className="row align-items">
-                {results[result]}
-                <Button variant="btn btn-sm btn-success" onClick={() => setAnswer({...answer, [results[result]]: true})}>V</Button>
-                <Button variant="btn btn-sm btn-danger" onClick={() => setAnswer({...answer, [results[result]]: false})}>X</Button>
+              <div className="row">
+                <div class="col">
+                  <p>{result} : {results[result]}</p>
+
+                </div>
+                <div class="col order-1">
+                  <Button variant="btn btn-sm btn-success" onClick={() => setAnswer({...answer, [results[result]]: true})}>V</Button>
+                  <Button variant="btn btn-sm btn-danger" onClick={() => setAnswer({...answer, [results[result]]: false})}>X</Button>
+                </div>
               </div>
             </li>
             )}
