@@ -54,7 +54,7 @@ const Home = () => {
     return (
       <>
         <div className="menu-header-div pt-4">
-          <div className="menu-title-div bg-secondary card">
+          <div className="menu-title-div bg-secondary card pt-3">
             <div className="row">
               <Link to="/">
                 <img
@@ -68,13 +68,23 @@ const Home = () => {
               <h1 className="ml-3 text-light pt-2">Menu</h1>
             </div>
           </div>
-          <div className="menu-user-div pr-3 text-right m-3">
-            <h2 className="username pl-5 h1">{currentUser.username}</h2>
-            <p className="h3">Niveau {currentUser.level}</p>
+
+          <div className="menu-user-div pr-3 text-right">
+            {isComputerScreen() ? (
+              <>
+                <h2 className="h1">currentUser.username</h2>
+                <p className="h3">Niveau currentUser.level</p>
+              </>
+            ) : (
+              <>
+                <h2 className="h4">aacurrentUser.username</h2>
+                <p className="">Niveau currentUser.level</p>
+              </>
+            )}
           </div>
         </div>
 
-        {isComputerScreen && <div className="mt-5"></div>}
+        {isComputerScreen() && <div className="mt-5"></div>}
         <div className="menu-navbar">
           <Link to="/">
             <button type="button" class="btn btn-secondary m-3">
@@ -85,6 +95,7 @@ const Home = () => {
                 width="47px"
                 height="47px"
               />
+              <p>Amis</p>
             </button>
           </Link>
           <Link to="/">
@@ -96,6 +107,7 @@ const Home = () => {
                 width="47px"
                 height="47px"
               />
+              <p>Historique</p>
             </button>
           </Link>
         </div>
@@ -128,8 +140,8 @@ const Home = () => {
   return (
     <>
       <section className="container card border-primary">
-        {currentUser == null && <div>{loggedOutDisplay()}</div>}
-        {currentUser && <div>{loggedInDisplay()}</div>}
+        {/* {currentUser == null && <div>{loggedOutDisplay()}</div>} */}
+        {!currentUser && <div>{loggedInDisplay()}</div>}
       </section>
 
       {/* {gameIsReady == true && } */}
