@@ -48,6 +48,7 @@ export const fetchUserLogin = async (email, password) => {
   try {
     const token = await response.headers.get("authorization").split(" ")[1];
     const user = await response.json();
+    console.log(user)
     const userToLog = { token, user };
     return userToLog;
   } catch (error) {
