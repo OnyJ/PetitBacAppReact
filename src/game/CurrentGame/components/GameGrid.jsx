@@ -8,7 +8,7 @@ import { ActionCableProvider, ActionCableConsumer } from 'react-actioncable-prov
 import {useSelector} from 'react-redux'
 import { fetchGame } from "../fetchCurrentGame";
 import { createPortal } from "react-dom";
-import GameMarking from './GameMarking';
+import GameMarking from '../pages/GameMarking';
 import Cookies from 'js-cookie'
 import { Button, Form } from 'react-bootstrap';
 import {useHistory} from 'react-router-dom'
@@ -44,7 +44,11 @@ const GameGrid = ({gameId}) => {
                 console.log(tmp)
                 this.perform('received', tmp)
               }
+              setTimeout(() => history.push('/game_marking', {
+                gameId:id
+                 }), 1000 )
             }
+              
             
           })
           
@@ -90,6 +94,7 @@ const GameGrid = ({gameId}) => {
 
   const handleClick = () => {
     channel.perform('stopping', { stop: true})
+
     
   }
 
@@ -98,10 +103,9 @@ const GameGrid = ({gameId}) => {
 
 
   return (
+
     <ActionCableProvider cable={cable}>
-      {/* <ActionCableConsumer
-      channel={{channel:'GameChannel', game_id: gameId}}
-      onReceived={handleReceivedAnswers}> */}
+
       {!test &&
       
       <div className="container">
@@ -120,10 +124,6 @@ const GameGrid = ({gameId}) => {
         </form>
       </div>
       }
-          {/* {test && 
-          <GameMarking dataResults={data}/>} */}
-
-      {/* </ActionCableConsumer> */}
     </ActionCableProvider>
 
   );
