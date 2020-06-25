@@ -14,9 +14,10 @@ import { Button, Form } from 'react-bootstrap';
 import {useHistory} from 'react-router-dom'
 
 
-const GameGrid = ({gameId}) => {
+const GameGrid = ({gameId, players}) => {
   let history = useHistory();
   const currentUser = useSelector(state => state.auth.currentUser)
+  const [nbPlayers, setNbPlayers] = useState(players)
   const [categories, setCategories] = useState([]);
   const [channel, setChannel] = useState(null);
   const [answers, setAnswers] = useState({})
@@ -45,7 +46,8 @@ const GameGrid = ({gameId}) => {
                 this.perform('received', tmp)
               }
               setTimeout(() => history.push('/game_marking', {
-                gameId:id
+                gameId:id,
+                players: nbPlayers
                  }), 1000 )
             }
               
@@ -87,7 +89,7 @@ const GameGrid = ({gameId}) => {
     if (response['stop']) {
       console.log(response)
       console.log(answers)
-      channel.perform('received',  answers)
+      channel.perform('received',  {...answers, nbPlayers})
     }
   };
 

@@ -10,25 +10,81 @@ import {Link} from 'react-router-dom'
 import scoreReducer from '../../../scoreReducer'
 import { useDispatch, useSelector } from 'react-redux';
 import {useLocation} from "react-router-dom";
+import actionCable from 'actioncable';
+import { ActionCableProvider, ActionCableConsumer } from 'react-actioncable-provider';
 
 const GameMarking = () => {
 
   let location = useLocation();
   const [id, setId] = useState(location.state.gameId)
   const currentUser = useSelector(state => state.auth.currentUser)
+  const [channel, setChannel] = useState(null);
+  const [responseSent, setResponseSent] = useState(false)
   const [results, setResults] = useState([]);
   const [categories, setCategories] = useState([]);
   const [score, setScore] = useState(0)
   const [answer, setAnswer] = useState([])
+  const [submitted, setSubmitted] = useState(false)
+  const [playerResponseLeft, setPlayerResponseLeft] = useState(location.state.players)
+  const [count, setCount] = useState(0)
   const api_url = process.env.REACT_APP_BASE_URL
+  const cable = actionCable.createConsumer('ws://localhost:3000/cable');
   console.log(id)
-
+  
   const dispatch = useDispatch()
   const osef = useSelector(state => state.score)
 
+  console.log(playerResponseLeft)
+  console.log(count)
+
+  useEffect(() => {
+    const fetchHistories = () => {
+      fetch(`${api_url}histories`, {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+      })
+      .then(response => setPlayerResponseLeft(response.filter(res => res.game_id == id).length))
+     
+      }
+      fetchHistories()
+  }, [])
+
+
+ useEffect(() => {
+        const sub = cable.subscriptions.create({ channel :'MarkingChannel', game_id: id,  user_id: currentUser.id},{
+            initialized() {
+              setChannel(this)              
+            },
+            connected() {
+
+
+            },
+            received(data) {  
+                             
+                // setSubmitted(true)
+                // console.log(data)
+                setCount(count + data['osef'])
+                //this.perform('stop', {...data, count: data['osef'] + count})
+        
+            }, 
+          }) 
+      }, []);
+
+      useEffect(() => {
+         if (playerResponseLeft === count)
+          console.log('submit')
+
+      }, [count])
+
   useEffect(() => {
     const fetchResponses = () => {
-    
     let tmp = []
     fetch(`${api_url}responses`, {
       method: 'get',  
@@ -61,30 +117,18 @@ const GameMarking = () => {
       const response = await fetch(`${api_url}games/${id}`)
       const array = await response.json()
       setCategories(array[1])
-
     }
     fetchData();
     
   },[])
 
-
-  // const submitScore = (answer) => {
-  //   setIsReady(true)
-  //   let tmp = 0
-  //   for (const [key, value] of Object.entries(answer)) {
-  //     if (value === true) {
-  //       tmp += 1
-  //     }
-  //   }
-  //   setScore(tmp)
-  //   sendGlobalScore(tmp + osef.score) 
-  // }
-
   // const sendGlobalScore = (score) => {
   //   dispatch({type: 'ADD_SCORE', score: score})
   // }
   console.log(answer.filter(ans => ans.user_id != currentUser.id))
+
   const handleclick = () => {
+
     let tmp = []
     let score = 0
     answer.filter(ans => ans.user_id != currentUser.id).map(response => {
@@ -94,12 +138,15 @@ const GameMarking = () => {
      tmp.push({...response, score: score}) 
     })
     setAnswer(tmp)
+    setResponseSent(true)
+    setSubmitted(true)
+    channel.perform('received', {answer: tmp, osef: 1})
   }
   console.log(answer)
   return (
     <>
+     <ActionCableProvider cable={cable}>
 
-      
         <div className="container">
           <div className="row">
             {categories.map(category => (
@@ -126,39 +173,18 @@ const GameMarking = () => {
                   </ul>
                 </div>
                 <div className="card-footer">
-                  <button onClick={handleclick}>Send correction</button>
+                  
                 </div>
                 
               </div>
             </div>
               ))}
           </div>
-          
-        </div>
-        
-
-    {/* {(Object.keys(results).length && !isReady) && 
-    <div>
-      <h1>GameMarking</h1>
-      <ul style={{listStyle: "none"}}>
-        {Object.keys(results).map(result => 
-          <li>
-            {results[result]}
-            <button onClick={() => setAnswer({...answer, [results[result]]: true})}>V</button>
-            <button onClick={() => setAnswer({...answer, [results[result]]: false})}>X</button>
-          </li>
-          )}          
-      </ul>
-      <button onClick={() =>submitScore(answer)}>Valider réponses</button>
-    </div>
-    } */}
-
-   {/* {isReady && 
-      <GameFinished data={score}/>
-
-   } */}
-
-    
+          {!responseSent && 
+            <button onClick={handleclick}>Send correction</button>
+          }
+        </div>  
+      </ActionCableProvider>
     </>
   )
 }

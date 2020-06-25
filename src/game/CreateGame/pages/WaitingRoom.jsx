@@ -35,9 +35,11 @@ const WaitingRoom = () => {
             received(data) {
               
               if (!Array.isArray(data)) { 
+                console.log(players)
                 history.push('/current_game',{
                   categories: categories, 
-                  gameId:gameId
+                  gameId:gameId, 
+                  players: players.length
                 })
               }
               else { 
