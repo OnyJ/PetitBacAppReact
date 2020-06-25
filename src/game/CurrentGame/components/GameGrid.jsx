@@ -19,9 +19,10 @@ const GameGrid = ({gameId}) => {
   const auth = useSelector(state => state.auth)
   const [test, setTest] = useState(false)
   const history = useHistory();
-
+  const letter = ["A...", "B...", "C...", "D...", "E...", "F...", "G...", "H...", "I...", "J...", "K...", "L...", "M...", "N...", "O...", "P...", "Q...", "R...", "S...", "T...", "U...", "V...", "W...", "X...", "Y...", "Z..."]
+  const randomLetter = letter[Math.floor(Math.random()*letter.length)];
   console.log(id)
- 
+
 
   useEffect(() => {
     const fetchGame = () => {
@@ -39,7 +40,7 @@ const GameGrid = ({gameId}) => {
         }
       })
       .then(response => setCategories(response[1]))
-       
+
     }
     fetchGame();
   }, []);
@@ -55,21 +56,22 @@ const GameGrid = ({gameId}) => {
       tmp[category.name] = e.target.elements.namedItem(category.name).value
     ))
     setData({...data, ...tmp})
-    console.log(data) 
+    console.log(data)
 
   };
 
   return (
     <>
     {!test &&
-    
+
     <div className="container">
       <h1>Grille de jeu</h1>
+      <p>Lettre : {randomLetter}</p>
       <form onSubmit={showInputs}>
         {categories.map((category) => (
           <div key={category.id}>
             <span>{category.name}</span>
-            <input className="form-control" type="text" name={category.name} />
+            <input className="form-control" type="text" name={category.name} placeholder={randomLetter} autocomplete="off" />
             <br />
           </div>
         ))}
@@ -79,7 +81,7 @@ const GameGrid = ({gameId}) => {
       </form>
     </div>
     }
-        {test && 
+        {test &&
         <GameMarking dataResults={data}/>}
 
     </>

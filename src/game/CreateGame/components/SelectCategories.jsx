@@ -36,6 +36,7 @@ export const SelectCategories = ({ tg }) => {
   const renderCategories = () => {
     return (
       <ul className="categories">
+        {/* Do we need this ? : <div class="row"> */}
         {categories.map((category) => (
           <Button
             variant="btn btn-sm btn-warning"
@@ -45,18 +46,21 @@ export const SelectCategories = ({ tg }) => {
             {category.name}
           </Button>
         ))}
+        {/* </div> */}
       </ul>
     );
   };
 
   const renderSelectedCategories = () => {
     return (
-      <ul className="categories">
+      <ul className="">
+        {/* Do i need this ? : <div class="row"> */}
         {selectCategories.map((selectCategory) => (
           <Button variant="btn btn-sm btn-warning" key={selectCategory.id}>
             {selectCategory.name}
           </Button>
         ))}
+        {/* </div> */}
       </ul>
     );
   };
@@ -89,6 +93,8 @@ export const SelectCategories = ({ tg }) => {
             ) : (
               <center>{renderSelectedCategories()}</center>
             )}
+
+            {/* 3 times not my divs */}
           </div>
         </div>
       </div>

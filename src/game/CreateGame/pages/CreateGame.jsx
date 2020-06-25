@@ -26,8 +26,6 @@ const CreateGame = () => {
     CreateAGame(currentUser, maxPlayer);
     console.log(testCateg);
     console.log(gameId);
-
-    // Trying redirect : return <Redirect to={testPass} />;
   };
 
   const CreateAGame = (currentUser, maxGuests) => {

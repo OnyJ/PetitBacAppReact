@@ -5,7 +5,7 @@ const GameScore = ({score}) => {
 
   return(
     <>
-     <p> le score final est de: {score} </p>
+     <p> Votre score final est de : {score} points</p>
     </>
   )
 }
