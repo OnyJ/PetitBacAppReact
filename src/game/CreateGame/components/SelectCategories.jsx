@@ -34,11 +34,12 @@ export const SelectCategories = ({ tg }) => {
       <div className="container">
         <div className="row">
           <div className="categories-container">
-            <div>
+            <div class="col">
               <h2>Catégories</h2>
               <p class="h4">des mots à trouver :</p>
             </div>
             <ul className="categories">
+              <div class="row">
               {categories.map((category) => (
                 <Button
                   variant="btn btn-sm btn-warning"
@@ -48,23 +49,31 @@ export const SelectCategories = ({ tg }) => {
                   {category.name}
                 </Button>
               ))}
+              </div>
             </ul>
           </div>
           <div className="categories-container">
-            <div>
-              <h2>Catégories</h2>
-              <p class="h4">selectionnées :</p>
+            <div className="create-game">
+              <div className="row">
+                <div class="col order-1 ">
+                  <h2>Catégories</h2>
+                  <p class="h4">selectionnées :</p>
+
+                  <ul className="categories">
+                   <div class="row">
+                    {selectCategories.map((selectCategory) => (
+                    <Button
+                      variant="btn btn-sm btn-warning"
+                      key={selectCategory.id}
+                    >
+                      {selectCategory.name}
+                    </Button>
+                  ))}
+                  </div>
+                </ul>
+                </div>
+              </div>
             </div>
-            <ul className="categories">
-              {selectCategories.map((selectCategory) => (
-                <Button
-                  variant="btn btn-sm btn-warning"
-                  key={selectCategory.id}
-                >
-                  {selectCategory.name}
-                </Button>
-              ))}
-            </ul>
           </div>
         </div>
       </div>
