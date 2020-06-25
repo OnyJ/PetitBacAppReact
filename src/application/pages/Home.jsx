@@ -10,6 +10,9 @@ import {
   Redirect,
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
+import imgHistory from "../assets/images/history-parchment.png";
+import imgFriends from "../assets/images/friends.png";
+import imgHome from "../assets/images/home-yellow.png";
 
 const Home = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -60,11 +63,11 @@ const Home = () => {
     return (
       <>
         <div className="menu-header-div pt-4">
-          <div className="menu-title-div bg-secondary card pt-3">
+          <div className="title-div bg-secondary card pt-3">
             <div className="row">
               <Link to="/">
                 <img
-                  src={require("../assets/images/home-yellow.png")}
+                  src={imgHome}
                   alt="home_logo"
                   width="50px"
                   height="50px"
@@ -96,7 +99,7 @@ const Home = () => {
             <button type="button" class="btn btn-secondary m-3">
               <img
                 className="menu-icon"
-                src={require("../assets/images/friends.png")}
+                src={imgFriends}
                 alt="friends_icon"
                 width="47px"
                 height="47px"
@@ -108,7 +111,7 @@ const Home = () => {
             <button type="button" class="btn btn-secondary m-3">
               <img
                 className="menu-icon"
-                src={require("../assets/images/history-parchment.png")}
+                src={imgHistory}
                 alt="history_icon"
                 width="47px"
                 height="47px"
@@ -153,8 +156,6 @@ const Home = () => {
         {currentUser == null && <div>{loggedOutDisplay()}</div>}
         {currentUser && <div>{loggedInDisplay()}</div>}
       </section>
-
-      {/* {gameIsReady == true && } */}
     </>
   );
 };
