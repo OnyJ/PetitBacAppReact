@@ -105,8 +105,6 @@ export const SelectCategories = ({ tg }) => {
                 <center>{renderSelectedCategories()}</center>
               )}
             </div>
-
-            {/* 3 times not my divs */}
           </div>
         </div>
       </div>

@@ -13,9 +13,11 @@ const CurrentGame = () => {
 
   return (
     <>
-      <GameGrid gameId={gameId}/>
-
-      <h1> CURRENT GAME</h1>
+    <div className="container">
+      <div className="row">
+        <GameGrid gameId={gameId}/>
+      </div>
+    </div>
     </>
   );
 };
