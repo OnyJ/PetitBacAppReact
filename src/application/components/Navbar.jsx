@@ -1,9 +1,15 @@
+// Installed
 import React from "react";
-import { Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+// Pages and Components
 import { fetchUserLogout } from "../../authentication/fetchUserAuth";
 import { logoutSuccess } from "../../authentication/redux/userAuthActions";
+
+// Assets
+import imgLogout from "../assets/images/logout-power-white.png";
+import imgSettings from "../assets/images/settings-white.png";
 
 const Navbar = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -19,43 +25,23 @@ const Navbar = () => {
       <span className="navbar-brand">
         <Link to="/">Petit Bac</Link>
       </span>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
+      <ul className="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
+
       {currentUser && (
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
-          <div className="nav-item dropdown my-2 my-lg-0">
-            <a
-              className="nav-link dropdown-toggle text-light"
-              href="#"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Compte
-            </a>
-            <div
-              className="dropdown-menu "
-              aria-labelledby="navbarDropdownMenuLink"
-            >
-              <a className="dropdown-item" href="#">
-                Profil
-              </a>
-              <a className="dropdown-item" onClick={logout} href="#">
-                Deconnexion
-              </a>
-            </div>
-          </div>
-        </div>
+        <>
+          <a href="#">
+            <img
+              src={imgSettings}
+              alt="settings_icon"
+              width="30px"
+              height="30px"
+            />
+          </a>
+          <div className="ml-3"></div>
+          <a onClick={logout} href="#">
+            <img src={imgLogout} alt="logout_icon" width="30px" height="30px" />
+          </a>
+        </>
       )}
     </nav>
   );

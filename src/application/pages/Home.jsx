@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+// Installed
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+
+// Pages and components
 import CurrentGame from "../../game/CurrentGame/pages/CurrentGame";
 import CreateGame from "../../game/CreateGame/pages/CreateGame";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  Redirect,
-} from "react-router-dom";
+import LoggedOutDisplay from "../components/LoggedOutDisplay";
+
 import "bootstrap/dist/css/bootstrap.css";
 import imgHistory from "../assets/images/history-parchment.png";
 import imgFriends from "../assets/images/friends.png";
@@ -20,37 +19,6 @@ const Home = () => {
   const [gameId, setGameId] = useState("");
   const [launchCreateGame, setLaunchCreateGame] = useState(false);
   // GetProfile(currentUser.id);
-
-  const loggedOutDisplay = () => {
-    const emojiShocked = "\u{1f628} ";
-    const emojiFinger = "\u{1f449} ";
-    return (
-      <>
-        <center className="menu-logged-out">
-          <p className="h5 mb-5">
-            "Un Jeu du Petit Bac sur tous vos appareils !"
-          </p>
-          <p className="h3 mb-5">
-            Vous n'êtes pas encore connecté au jeu {emojiShocked}
-          </p>
-          <div className="menu-logged-out-buttons">
-            <div>
-              {emojiFinger}
-              <Link to="/login">
-                <button className="btn btn-warning btn-lg">Connexion</button>
-              </Link>
-            </div>
-            <div>
-              {emojiFinger}
-              <Link to="/signup">
-                <button className="btn btn-warning btn-lg">Inscription</button>
-              </Link>
-            </div>
-          </div>
-        </center>
-      </>
-    );
-  };
 
   const loggedInDisplay = () => {
     console.log(gameIsReady);
@@ -153,7 +121,7 @@ const Home = () => {
   return (
     <>
       <section className="container card border-primary">
-        {currentUser == null && <div>{loggedOutDisplay()}</div>}
+        {currentUser == null && <div>{LoggedOutDisplay()}</div>}
         {currentUser && <div>{loggedInDisplay()}</div>}
       </section>
     </>
