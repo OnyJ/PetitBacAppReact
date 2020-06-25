@@ -104,7 +104,7 @@ import { Button, Form } from "react-bootstrap";
                   Et le Menu + pseudo + bouton [Créer une partie] disparaîtrons d'ici
                   peu
                 </p>
-                <h1 className="text-center">Création de partie</h1>
+                <h1>Création de partie</h1>
                 <form onSubmit={create}>
                   <input
                     type="number"
