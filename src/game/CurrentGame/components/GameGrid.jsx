@@ -71,8 +71,10 @@ const GameGrid = ({gameId}) => {
         {categories.map((category) => (
           <div key={category.id}>
             <span>{category.name}</span>
+            <div className="form-group">
             <input className="form-control" type="text" name={category.name} placeholder={randomLetter} autocomplete="off" />
             <br />
+          </div>
           </div>
         ))}
         <Button variant="warning" type="submit">

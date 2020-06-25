@@ -27,7 +27,7 @@ const GameFinished = ({data}) => {
           {!goToScore &&
             <div className="row">
               <div class="col">
-                <p> Votre score est de : {score} points</p>
+                <p>{score} bonnes réponses pour un total de {score} points</p>
               </div>
               <div class="col order-1">
                 <Link to="/create_game"><Button variant="btn btn-md btn-warning">Rejouer</Button></Link>

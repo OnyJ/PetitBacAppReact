@@ -37,7 +37,6 @@ export const SelectCategories = ({ tg }) => {
             <div class="col">
               <h2>Catégories</h2>
               <p class="h4">des mots à trouver :</p>
-            </div>
             <ul className="categories">
               <div class="row">
               {categories.map((category) => (
@@ -51,6 +50,7 @@ export const SelectCategories = ({ tg }) => {
               ))}
               </div>
             </ul>
+            </div>
           </div>
           <div className="categories-container">
             <div className="create-game">
