@@ -12,7 +12,7 @@ const CurrentGame = () => {
   const [categories, setCategories] = useState(location.state.categories)
   const [gameId, setGameId] = useState(location.state.gameId)
   const [players, setPlayers] = useState(location.state.players)
-  console.log(players)
+  console.log(gameId,players)
   return (
     <>
       <GameGrid gameId={gameId} players={players}/>

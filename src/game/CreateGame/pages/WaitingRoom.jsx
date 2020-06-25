@@ -35,11 +35,13 @@ const WaitingRoom = () => {
             received(data) {
               
               if (!Array.isArray(data)) { 
+                console.log(data)
                 console.log(players)
+                console.log(players.length)
                 history.push('/current_game',{
                   categories: categories, 
                   gameId:gameId, 
-                  players: players.length
+                  players: data['players'].length
                 })
               }
               else { 
@@ -70,7 +72,7 @@ const WaitingRoom = () => {
       }
 
       {currentUser.id == admin.id && 
-       <button onClick={()=> channel.perform('starting',{start: true})}>Let's play</button>
+       <button onClick={()=> channel.perform('starting',{start: true, players: players})}>Let's play</button>
       }
      
     </ActionCableProvider>

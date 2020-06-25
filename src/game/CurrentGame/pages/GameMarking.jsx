@@ -29,7 +29,7 @@ const GameMarking = () => {
   const [count, setCount] = useState(0)
   const api_url = process.env.REACT_APP_BASE_URL
   const cable = actionCable.createConsumer('ws://localhost:3000/cable');
-  console.log(id)
+  console.log(location.state.players)
   
   const dispatch = useDispatch()
   const osef = useSelector(state => state.score)
@@ -58,7 +58,7 @@ const GameMarking = () => {
 
 
  useEffect(() => {
-        const sub = cable.subscriptions.create({ channel :'MarkingChannel', game_id: id,  user_id: currentUser.id},{
+        const sub = cable.subscriptions.create({ channel :'MarkingChannel', game_id: id,  user_id: currentUser.id, validation: location.state.players},{
             initialized() {
               setChannel(this)              
             },
@@ -67,21 +67,19 @@ const GameMarking = () => {
 
             },
             received(data) {  
-                             
+                        
+              
+                if (data['stop'])
+                    alert('cassez vous tous mtn')
                 // setSubmitted(true)
                 // console.log(data)
-                setCount(count + data['osef'])
+                
                 //this.perform('stop', {...data, count: data['osef'] + count})
         
             }, 
           }) 
       }, []);
 
-      useEffect(() => {
-         if (playerResponseLeft === count)
-          console.log('submit')
-
-      }, [count])
 
   useEffect(() => {
     const fetchResponses = () => {

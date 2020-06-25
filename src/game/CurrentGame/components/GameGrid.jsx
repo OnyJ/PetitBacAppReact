@@ -25,7 +25,7 @@ const GameGrid = ({gameId, players}) => {
   const auth = useSelector(state => state.auth)
   const [test, setTest] = useState(false) 
   const cable = actionCable.createConsumer('ws://localhost:3000/cable');
-  
+  console.log(players, nbPlayers, gameId)
   useEffect(() => {
         const sub = cable.subscriptions.create({ channel :'GameChannel', game_id: gameId,  user_id: currentUser.id},{
             initialized() {
@@ -89,7 +89,7 @@ const GameGrid = ({gameId, players}) => {
     if (response['stop']) {
       console.log(response)
       console.log(answers)
-      channel.perform('received',  {...answers, nbPlayers})
+      channel.perform('received',  answers)
     }
   };
 
