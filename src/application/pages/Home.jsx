@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CurrentGame from "../../game/CurrentGame/pages/CurrentGame";
 import CreateGame from "../../game/CreateGame/pages/CreateGame";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 
 const Home = () => {
@@ -126,6 +132,10 @@ const Home = () => {
                 gameIdForHome={(gameId) => setGameId(gameId)}
               />
             )}
+            {/* From front_detailing branch */}
+            {launchCreateGame && <Redirect to="/create_game" />}
+            {/*  */}
+            {/* Maybe comment next line */}
             {gameIsReady === true && <CurrentGame gameId={gameId} />}
             <br />
             <button className="btn btn-warning btn-lg text-dark">
@@ -140,8 +150,8 @@ const Home = () => {
   return (
     <>
       <section className="container card border-primary">
-        {/* {currentUser == null && <div>{loggedOutDisplay()}</div>} */}
-        {!currentUser && <div>{loggedInDisplay()}</div>}
+        {currentUser == null && <div>{loggedOutDisplay()}</div>}
+        {currentUser && <div>{loggedInDisplay()}</div>}
       </section>
 
       {/* {gameIsReady == true && } */}

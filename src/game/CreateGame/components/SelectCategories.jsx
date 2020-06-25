@@ -29,42 +29,75 @@ export const SelectCategories = ({ tg }) => {
     tg(selectCategories);
   }, [selectCategories]);
 
+  const isComputerScreen = () => {
+    return window.screen.availWidth > 375;
+  };
+
+  const renderCategories = () => {
+    return (
+      <ul className="">
+        {/* Do we need this ? : <div class="row"> */}
+        {categories.map((category) => (
+          <Button
+            variant="btn btn-sm btn-warning text-dark"
+            key={category.id}
+            onClick={() => transfer(category)}
+          >
+            {category.name}
+          </Button>
+        ))}
+        {/* </div> */}
+      </ul>
+    );
+  };
+
+  const renderSelectedCategories = () => {
+    return (
+      <ul className="">
+        {/* Do i need this ? : <div class="row"> */}
+        {selectCategories.map((selectCategory) => (
+          <Button
+            variant="btn btn-sm btn-warning text-dark"
+            key={selectCategory.id}
+          >
+            {selectCategory.name}
+          </Button>
+        ))}
+        {/* </div> */}
+      </ul>
+    );
+  };
+
   return (
     <>
       <div className="container">
         <div className="row">
           <div className="categories-container">
-            <div>
+            <div className="categories-title">
               <h2>Catégories</h2>
-              <p class="h4">des mots à trouver :</p>
+              <p class="h4">de mots à trouver :</p>
             </div>
-            <ul className="categories">
-              {categories.map((category) => (
-                <Button
-                  variant="btn btn-sm btn-warning"
-                  key={category.id}
-                  onClick={() => transfer(category)}
-                >
-                  {category.name}
-                </Button>
-              ))}
-            </ul>
+            {/* Responsive rendering */}
+            {isComputerScreen() ? (
+              <div>{renderCategories()}</div>
+            ) : (
+              <center>{renderCategories()}</center>
+            )}
           </div>
+
           <div className="categories-container">
-            <div>
+            <div className="categories-title">
               <h2>Catégories</h2>
               <p class="h4">selectionnées :</p>
             </div>
-            <ul className="categories">
-              {selectCategories.map((selectCategory) => (
-                <Button
-                  variant="btn btn-sm btn-warning"
-                  key={selectCategory.id}
-                >
-                  {selectCategory.name}
-                </Button>
-              ))}
-            </ul>
+            {/* Responsive rendering */}
+            {isComputerScreen() ? (
+              <div>{renderSelectedCategories()}</div>
+            ) : (
+              <center>{renderSelectedCategories()}</center>
+            )}
+
+            {/* 3 times not my divs */}
           </div>
         </div>
       </div>

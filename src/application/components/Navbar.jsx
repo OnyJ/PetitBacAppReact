@@ -1,11 +1,12 @@
 import React from "react";
 import { Button } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchUserLogout } from "../../authentication/fetchUserAuth";
 import { logoutSuccess } from "../../authentication/redux/userAuthActions";
 
 const Navbar = () => {
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
 
   const logout = () => {
@@ -29,32 +30,33 @@ const Navbar = () => {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-      <div className="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul className="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
-        <div className="nav-item dropdown my-2 my-lg-0">
-          <a
-            className="nav-link dropdown-toggle text-light"
-            href="#"
-            id="navbarDropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Compte
-          </a>
-          <div
-            className="dropdown-menu "
-            aria-labelledby="navbarDropdownMenuLink"
-          >
-            <a className="dropdown-item" href="#">
-              Profil
+      {currentUser && (
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
+          <div className="nav-item dropdown my-2 my-lg-0">
+            <a
+              className="nav-link dropdown-toggle text-light"
+              href="#"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Compte
             </a>
-            <a className="dropdown-item" onClick={logout} href="#">
-              Deconnexion
-            </a>
+            <div
+              className="dropdown-menu "
+              aria-labelledby="navbarDropdownMenuLink"
+            >
+              <a className="dropdown-item" href="#">
+                Profil
+              </a>
+              <a className="dropdown-item" onClick={logout} href="#">
+                Deconnexion
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 };

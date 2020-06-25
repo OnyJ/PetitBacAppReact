@@ -135,21 +135,6 @@ nav {
 }
 
 .navbar-custom {
-  // background-color: $background-navbar-color;
-  // a,
-  // .dropdown-toggle {
-  // color: white;
-  // &:hover {
-  // color: yellow;
-  // font-weight: bold;
-  // text-decoration: none;
-  // }
-  // :visited {
-  // text-decoration: none;
-  // color: white;
-  // }
-  // }
-
   .navbar-brand a {
     font-size: 24px;
     color: white;
@@ -172,22 +157,39 @@ nav {
 
 //  Create Game
 
-// .form-control {
-// max-width: 800px;
-// }
-//
-
 .create-game {
   width: 100%;
   button {
     width: 100px;
+    height: 47px;
+    margin: 5px;
+  }
+  .play-button {
+    width: 140px;
+    height: 60px;
+    font-size: 25px;
   }
 }
 
 .categories-container {
   max-width: 50%;
   min-width: 350px;
-  margin: 0;
+  .categories-title {
+    margin-left: 20px;
+  }
+  button {
+    font-size: 18px;
+    width: 100px;
+    height: 58px;
+    margin: 5px;
+  }
+  @media screen and (max-width: $screen-small) {
+    ul {
+      width: 370px;
+      margin: 0;
+      padding: 0;
+    }
+  }
 }
 
 .max-players {
