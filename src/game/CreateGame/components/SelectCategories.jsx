@@ -35,8 +35,7 @@ export const SelectCategories = ({ tg }) => {
 
   const renderCategories = () => {
     return (
-      <ul className="">
-        {/* Do we need this ? : <div class="row"> */}
+      <div>
         {categories.map((category) => (
           <Button
             variant="btn btn-sm btn-warning text-dark"
@@ -46,15 +45,13 @@ export const SelectCategories = ({ tg }) => {
             {category.name}
           </Button>
         ))}
-        {/* </div> */}
-      </ul>
+      </div>
     );
   };
 
   const renderSelectedCategories = () => {
     return (
-      <ul className="">
-        {/* Do i need this ? : <div class="row"> */}
+      <div>
         {selectCategories.map((selectCategory) => (
           <Button
             variant="btn btn-sm btn-warning text-dark"
@@ -63,8 +60,7 @@ export const SelectCategories = ({ tg }) => {
             {selectCategory.name}
           </Button>
         ))}
-        {/* </div> */}
-      </ul>
+      </div>
     );
   };
 
@@ -74,28 +70,41 @@ export const SelectCategories = ({ tg }) => {
         <div className="row">
           <div className="categories-container">
             <div className="categories-title">
-              <h2>Catégories</h2>
-              <p class="h4">de mots à trouver :</p>
+              <h2>
+                Catégories
+                {!isComputerScreen() && (
+                  <span class="h5"> de mots à trouver :</span>
+                )}
+              </h2>
+              {isComputerScreen() && <p class="h4"> de mots à trouver :</p>}
             </div>
             {/* Responsive rendering */}
-            {isComputerScreen() ? (
-              <div>{renderCategories()}</div>
-            ) : (
-              <center>{renderCategories()}</center>
-            )}
+            <div className="card border-secondary row">
+              {isComputerScreen() ? (
+                <div>{renderCategories()}</div>
+              ) : (
+                <center>{renderCategories()}</center>
+              )}
+            </div>
           </div>
 
-          <div className="categories-container">
+          <div className="categories-container ml-5">
             <div className="categories-title">
-              <h2>Catégories</h2>
+              {isComputerScreen() ? (
+                <h2>Catégories</h2>
+              ) : (
+                <div className="pt-3"></div>
+              )}
               <p class="h4">selectionnées :</p>
             </div>
             {/* Responsive rendering */}
-            {isComputerScreen() ? (
-              <div>{renderSelectedCategories()}</div>
-            ) : (
-              <center>{renderSelectedCategories()}</center>
-            )}
+            <div className="card border-secondary row">
+              {isComputerScreen() ? (
+                <div>{renderSelectedCategories()}</div>
+              ) : (
+                <center>{renderSelectedCategories()}</center>
+              )}
+            </div>
 
             {/* 3 times not my divs */}
           </div>

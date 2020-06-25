@@ -31,8 +31,20 @@ body,
 
 html .container {
   max-width: 800px;
-  height: 93%;
+  height: 92%;
   background-color: $background-container-color;
+  @media screen and (max-width: $screen-small) {
+    height: 90%;
+  }
+}
+
+.title-div {
+  width: 300px;
+  max-width: 65%;
+  height: 100px;
+  @media screen and (max-width: $screen-small) {
+    height: 80px;
+  }
 }
 
 // Precise Code Parts
@@ -43,42 +55,10 @@ html .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
-  .menu-title-div {
-    // padding: 15px;
-    width: 300px;
-    max-width: 65%;
-    height: 100px;
-  }
   .menu-user-div {
     // text-align: right;
   }
-
-  .menu-navbar {
-    Link {
-      &:hover {
-        // transform: rotate(45deg);
-      }
-    }
-    .btn {
-      padding-bottom: 0px;
-    }
-  }
-
-  .menu-icon {
-    &:hover {
-    }
-  }
-
-  // @media screen and (max-width: $screen-small) {
-  // .menu-title-div {
-  // padding: 20px 0px 50px 0px;
-  // }
-  // }
-  // @media screen and (min-width: $screen-large) {
-  // }
 }
-
 .menu-buttons-div {
   display: flex;
   flex-wrap: wrap;
@@ -90,12 +70,12 @@ html .container {
     width: 300px;
   }
   @media screen and (max-width: $screen-small) {
+    height: 50%;
     button {
       width: 250px;
     }
   }
 }
-
 .menu-logged-out {
   padding-top: 100px;
   .menu-logged-out-buttons {
@@ -125,15 +105,7 @@ html .container {
 nav {
   max-width: 800px;
   margin: auto;
-
-  .dropdown {
-    margin-right: 45px;
-    .dropdown-toggle {
-      padding: 0;
-    }
-  }
 }
-
 .navbar-custom {
   .navbar-brand a {
     font-size: 24px;
@@ -144,13 +116,6 @@ nav {
     &:hover {
       text-decoration: none;
       background-color: rgba(255, 255, 255, 0.2);
-    }
-  }
-
-  .dropdown-item {
-    color: black;
-    &:hover {
-      color: white;
     }
   }
 }
@@ -164,34 +129,98 @@ nav {
     height: 47px;
     margin: 5px;
   }
+  #tabs {
+    @media screen and (max-width: $screen-small) {
+      font-size: 22px;
+      .badge-pill {
+        font-size: 16px;
+      }
+    }
+    @media screen and (min-width: $screen-large) {
+      font-size: 30px;
+      .badge-pill {
+        font-size: 20px;
+      }
+    }
+  }
   .play-button {
     width: 140px;
     height: 60px;
     font-size: 25px;
   }
-}
-
-.categories-container {
-  max-width: 50%;
-  min-width: 350px;
-  .categories-title {
-    margin-left: 20px;
+  // Guests
+  .guests-main-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    .guests-child-div {
+      width: 340px;
+      .border-secondary {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-width: 340px;
+        // height: 80%;
+        .btn-outline-success {
+          padding-top: 0px;
+          padding-bottom: 0px;
+          width: 135px;
+        }
+        .badge {
+          font-size: 16px;
+          padding: 4px;
+        }
+        @media screen and (max-width: $screen-small) {
+          height: 80px;
+        }
+        @media screen and (min-width: $screen-large) {
+          height: 80%;
+        }
+      }
+    }
   }
-  button {
-    font-size: 18px;
-    width: 100px;
-    height: 58px;
-    margin: 5px;
+  // Categories
+  .categories-container {
+    max-width: 50%;
+    min-width: 350px;
+    .categories-title {
+      margin-left: 20px;
+    }
+    button {
+      font-size: 18px;
+      width: 100px;
+      height: 58px;
+      margin: 5px;
+    }
+    .border-secondary {
+      max-width: 350px;
+      height: 300px;
+      overflow-y: scroll;
+      @media screen and (max-width: $screen-small) {
+        margin-left: 10px;
+        max-height: 100px;
+      }
+      @media screen and (min-width: $screen-large) {
+        margin-left: 20px;
+        padding-left: 0px;
+      }
+    }
+  }
+  .max-players {
+    max-width: 250px;
   }
   @media screen and (max-width: $screen-small) {
-    ul {
+    .categories-container ul {
       width: 370px;
       margin: 0;
       padding: 0;
     }
+    .guests-main-div {
+      height: 38vh;
+    }
   }
-}
-
-.max-players {
-  max-width: 250px;
+  @media screen and (min-width: $screen-large) {
+    .guests-main-div {
+      height: 380px;
+    }
+  }
 }

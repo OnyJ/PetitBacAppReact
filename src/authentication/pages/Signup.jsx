@@ -68,7 +68,7 @@ const Signup = () => {
                 required
               />
             </Form.Group>
-            <Button variant="warning" type="submit">
+            <Button type="submit" variant="warning text-dark">
               S'inscrire !
             </Button>
           </Form>
