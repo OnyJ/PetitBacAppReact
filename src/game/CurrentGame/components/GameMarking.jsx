@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom'
 import GameFinished from './GameFinished'
 import scoreReducer from '../../../scoreReducer'
 import { useDispatch, useSelector } from 'react-redux';
+import { Button, Form } from "react-bootstrap";
 
 
 const GameMarking = ({dataResults}) => {
@@ -20,7 +21,7 @@ const GameMarking = ({dataResults}) => {
 
   const dispatch = useDispatch()
   const osef = useSelector(state => state.score)
-  console.log(osef)
+  console.log(dataResults)
 
   console.log(answer)
   useEffect(() => {
@@ -35,11 +36,11 @@ const GameMarking = ({dataResults}) => {
       console.log(`${key}: ${value}`);
       if (value === true) {
         tmp += 1
-        console.log('+1') 
+        console.log('+1')
       }
     }
     setScore(tmp)
-    sendGlobalScore(tmp + osef.score) 
+    sendGlobalScore(tmp + osef.score)
   }
 
   const sendGlobalScore = (score) => {
@@ -52,29 +53,36 @@ const GameMarking = ({dataResults}) => {
 
   return (
     <>
+    <div className="container">
+      {(Object.keys(results).length && !isReady) &&
+      <div>
+        <h1>Correction :</h1>
+        <ul style={{listStyle: "none"}}>
+          {Object.keys(results).map(result =>
+            <li>
+              <div className="row">
+                <div class="col">
+                  <p>{result} : {results[result]}</p>
 
-    {(Object.keys(results).length && !isReady) && 
-    <div>
-      <h1>GameMarking</h1>
-      <ul style={{listStyle: "none"}}>
-        {Object.keys(results).map(result => 
-          <li>
-            {results[result]}
-            <button onClick={() => setAnswer({...answer, [results[result]]: true})}>V</button>
-            <button onClick={() => setAnswer({...answer, [results[result]]: false})}>X</button>
-          </li>
-          )}          
-      </ul>
-      <button onClick={() =>submitScore(answer)}>Valider réponses</button>
+                </div>
+                <div class="col order-1">
+                  <Button variant="btn btn-sm btn-success" onClick={() => setAnswer({...answer, [results[result]]: true})}>V</Button>
+                  <Button variant="btn btn-sm btn-danger" onClick={() => setAnswer({...answer, [results[result]]: false})}>X</Button>
+                </div>
+              </div>
+            </li>
+            )}
+        </ul>
+        <Button variant="btn btn-md btn-warning" onClick={() =>submitScore(answer)}>Valider réponses</Button>
+      </div>
+      }
+
+     {isReady &&
+        <GameFinished data={score}/>
+
+     }
+
     </div>
-    }
-
-   {isReady && 
-      <GameFinished data={score}/>
-
-   }
-
-    
     </>
   )
 }
