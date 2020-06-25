@@ -1,9 +1,19 @@
-import React, { useEffect, useState } from "react";
+// Installed
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import CurrentGame from '../../game/CurrentGame/pages/CurrentGame'
-import  CreateGame  from "../../game/CreateGame/pages/CreateGame";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+
+// Pages and components
+import CurrentGame from "../../game/CurrentGame/pages/CurrentGame";
+import CreateGame from "../../game/CreateGame/pages/CreateGame";
+import LoggedOutDisplay from "../components/LoggedOutDisplay";
+
+// Assets and stylesheets
 import "bootstrap/dist/css/bootstrap.css";
+import imgHistory from "../assets/images/history-parchment.png";
+import imgFriends from "../assets/images/friends.png";
+import imgHome from "../assets/images/home-yellow.png";
+import imgLevel from "../assets/images/star.png";
 
 const Home = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -11,37 +21,6 @@ const Home = () => {
   const [gameId, setGameId] = useState("");
   const [launchCreateGame, setLaunchCreateGame] = useState(false);
   // GetProfile(currentUser.id);
-
-  const loggedOutDisplay = () => {
-    const emojiShocked = "\u{1f628} ";
-    const emojiFinger = "\u{1f449} ";
-    return (
-      <>
-        <center className="menu-logged-out">
-          <p className="h5 mb-5">
-            "Un Jeu du Petit Bac sur tous vos appareils !"
-          </p>
-          <p className="h3 mb-5">
-            Vous n'êtes pas encore connecté au jeu {emojiShocked}
-          </p>
-          <div className="menu-logged-out-buttons">
-            <div>
-              {emojiFinger}
-              <Link to="/login">
-                <button className="btn btn-warning btn-lg">Connexion</button>
-              </Link>
-            </div>
-            <div>
-              {emojiFinger}
-              <Link to="/signup">
-                <button className="btn btn-warning btn-lg">Inscription</button>
-              </Link>
-            </div>
-          </div>
-        </center>
-      </>
-    );
-  };
 
   const loggedInDisplay = () => {
     console.log(gameIsReady);
@@ -53,58 +32,123 @@ const Home = () => {
 
     return (
       <>
-        <div className="menu-header-div">
-          <div className="menu-title-div row">
-            <Link to="/">
-              <img
-                src={require("../assets/images/home3.png")}
-                alt="home_logo"
-                width="50px"
-                height="50px"
-              />
-            </Link>
-            {isComputerScreen() ? (
-              <h1 className="ml-3">Menu</h1>
-            ) : (
-              <h1 className="username">Pseudo</h1>
+        <div className="menu-header-div pt-4">
+          <div className="title-div bg-secondary card pt-3">
+            <div className="row">
+              <Link to="/">
+                <img
+                  src={imgHome}
+                  alt="home_logo"
+                  width="50px"
+                  height="50px"
+                  className="ml-4"
+                />
+              </Link>
+              <h1 className="ml-3 text-light pt-1">Menu</h1>
+            </div>
+          </div>
+
+          <div className="pr-3 text-right">
+            {isComputerScreen() && (
+              <>
+                <h2 className="h1">{currentUser.username}</h2>
+                <p className="h3">
+                  <img
+                    src={imgLevel}
+                    alt="star_logo"
+                    width="38px"
+                    height="38px"
+                    className="mr-2"
+                  />
+                  Niveau {currentUser.level}{" "}
+                </p>
+              </>
             )}
           </div>
-          {isComputerScreen() && <h2 className="username pl-5">Pseudo</h2>}
+        </div>
+        {!isComputerScreen() && (
+          <div className="text-right">
+            <h2 className="h3 mt-2">{currentUser.username}</h2>
+            <p className="h5">
+              <img
+                src={imgLevel}
+                alt="star_logo"
+                width="30px"
+                height="30px"
+                className="mr-2"
+              />
+              Niveau {currentUser.level}
+            </p>
+          </div>
+        )}
+
+        {isComputerScreen() && <div className="mt-5"></div>}
+        <div
+          className={
+            isComputerScreen() ? "row" : "d-flex justify-content-around"
+          }
+        >
+          <Link to="/">
+            <button type="button" class="btn btn-secondary m-3">
+              <img
+                className="menu-icon"
+                src={imgFriends}
+                alt="friends_icon"
+                width="47px"
+                height="47px"
+              />
+              <p>Amis</p>
+            </button>
+          </Link>
+          <Link to="/">
+            <button type="button" class="btn btn-secondary m-3">
+              <img
+                className="menu-icon"
+                src={imgHistory}
+                alt="history_icon"
+                width="47px"
+                height="47px"
+              />
+              <p>Historique</p>
+            </button>
+          </Link>
         </div>
 
         <center className="menu-buttons-div">
-          <button
-            onClick={() => setLaunchCreateGame(true)}
-            className="btn btn-warning btn-lg"
-          >
-            Créer une Partie
-          </button>
-          {launchCreateGame && (
-            <CreateGame
-              isGameReady={(isReady) => setGameIsReady(isReady)}
-              gameIdForHome={(gameId) => setGameId(gameId)}
-            />
-          )}
-          {gameIsReady == true && <CurrentGame gameId={gameId} />}
-          <br />
-          <button className="btn btn-warning btn-lg">
-            Rejoindre une Partie
-          </button>
+          <div>
+            <button
+              onClick={() => setLaunchCreateGame(true)}
+              className="btn btn-warning btn-lg text-dark"
+            >
+              Créer une Partie
+            </button>
+            {launchCreateGame && (
+              <CreateGame
+                isGameReady={(isReady) => setGameIsReady(isReady)}
+                gameIdForHome={(gameId) => setGameId(gameId)}
+              />
+            )}
+            {/* From front_detailing branch */}
+            {launchCreateGame && <Redirect to="/create_game" />}
+            {/*  */}
+            {/* Maybe comment next line */}
+            {gameIsReady === true && <CurrentGame gameId={gameId} />}
+            <br />
+            <button className="btn btn-warning btn-lg text-dark">
+              Rejoindre une Partie
+            </button>
+          </div>
         </center>
       </>
     );
   };
 
- 
   return (
     <>
-      <section className="container">
-        {currentUser == null && <div>{loggedOutDisplay()}</div>}
+      <section className="container card border-primary">
+        {currentUser == null && <div>{LoggedOutDisplay()}</div>}
         {currentUser && <div>{loggedInDisplay()}</div>}
       </section>
-
-      {/* {gameIsReady == true && } */}
-
     </>
   );
 };

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { fetchUserRegister } from "../fetchUserAuth";
+import { fetchUserRegister, fetchUserLogin } from "../fetchUserAuth";
 import { Button, Form } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 
 const Signup = () => {
   const isRegistered = useSelector((state) => state.auth.isRegistered);
@@ -9,16 +10,18 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [password_confirmation, setPassword_confirmation] = useState("");
   const [username, setUsername] = useState("");
-  const test = (e) => {
+  const registerUser = (e) => {
     e.preventDefault();
     fetchUserRegister(email, password, password_confirmation, username);
+    // fetchUserLogin(email, password);
+    return <Redirect to="/" />;
   };
 
   return (
     <>
       <div className="contain-authentication-form">
         {!isRegistered && (
-          <Form onSubmit={test} className="authentication-form">
+          <Form onSubmit={registerUser} className="authentication-form">
             <h1>Inscription</h1>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
@@ -65,12 +68,12 @@ const Signup = () => {
                 required
               />
             </Form.Group>
-            <Button variant="warning" type="submit">
+            <Button type="submit" variant="warning text-dark">
               S'inscrire !
             </Button>
           </Form>
         )}
-        {isRegistered && <p>Inscription réussie</p>}
+        {/* {isRegistered && <Redirect to="/" />} */}
       </div>
     </>
   );
