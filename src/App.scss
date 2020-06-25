@@ -1,10 +1,15 @@
-// @import "~antd/dist/antd.css";
-// @import "~bootstrap/scss/bootstrap";
+@import "~antd/dist/antd.css";
+@import "~bootstrap/scss/bootstrap";
 
 // Colors
-$background-app-color: #3b3c60;
-$background-container-color: #4b4c7b;
+$dark-dark-purple: #3b3c60;
+$dark-purple: #4b4c7b;
+$dark-blue-nav: #4d51f1;
+
+$background-app-color: lightgray;
+$background-container-color: white;
 $background-navbar-color: #4d51f1;
+
 $primary-button-color: #ffc107;
 $primary-button-color-pressed: #e0a800;
 
@@ -18,17 +23,10 @@ $screen-large: 1200px;
 html,
 body,
 #root {
-  // Corresponding to the body tag
   background-color: $background-app-color;
-  color: white;
   height: 100%;
   margin: 0px;
   padding: 0px;
-
-  h1,
-  h2 {
-    color: white;
-  }
 }
 
 html .container {
@@ -42,24 +40,51 @@ html .container {
 // Home Page
 
 .menu-header-div {
-  @media screen and (max-width: $screen-small) {
-    .menu-title-div {
-      padding: 20px 0px 50px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .menu-title-div {
+    // padding: 15px;
+    width: 300px;
+    max-width: 65%;
+    height: 100px;
+  }
+  .menu-user-div {
+    // text-align: right;
+  }
+
+  .menu-navbar {
+    Link {
+      &:hover {
+        // transform: rotate(45deg);
+      }
     }
-    .username {
-      margin: 0 auto;
-      text-align: right;
-      padding-bottom: 10px;
+    .btn {
+      padding-bottom: 0px;
     }
   }
-  @media screen and (min-width: $screen-large) {
-    .menu-title-div {
-      padding: 50px;
+
+  .menu-icon {
+    &:hover {
     }
   }
+
+  // @media screen and (max-width: $screen-small) {
+  // .menu-title-div {
+  // padding: 20px 0px 50px 0px;
+  // }
+  // }
+  // @media screen and (min-width: $screen-large) {
+  // }
 }
 
 .menu-buttons-div {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
   button {
     margin: 15px;
     width: 300px;
@@ -110,57 +135,61 @@ nav {
 }
 
 .navbar-custom {
-  background-color: $background-navbar-color;
-  a,
-  .dropdown-toggle {
-    color: white;
-    &:hover {
-      color: yellow;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    :visited {
-      text-decoration: none;
-      color: white;
-    }
-  }
-
   .navbar-brand a {
+    font-size: 24px;
     color: white;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 6px;
     &:hover {
-      color: yellow;
-      font-weight: 100;
       text-decoration: none;
+      background-color: rgba(255, 255, 255, 0.2);
     }
   }
 
   .dropdown-item {
     color: black;
     &:hover {
-      font-weight: normal;
-      color: black;
+      color: white;
     }
   }
 }
 
 //  Create Game
 
-// .form-control {
-// max-width: 800px;
-// }
-//
-
 .create-game {
   width: 100%;
   button {
     width: 100px;
+    height: 47px;
+    margin: 5px;
+  }
+  .play-button {
+    width: 140px;
+    height: 60px;
+    font-size: 25px;
   }
 }
 
 .categories-container {
   max-width: 50%;
   min-width: 350px;
-  margin: 0;
+  .categories-title {
+    margin-left: 20px;
+  }
+  button {
+    font-size: 18px;
+    width: 100px;
+    height: 58px;
+    margin: 5px;
+  }
+  @media screen and (max-width: $screen-small) {
+    ul {
+      width: 370px;
+      margin: 0;
+      padding: 0;
+    }
+  }
 }
 
 .max-players {
