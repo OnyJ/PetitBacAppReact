@@ -17,9 +17,10 @@ const GameMarking = () => {
   const [id, setId] = useState(location.state.gameId)
   const currentUser = useSelector(state => state.auth.currentUser)
   const [results, setResults] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [score, setScore] = useState(0)
   const [answer, setAnswer] = useState([])
-  
+  const api_url = process.env.REACT_APP_BASE_URL
   console.log(id)
 
   const dispatch = useDispatch()
@@ -27,7 +28,7 @@ const GameMarking = () => {
 
   useEffect(() => {
     const fetchResponses = () => {
-    const api_url = process.env.REACT_APP_BASE_URL
+    
     let tmp = []
     fetch(`${api_url}responses`, {
       method: 'get',  
@@ -48,14 +49,23 @@ const GameMarking = () => {
       }
      })
     })
-    setAnswer(tmp)
+    setAnswer( tmp )
     console.log(tmp)
      
   }
   fetchResponses();
-
-
   }, [])
+  
+  useEffect( () => {
+    async function fetchData() {
+      const response = await fetch(`${api_url}games/${id}`)
+      const array = await response.json()
+      setCategories(array[1])
+
+    }
+    fetchData();
+    
+  },[])
 
 
   // const submitScore = (answer) => {
@@ -74,18 +84,58 @@ const GameMarking = () => {
   //   dispatch({type: 'ADD_SCORE', score: score})
   // }
   console.log(answer.filter(ans => ans.user_id != currentUser.id))
- 
-
+  const handleclick = () => {
+    let tmp = []
+    let score = 0
+    answer.filter(ans => ans.user_id != currentUser.id).map(response => {
+     score = 0 
+     document.getElementsByName("inlineRadioOptions" + response.id )[0].checked ?
+     (score = 1) : (score = -1)
+     tmp.push({...response, score: score}) 
+    })
+    setAnswer(tmp)
+  }
+  console.log(answer)
   return (
     <>
 
-      <ul>
-        {answer.filter(ans => ans.user_id != currentUser.id).map(rep=> (
-          <li key={rep.id}> 
-            {rep.category_id} : {rep.content}
-          </li>
-        ))}
-    </ul>
+      
+        <div className="container">
+          <div className="row">
+            {categories.map(category => (
+            <div className="col-3">
+              <div className="card">
+                <div className="card-header card-title">
+                  <h6 className="text-dark">{category.name}</h6>
+                </div>
+                <div className="card-body text-dark">
+                  <ul>
+                      {answer.filter(ans => (ans.user_id != currentUser.id) && ans.category_id == category.id).map(rep=> (
+                        <li key={rep.id}> 
+                          {rep.content} : 
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name={"inlineRadioOptions" + rep.id} id={"inlineRadio1" + rep.id}  value={true} defaultCheched/>
+                            <label class="form-check-label text-dark" for={"inlineRadio1"+rep.id}>true</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name={"inlineRadioOptions" + rep.id} id={"inlineRadio2" + rep.id} value={false} />
+                            <label class="form-check-label text-dark" for={"inlineRadio2"+rep.id}>false</label>
+                          </div>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+                <div className="card-footer">
+                  <button onClick={handleclick}>Send correction</button>
+                </div>
+                
+              </div>
+            </div>
+              ))}
+          </div>
+          
+        </div>
+        
 
     {/* {(Object.keys(results).length && !isReady) && 
     <div>
