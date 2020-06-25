@@ -8,10 +8,12 @@ import CurrentGame from "../../game/CurrentGame/pages/CurrentGame";
 import CreateGame from "../../game/CreateGame/pages/CreateGame";
 import LoggedOutDisplay from "../components/LoggedOutDisplay";
 
+// Assets and stylesheets
 import "bootstrap/dist/css/bootstrap.css";
 import imgHistory from "../assets/images/history-parchment.png";
 import imgFriends from "../assets/images/friends.png";
 import imgHome from "../assets/images/home-yellow.png";
+import imgLevel from "../assets/images/star.png";
 
 const Home = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -42,27 +44,50 @@ const Home = () => {
                   className="ml-4"
                 />
               </Link>
-              <h1 className="ml-3 text-light pt-2">Menu</h1>
+              <h1 className="ml-3 text-light pt-1">Menu</h1>
             </div>
           </div>
 
-          <div className="menu-user-div pr-3 text-right">
-            {isComputerScreen() ? (
+          <div className="pr-3 text-right">
+            {isComputerScreen() && (
               <>
-                <h2 className="h1">currentUser.username</h2>
-                <p className="h3">Niveau currentUser.level</p>
-              </>
-            ) : (
-              <>
-                <h2 className="h4">aacurrentUser.username</h2>
-                <p className="">Niveau currentUser.level</p>
+                <h2 className="h1">{currentUser.username}</h2>
+                <p className="h3">
+                  <img
+                    src={imgLevel}
+                    alt="star_logo"
+                    width="38px"
+                    height="38px"
+                    className="mr-2"
+                  />
+                  Niveau {currentUser.level}{" "}
+                </p>
               </>
             )}
           </div>
         </div>
+        {!isComputerScreen() && (
+          <div className="text-right">
+            <h2 className="h3 mt-2">{currentUser.username}</h2>
+            <p className="h5">
+              <img
+                src={imgLevel}
+                alt="star_logo"
+                width="30px"
+                height="30px"
+                className="mr-2"
+              />
+              Niveau {currentUser.level}
+            </p>
+          </div>
+        )}
 
         {isComputerScreen() && <div className="mt-5"></div>}
-        <div className="menu-navbar">
+        <div
+          className={
+            isComputerScreen() ? "row" : "d-flex justify-content-around"
+          }
+        >
           <Link to="/">
             <button type="button" class="btn btn-secondary m-3">
               <img

@@ -106,7 +106,7 @@ const CreateGame = () => {
     <>
       {currentUser == null ? (
         <>
-          {alert("Vous devez être connecté")}
+          {alert("Compte déconnecté")}
           <Redirect to="/" />
         </>
       ) : (

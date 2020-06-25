@@ -55,28 +55,10 @@ html .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
   .menu-user-div {
     // text-align: right;
   }
-
-  .menu-navbar {
-    Link {
-      &:hover {
-        // transform: rotate(45deg);
-      }
-    }
-    .btn {
-      padding-bottom: 0px;
-    }
-  }
-
-  .menu-icon {
-    &:hover {
-    }
-  }
 }
-
 .menu-buttons-div {
   display: flex;
   flex-wrap: wrap;
@@ -88,12 +70,12 @@ html .container {
     width: 300px;
   }
   @media screen and (max-width: $screen-small) {
+    height: 50%;
     button {
       width: 250px;
     }
   }
 }
-
 .menu-logged-out {
   padding-top: 100px;
   .menu-logged-out-buttons {
@@ -123,15 +105,7 @@ html .container {
 nav {
   max-width: 800px;
   margin: auto;
-
-  .dropdown {
-    margin-right: 45px;
-    .dropdown-toggle {
-      padding: 0;
-    }
-  }
 }
-
 .navbar-custom {
   .navbar-brand a {
     font-size: 24px;
@@ -142,13 +116,6 @@ nav {
     &:hover {
       text-decoration: none;
       background-color: rgba(255, 255, 255, 0.2);
-    }
-  }
-
-  .dropdown-item {
-    color: black;
-    &:hover {
-      color: white;
     }
   }
 }
@@ -176,7 +143,6 @@ nav {
       }
     }
   }
-
   .play-button {
     width: 140px;
     height: 60px;
@@ -242,7 +208,6 @@ nav {
   .max-players {
     max-width: 250px;
   }
-
   @media screen and (max-width: $screen-small) {
     .categories-container ul {
       width: 370px;
