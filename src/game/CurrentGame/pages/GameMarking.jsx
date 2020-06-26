@@ -15,46 +15,27 @@ import { ActionCableProvider, ActionCableConsumer } from 'react-actioncable-prov
 
 const GameMarking = () => {
 
-  let location = useLocation();
+  const location = useLocation();
   const [id, setId] = useState(location.state.gameId)
   const currentUser = useSelector(state => state.auth.currentUser)
   const [channel, setChannel] = useState(null);
   const [responseSent, setResponseSent] = useState(false)
   const [results, setResults] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [score, setScore] = useState(0)
   const [answer, setAnswer] = useState([])
   const [submitted, setSubmitted] = useState(false)
   const [playerResponseLeft, setPlayerResponseLeft] = useState(location.state.players)
-  const [count, setCount] = useState(0)
+  
   const api_url = process.env.REACT_APP_BASE_URL
-  const cable = actionCable.createConsumer('ws://localhost:3000/cable');
+  const cable = actionCable.createConsumer('wss://api-petitbac.herokuapp.com/cable');
   console.log(location.state.players)
   
   const dispatch = useDispatch()
   const osef = useSelector(state => state.score)
 
   console.log(playerResponseLeft)
-  console.log(count)
+  console.log(id, typeof id)
 
-  useEffect(() => {
-    const fetchHistories = () => {
-      fetch(`${api_url}histories`, {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then(response => {
-        if (response.ok) {
-          return response.json()
-        }
-      })
-      .then(response => setPlayerResponseLeft(response.filter(res => res.game_id == id).length))
-     
-      }
-      fetchHistories()
-  }, [])
 
 
  useEffect(() => {
