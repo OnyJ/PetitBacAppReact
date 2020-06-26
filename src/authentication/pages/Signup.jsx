@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { fetchUserRegister, fetchUserLogin } from "../fetchUserAuth";
+import { fetchUserRegister } from "../fetchUserAuth";
 import { Button, Form } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Signup = () => {
   const isRegistered = useSelector((state) => state.auth.isRegistered);
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_confirmation, setPassword_confirmation] = useState("");
@@ -13,8 +14,7 @@ const Signup = () => {
   const registerUser = (e) => {
     e.preventDefault();
     fetchUserRegister(email, password, password_confirmation, username);
-    // fetchUserLogin(email, password);
-    return <Redirect to="/" />;
+    history.push("/login");
   };
 
   return (
