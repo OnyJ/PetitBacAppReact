@@ -60,6 +60,13 @@ const WaitingRoom = () => {
     <>
     
     <ActionCableProvider cable={cable} >
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Game ID</h5>
+
+          <p class="card-text">{gameId}</p>
+        </div>
+      </div>
       {admin &&
         <p> Admin: {admin.username}</p>
       }
