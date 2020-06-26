@@ -20,7 +20,7 @@ const WaitingRoom = () => {
   const [start, setStart] = useState(false)
   const [players, setPlayers] = useState([]);
   const [admin, setAdmin] = useState('');
-  const cable = actionCable.createConsumer('ws://localhost:3000/cable');
+  const cable = actionCable.createConsumer('wss://api-petitbac.herokuapp.com/cable');
   
   useEffect(() => {
         const sub = cable.subscriptions.create({ channel :'RoomChannel', game_id: gameId, user_id: currentUser.id},{

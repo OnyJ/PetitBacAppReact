@@ -5,14 +5,14 @@ const JoinAGame = () => {
   const [gameId, setGameId] = useState('')
 
   const game = {
-    pathname: '/waiting_room', 
+    pathname: '/waiting_room',
     testId: gameId
   }
 
   return(
     <>
       <div>
-   
+
           <input type="number" value={gameId} onChange={(e) => setGameId(e.target.value)}>
           </input>
           <Link to={game}><button>Game</button></Link>
@@ -22,4 +22,4 @@ const JoinAGame = () => {
   )
 }
 
-export default JoinAGame; 
+export default JoinAGame;
