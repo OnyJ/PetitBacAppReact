@@ -36,7 +36,7 @@ export const fetchUserLogin = async (email, password) => {
       password: password,
     },
   };
-
+  console.log(api_url)
   const response = await fetch(`${api_url}login`, {
     method: "post",
     headers: {

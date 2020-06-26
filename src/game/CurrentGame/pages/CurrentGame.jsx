@@ -9,15 +9,17 @@ import {useLocation} from "react-router-dom";
 
 const CurrentGame = () => {
   let location = useLocation();
-  const [gameId, setGameId] = useState(location.testId)
-
+  const [categories, setCategories] = useState(location.state.categories)
+  const [gameId, setGameId] = useState(location.state.gameId)
+  const [players, setPlayers] = useState(location.state.players)
+  console.log(gameId,players)
   return (
     <>
-    <div className="container">
-      <div className="row">
-        <GameGrid gameId={gameId}/>
+      <div className="container">
+        <div className="row">
+          <GameGrid gameId={gameId} players={players}/>
+        </div>
       </div>
-    </div>
     </>
   );
 };

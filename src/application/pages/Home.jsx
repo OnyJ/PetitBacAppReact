@@ -20,12 +20,8 @@ const Home = () => {
   const [gameIsReady, setGameIsReady] = useState();
   const [gameId, setGameId] = useState("");
   const [launchCreateGame, setLaunchCreateGame] = useState(false);
-  // GetProfile(currentUser.id);
 
   const loggedInDisplay = () => {
-    console.log(gameIsReady);
-    console.log(gameId);
-
     const isComputerScreen = () => {
       return window.screen.availWidth > 375;
     };
@@ -115,6 +111,7 @@ const Home = () => {
         </div>
 
         <center className="menu-buttons-div">
+
           <div>
             <button
               onClick={() => setLaunchCreateGame(true)}
@@ -134,9 +131,9 @@ const Home = () => {
             {/* Maybe comment next line */}
             {gameIsReady === true && <CurrentGame gameId={gameId} />}
             <br />
-            <button className="btn btn-warning btn-lg text-dark">
+            <Link to='/join_a_game'><button className="btn btn-warning btn-lg text-dark">
               Rejoindre une Partie
-            </button>
+            </button></Link>
           </div>
         </center>
       </>

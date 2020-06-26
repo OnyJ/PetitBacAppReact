@@ -1,4 +1,5 @@
 // Installed
+
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
@@ -7,100 +8,93 @@ import { Button } from "react-bootstrap";
 
 // Pages and components
 import { SelectCategories } from "../components/SelectCategories";
-
 // Assets
 import imgCreategame from "../../../application/assets/images/creategame-palette.png";
 import imgFriends from "../../../application/assets/images/friends.png";
 import imgWaiting from "../../../application/assets/images/waiting-sofa.png";
 import imgAdd from "../../../application/assets/images/add-green.png";
 
-const CreateGame = () => {
-  const currentUser = useSelector((state) => state.auth.currentUser);
-  const auth = useSelector((state) => state.auth);
-  const [maxPlayer, setMaxPlayer] = useState("");
-  const [categories, setCategories] = useState([]);
-  const [testCateg, setTestCateg] = useState([]);
-  const [gameId, setGameId] = useState("");
-  const [isReady, setIsReady] = useState(false);
-  const [isSent, setIsSent] = useState(false);
+ const CreateGame = () => {
 
-  // launchCreation
-  const create = async (e) => {
-    e.preventDefault();
-    setCategories(
-      document.getElementsByClassName("categories")[0].innerText.split("\n")
-    );
-    CreateAGame(currentUser, maxPlayer);
-    console.log(testCateg);
-    console.log(gameId);
-  };
+  const currentUser = useSelector(state => state.auth.currentUser)
+  const auth = useSelector(state => state.auth)
+  const [maxPlayer, setMaxPlayer] = useState('')
+  const [categories, setCategories] = useState([])
+  const [testCateg, setTestCateg] = useState([])
+  const [gameId, setGameId] = useState('')
+  const [isReady, setIsReady] = useState(false)
+  const [isSent, setIsSent] = useState(false)
+ 
+ 
 
-  const CreateAGame = (currentUser, maxGuests) => {
-    const api_url = process.env.REACT_APP_BASE_URL;
-    console.log(maxPlayer, currentUser, categories);
-    const data = {
-      game: {
-        creator_id: currentUser.id,
-        winner_id: null,
-        max_guests: maxGuests,
-      },
-    };
+    const create = async (e) => {
+        e.preventDefault()
+        setCategories( document.getElementsByClassName("categories")[0].innerText.split("\n") )
+         CreateAGame(currentUser, maxPlayer)
+    }  
+    
+    const CreateAGame = (currentUser, maxGuests) => {
+      const api_url = process.env.REACT_APP_BASE_URL;
+      const data = {
+        game: {
+          creator_id: currentUser.id, 
+          winner_id: null,
+          max_guests: maxGuests
+        }
+      }  
+      
+      fetch(`${api_url}games`, {
+        method: 'post', 
+        headers: {
+          "Content-Type":"application/json", 
+          Authorization: `Bearer ${Cookies.get("token")}`
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(response => setGameId(response.id)) 
 
-    fetch(`${api_url}games`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token")}`,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((response) => setGameId(response.id));
-  };
+    }
 
-  const createJoinCategGame = (gameId, categId) => {
-    const api_url = process.env.REACT_APP_BASE_URL;
+    const createJoinCategGame = (gameId, categId) => {
 
-    const dataCategGames = {
-      join_category_game: {
-        game_id: gameId,
-        category_id: categId,
-      },
-    };
-    fetch(`${api_url}join_category_games`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token")}`,
-      },
-      body: JSON.stringify(dataCategGames),
-    }).then((response) => {
-      if (response.ok === true) {
-        setIsReady(true);
-        return response.json();
-      }
-      return response;
-    });
-  };
+        const api_url = process.env.REACT_APP_BASE_URL;
+       
+        const dataCategGames = {
+          join_category_game: {
+            game_id: gameId , 
+            category_id: categId
+          }
+        }
+        fetch(`${api_url}join_category_games`, {
+          method: 'post', 
+          headers: {
+            "Content-Type":"application/json", 
+            Authorization: `Bearer ${Cookies.get("token")}`
+          }, 
+          body: JSON.stringify(dataCategGames)
+        })
+        .then((response) => {
+          if (response.ok === true) {
+            setIsReady(true)
+            return response.json()  
+          }
+          return response
+        })
+       }
 
-  testCateg.forEach((categ) => {
-    console.log(gameId);
-    console.log(categ.id);
-    createJoinCategGame(gameId, categ.id);
-    console.log(isReady);
-  });
+      testCateg.forEach(categ => { 
+        createJoinCategGame(gameId, categ.id)
+        })
 
-  //
-  // TestPass?
-
-  const testPass = {
-    pathname: "/current_game",
-    testId: gameId,
-  };
-
-  const isComputerScreen = () => {
-    return window.screen.availWidth > 375;
-  };
+        const testPass = {
+          pathname: '/waiting_room', 
+          testId: gameId, 
+          categories: testCateg
+        }
+        const isComputerScreen = () => {
+          return window.screen.availWidth > 375;
+        };
 
   return (
     <>
@@ -243,9 +237,7 @@ const CreateGame = () => {
                               />
                               <span className="pt-2"> harry</span>
                             </div>
-                          </button>
-
-                          {/* End of friends loop */}
+                          </button>                      
                         </div>
                       </div>
                     </div>
@@ -296,13 +288,9 @@ const CreateGame = () => {
                   id="tab-categories"
                   role="tabpanel"
                   aria-labelledby="profile-tab-ex"
-                >
+                >   {/* End of friends loop */}
                   <div className="row">
                     <SelectCategories
-                      //
-                      // tg ?
-                      // testCateg?
-
                       tg={(selectCategories) => setTestCateg(selectCategories)}
                     />
                   </div>

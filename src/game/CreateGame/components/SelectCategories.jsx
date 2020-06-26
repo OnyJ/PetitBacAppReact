@@ -35,7 +35,7 @@ export const SelectCategories = ({ tg }) => {
 
   const renderCategories = () => {
     return (
-      <div>
+      <div className="categories">
         {categories.map((category) => (
           <Button
             variant="btn btn-sm btn-warning text-dark"
@@ -51,7 +51,7 @@ export const SelectCategories = ({ tg }) => {
 
   const renderSelectedCategories = () => {
     return (
-      <div>
+      <div className="categories">
         {selectCategories.map((selectCategory) => (
           <Button
             variant="btn btn-sm btn-warning text-dark"
