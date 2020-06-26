@@ -47,13 +47,17 @@ const GameGrid = ({gameId, players}) => {
                   for (let item of test) {
                     tmp[item.name] = item.value 
                   }
-                console.log(tmp)
-                this.perform('received', tmp)
-              }
-              setTimeout(() => history.push('/game_marking', {
+                console.log(data)
+                this.perform('received', {answers: tmp, stop: false})
+                
+              } else {
+                console.log(data)
+                setTimeout(() => history.push('/game_marking', {
                 gameId:id,
                 players: nbPlayers
                  }), 1000 )
+              }
+              
             }
               
             
@@ -84,11 +88,7 @@ const GameGrid = ({gameId, players}) => {
   }, []);
 
   const handleReceivedAnswers = (response) => {
-    const test = document.getElementsByClassName('form-control')
-    let tmp = {}
-      for (let item of test) {
-        tmp[item.name] = item.value 
-      }
+    
   
     //e.preventDefault()
     if (response['stop']) {
@@ -100,6 +100,7 @@ const GameGrid = ({gameId, players}) => {
 
 
   const handleClick = () => {
+    console.log(answers)
     channel.perform('stopping', { stop: true})
 
     
@@ -118,7 +119,7 @@ const GameGrid = ({gameId, players}) => {
           {categories.map((category) => (
             <div key={category.id}>
               <span>{category.name}</span>
-              <input className="form-control" type="text" name={category.name} placeholder={randomLetter} autocomplete="off" />
+              <input className="form-control" type="text" onChange={(e) => setAnswers({...answers, [category.name]: e.target.value})} name={category.name} value={answers[category.name]} autocomplete="off" />
               <br />
             </div>
           ))}

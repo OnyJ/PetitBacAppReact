@@ -37,40 +37,22 @@ const GameMarking = () => {
   console.log(playerResponseLeft)
   console.log(count)
 
-  useEffect(() => {
-    const fetchHistories = () => {
-      fetch(`${api_url}histories`, {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then(response => {
-        if (response.ok) {
-          return response.json()
-        }
-      })
-      .then(response => setPlayerResponseLeft(response.filter(res => res.game_id == id).length))
-     
-      }
-      fetchHistories()
-  }, [])
+ 
 
 
  useEffect(() => {
-        const sub = cable.subscriptions.create({ channel :'MarkingChannel', game_id: id,  user_id: currentUser.id, validation: location.state.players},{
+        const sub = cable.subscriptions.create({ channel :'MarkingChannel', game_id: id,  user_id: currentUser.id, validator: location.state.players},{
             initialized() {
               setChannel(this)              
-            },
-            connected() {
-
-
             },
             received(data) {  
                         
               
                 if (data['stop'])
                     alert('cassez vous tous mtn')
+                else {
+                  console.log(data)
+                }
                 // setSubmitted(true)
                 // console.log(data)
                 
@@ -78,11 +60,12 @@ const GameMarking = () => {
         
             }, 
           }) 
+        
       }, []);
 
 
   useEffect(() => {
-    const fetchResponses = () => {
+    /*const fetchResponses = () => {
     let tmp = []
     fetch(`${api_url}responses`, {
       method: 'get',  
@@ -107,8 +90,25 @@ const GameMarking = () => {
     console.log(tmp)
      
   }
-  fetchResponses();
+  fetchResponses();*/
+    
   }, [])
+  
+    useEffect( () => {
+    async function fetchData() {
+      let tmp = []
+      const response = await fetch(`${api_url}responses`)
+      const array = await response.json()
+      array.map(obj => {
+      if (obj.user_id != currentUser.id && obj.game_id == id) {
+        tmp.push(obj)
+      }
+     })
+      setAnswer(tmp)
+    }
+    fetchData();
+    
+  },[])
   
   useEffect( () => {
     async function fetchData() {
@@ -123,13 +123,13 @@ const GameMarking = () => {
   // const sendGlobalScore = (score) => {
   //   dispatch({type: 'ADD_SCORE', score: score})
   // }
-  console.log(answer.filter(ans => ans.user_id != currentUser.id))
+  console.log(answer)
 
   const handleclick = () => {
 
     let tmp = []
     let score = 0
-    answer.filter(ans => ans.user_id != currentUser.id).map(response => {
+    answer.map(response => {
      score = 0 
      document.getElementsByName("inlineRadioOptions" + response.id )[0].checked ?
      (score = 1) : (score = -1)
@@ -138,7 +138,7 @@ const GameMarking = () => {
     setAnswer(tmp)
     setResponseSent(true)
     setSubmitted(true)
-    channel.perform('received', {answer: tmp, osef: 1})
+    channel.perform('received', {answers: tmp})
   }
   console.log(answer)
   return (
@@ -155,7 +155,7 @@ const GameMarking = () => {
                 </div>
                 <div className="card-body text-dark">
                   <ul>
-                      {answer.filter(ans => (ans.user_id != currentUser.id) && ans.category_id == category.id).map(rep=> (
+                      {answer.filter(ans => ans.category_id == category.id).map(rep=> (
                         <li key={rep.id}> 
                           {rep.content} : 
                           <div class="form-check form-check-inline">
