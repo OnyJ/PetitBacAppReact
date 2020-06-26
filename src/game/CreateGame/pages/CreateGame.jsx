@@ -24,74 +24,75 @@ import imgAdd from "../../../application/assets/images/add-green.png";
   const [gameId, setGameId] = useState('')
   const [isReady, setIsReady] = useState(false)
   const [isSent, setIsSent] = useState(false)
- 
- 
+
+
 
     const create = async (e) => {
         e.preventDefault()
         setCategories( document.getElementsByClassName("categories")[0].innerText.split("\n") )
          CreateAGame(currentUser, maxPlayer)
-    }  
-    
+    }
+
     const CreateAGame = (currentUser, maxGuests) => {
       const api_url = process.env.REACT_APP_BASE_URL;
       const data = {
         game: {
-          creator_id: currentUser.id, 
+          creator_id: currentUser.id,
           winner_id: null,
           max_guests: maxGuests
         }
-      }  
-      
+      }
+
       fetch(`${api_url}games`, {
-        method: 'post', 
+        method: 'post',
         headers: {
-          "Content-Type":"application/json", 
+          "Content-Type":"application/json",
           Authorization: `Bearer ${Cookies.get("token")}`
         },
         body: JSON.stringify(data),
       })
       .then(response => response.json())
-      .then(response => setGameId(response.id)) 
+      .then(response => setGameId(response.id))
 
     }
 
     const createJoinCategGame = (gameId, categId) => {
 
         const api_url = process.env.REACT_APP_BASE_URL;
-       
+
         const dataCategGames = {
           join_category_game: {
-            game_id: gameId , 
+            game_id: gameId ,
             category_id: categId
           }
         }
         fetch(`${api_url}join_category_games`, {
-          method: 'post', 
+          method: 'post',
           headers: {
-            "Content-Type":"application/json", 
+            "Content-Type":"application/json",
             Authorization: `Bearer ${Cookies.get("token")}`
-          }, 
+          },
           body: JSON.stringify(dataCategGames)
         })
         .then((response) => {
           if (response.ok === true) {
             setIsReady(true)
-            return response.json()  
+            return response.json()
           }
           return response
         })
        }
 
-      testCateg.forEach(categ => { 
+      testCateg.forEach(categ => {
         createJoinCategGame(gameId, categ.id)
         })
 
         const testPass = {
-          pathname: '/waiting_room', 
-          testId: gameId, 
+          pathname: '/waiting_room',
+          testId: gameId,
           categories: testCateg
         }
+        console.log(gameId)
         const isComputerScreen = () => {
           return window.screen.availWidth > 375;
         };
@@ -237,7 +238,7 @@ import imgAdd from "../../../application/assets/images/add-green.png";
                               />
                               <span className="pt-2"> harry</span>
                             </div>
-                          </button>                      
+                          </button>
                         </div>
                       </div>
                     </div>
