@@ -5,6 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./application/pages/Home";
 import Login from "./authentication/pages/Login";
 import Signup from "./authentication/pages/Signup";
+import Profile from "./authentication/pages/Profile";
+import History from "./authentication/pages/History";
+import Friends from "./authentication/pages/Friends";
 import Navbar from "./application/components/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CreateGame from "./game/CreateGame/pages/CreateGame";
@@ -41,6 +44,15 @@ const App = () => {
             </Route>
             <Route path="/game_marking">
               <GameMarking/>
+            </Route>
+            <Route path="/profile">
+              <Profile/>
+            </Route>
+            <Route path="/history">
+              <History/>
+            </Route>
+            <Route path="/friends">
+              <Friends/>
             </Route>
             <Route exact path="/">
               <Home />
