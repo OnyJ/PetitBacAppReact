@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 // Pages and Components
 import { fetchUserLogout } from "../../authentication/fetchUserAuth";
 import { logoutSuccess } from "../../authentication/redux/userAuthActions";
-
+import { Profile } from "../../authentication/pages/Profile";
 // Assets
 import imgLogout from "../assets/images/logout-power-white.png";
 import imgSettings from "../assets/images/settings-white.png";
@@ -29,14 +29,14 @@ const Navbar = () => {
 
       {currentUser && (
         <>
-          <a href="#">
+          <Link to="/profile">
             <img
               src={imgSettings}
               alt="settings_icon"
               width="30px"
               height="30px"
             />
-          </a>
+          </Link>
           <div className="ml-3"></div>
           <a onClick={logout} href="#">
             <img src={imgLogout} alt="logout_icon" width="30px" height="30px" />
