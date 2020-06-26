@@ -21,9 +21,8 @@ const Login = () => {
       Cookies.set("token", result.token);
       Cookies.set("user", result.user);
     });
-    
-    user.catch((error) => console.log(error));
 
+    user.catch((error) => console.log(error));
   };
 
   return (
@@ -57,7 +56,7 @@ const Login = () => {
                   required
                 />
               </Form.Group>
-              <Button type="submit" variant="warning">
+              <Button type="submit" variant="warning text-dark">
                 Allez !
               </Button>
             </Form>

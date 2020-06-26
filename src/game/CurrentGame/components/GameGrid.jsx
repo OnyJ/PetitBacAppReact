@@ -23,7 +23,12 @@ const GameGrid = ({gameId, players}) => {
   const [answers, setAnswers] = useState({})
   const [id, setId] = useState(gameId);
   const auth = useSelector(state => state.auth)
+
   const [test, setTest] = useState(false) 
+
+  const letter = ["A...", "B...", "C...", "D...", "E...", "F...", "G...", "H...", "I...", "J...", "K...", "L...", "M...", "N...", "O...", "P...", "Q...", "R...", "S...", "T...", "U...", "V...", "W...", "X...", "Y...", "Z..."]
+  const randomLetter = letter[Math.floor(Math.random()*letter.length)];
+
   const cable = actionCable.createConsumer('ws://localhost:3000/cable');
   console.log(players, nbPlayers, gameId)
   useEffect(() => {
@@ -73,7 +78,7 @@ const GameGrid = ({gameId, players}) => {
         }
       })
       .then(response => setCategories(response[1]))
-       
+
     }
     fetchGame();
   }, []);
@@ -100,10 +105,6 @@ const GameGrid = ({gameId, players}) => {
     
   }
 
-  
-
-
-
   return (
 
     <ActionCableProvider cable={cable}>
@@ -112,11 +113,12 @@ const GameGrid = ({gameId, players}) => {
       
       <div className="container">
         <h1>Grille de jeu</h1>
+        <p>Lettre : {randomLetter}</p>
         <form>
           {categories.map((category) => (
             <div key={category.id}>
               <span>{category.name}</span>
-              <input className="form-control" type="text" name={category.name}/>
+              <input className="form-control" type="text" name={category.name} placeholder={randomLetter} autocomplete="off" />
               <br />
             </div>
           ))}
@@ -132,4 +134,3 @@ const GameGrid = ({gameId, players}) => {
 };
 
 export default GameGrid;
-// onChange={(e) => setAnswers({...answers, [e.target.name]: e.target.value})}
