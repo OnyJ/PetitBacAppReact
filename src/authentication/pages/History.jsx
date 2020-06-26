@@ -64,14 +64,6 @@ const History = () => {
                   </div>
                 </div>
               </div>
-              <div>
-                  <Link
-                    to="/"
-                    className="btn btn-warning btn-lg text-dark"
-                    >
-                      JOUER
-                  </Link>
-                </div>
             </div>
           </div>
         </div>
