@@ -84,7 +84,7 @@ const Home = () => {
             isComputerScreen() ? "row" : "d-flex justify-content-around"
           }
         >
-          <Link to="/">
+          <Link to="/friends">
             <button type="button" class="btn btn-secondary m-3">
               <img
                 className="menu-icon"
@@ -96,7 +96,7 @@ const Home = () => {
               <p>Amis</p>
             </button>
           </Link>
-          <Link to="/">
+          <Link to="/history">
             <button type="button" class="btn btn-secondary m-3">
               <img
                 className="menu-icon"
