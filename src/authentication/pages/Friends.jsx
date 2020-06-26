@@ -7,7 +7,7 @@ import { Button } from "react-bootstrap";
 
 // Assets
 import imgFriends from "../../application/assets/images/friendship.png";
-import imgAmis from "../../application/assets/images/friends.png";
+import imgFriends2 from "../../application/assets/images/friends.png";
 import imgGame from "../../application/assets/images/vr-gaming.png";
 import imgMedal3 from "../../application/assets/images/medal3.png";
 import imgMedal4 from "../../application/assets/images/medal4.png";
@@ -44,7 +44,7 @@ const Friends = () => {
                   <p><br />(Amis n'1 ...etc / update avec friendship)
                     <br />
                   <img
-                      src={imgAmis}
+                      src={imgFriends2}
                       alt="create_game_logo"
                       width="50px"
                       height="50px"
