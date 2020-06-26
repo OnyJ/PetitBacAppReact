@@ -15,7 +15,7 @@ import {useHistory} from 'react-router-dom'
 
 
 const GameGrid = ({gameId, players}) => {
-  let history = useHistory();
+  const history = useHistory();
   const currentUser = useSelector(state => state.auth.currentUser)
   const [nbPlayers, setNbPlayers] = useState(players)
   const [categories, setCategories] = useState([]);
@@ -29,8 +29,8 @@ const GameGrid = ({gameId, players}) => {
   const letter = ["A...", "B...", "C...", "D...", "E...", "F...", "G...", "H...", "I...", "J...", "K...", "L...", "M...", "N...", "O...", "P...", "Q...", "R...", "S...", "T...", "U...", "V...", "W...", "X...", "Y...", "Z..."]
   const randomLetter = letter[Math.floor(Math.random()*letter.length)];
 
-  const cable = actionCable.createConsumer('ws://localhost:3000/cable');
-  console.log(players, nbPlayers, gameId)
+  const cable = actionCable.createConsumer('wss://api-petitbac.herokuapp.com/cable');
+  console.log(typeof players, typeof nbPlayers, typeof gameId)
   useEffect(() => {
         const sub = cable.subscriptions.create({ channel :'GameChannel', game_id: gameId,  user_id: currentUser.id},{
             initialized() {
