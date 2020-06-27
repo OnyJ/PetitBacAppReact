@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 // Pages and components
@@ -24,6 +24,9 @@ import imgAdd from "../../../application/assets/images/add-green.png";
   const [gameId, setGameId] = useState('')
   const [isReady, setIsReady] = useState(false)
   const [isSent, setIsSent] = useState(false)
+  const [compteur, setCompteur] = useState([])
+  console.log(compteur)
+  const history = useHistory()
  
  
 
@@ -53,9 +56,9 @@ import imgAdd from "../../../application/assets/images/add-green.png";
       })
       .then(response => response.json())
       .then(response => setGameId(response.id)) 
-
+      
     }
-
+  
     const createJoinCategGame = (gameId, categId) => {
 
         const api_url = process.env.REACT_APP_BASE_URL;
@@ -76,22 +79,40 @@ import imgAdd from "../../../application/assets/images/add-green.png";
         })
         .then((response) => {
           if (response.ok === true) {
-            setIsReady(true)
+            setCompteur([...compteur, 'osef'])
+            console.log(compteur)
+            // if (compteur.length === testCateg.length - (testCateg.length - 2))
+              setIsReady(true)
+            
             return response.json()  
           }
           return response
         })
-       }
 
+       }
+      //  testCateg.forEach(categ => { 
+      //   createJoinCategGame(gameId, categ.id)
+      //   })
+
+      const testPass = {
+        pathname: '/waiting_room', 
+        testId: gameId, 
+        categories: testCateg
+      }
+     const categAction = () => {
       testCateg.forEach(categ => { 
         createJoinCategGame(gameId, categ.id)
         })
+        
+     }
+        
+      categAction()
+          
+          
 
-        const testPass = {
-          pathname: '/waiting_room', 
-          testId: gameId, 
-          categories: testCateg
-        }
+
+
+      
         const isComputerScreen = () => {
           return window.screen.availWidth > 375;
         };
@@ -313,7 +334,14 @@ import imgAdd from "../../../application/assets/images/add-green.png";
           </div>
         </section>
       )}
-      {isReady && <Link to={testPass}>current game</Link>}
+      {isReady && 
+        <Redirect to={{
+          pathname: '/waiting_room',
+          testId: gameId, 
+          categ: categories
+
+        }}/>
+    }
     </>
   );
 };
