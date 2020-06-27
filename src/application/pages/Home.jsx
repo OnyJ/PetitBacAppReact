@@ -21,7 +21,7 @@ const Home = () => {
   const [gameId, setGameId] = useState("");
   const [launchCreateGame, setLaunchCreateGame] = useState(false);
 
-  console.log(process.env.REACT_APP_CABLE)
+  console.log("wss://api-petitbac.herokuapp.com/cable");
 
   const loggedInDisplay = () => {
     const isComputerScreen = () => {
@@ -113,7 +113,6 @@ const Home = () => {
         </div>
 
         <center className="menu-buttons-div">
-
           <div>
             <button
               onClick={() => setLaunchCreateGame(true)}
@@ -133,9 +132,11 @@ const Home = () => {
             {/* Maybe comment next line */}
             {gameIsReady === true && <CurrentGame gameId={gameId} />}
             <br />
-            <Link to='/join_a_game'><button className="btn btn-warning btn-lg text-dark">
-              Rejoindre une Partie
-            </button></Link>
+            <Link to="/join_a_game">
+              <button className="btn btn-warning btn-lg text-dark">
+                Rejoindre une Partie
+              </button>
+            </Link>
           </div>
         </center>
       </>

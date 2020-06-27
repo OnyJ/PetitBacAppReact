@@ -1,90 +1,93 @@
- 
 import React, { useEffect, useState } from "react";
-import actionCable from 'actioncable';
-import { ActionCableProvider, ActionCableConsumer } from 'react-actioncable-provider';
-import {useSelector} from 'react-redux'
+import actionCable from "actioncable";
+import {
+  ActionCableProvider,
+  ActionCableConsumer,
+} from "react-actioncable-provider";
+import { useSelector } from "react-redux";
 import useSelection from "antd/lib/table/hooks/useSelection";
-import {useLocation, Link, useHistory} from "react-router-dom";
-
+import { useLocation, Link, useHistory } from "react-router-dom";
 
 const WaitingRoom = () => {
-  const currentUser = useSelector(state => state.auth.currentUser)
+  const currentUser = useSelector((state) => state.auth.currentUser);
   let location = useLocation();
   let history = useHistory();
-  const [gameId, setGameId] = useState(location.testId)
-  const [categories, setCategories] = useState(location.categories)
+  const [gameId, setGameId] = useState(location.testId);
+  const [categories, setCategories] = useState(location.categories);
   const [channel, setChannel] = useState(null);
   //const [test, setTest] = useState("rien");
   const [data, setData] = useState("kedal");
   const [stop, setStop] = useState(false);
-  const [start, setStart] = useState(false)
+  const [start, setStart] = useState(false);
   const [players, setPlayers] = useState([]);
-  const [admin, setAdmin] = useState('');
-  const cable = actionCable.createConsumer(process.env.REACT_APP_CABLE);
-  console.log(location)
-  
-  useEffect(() => {
-        const sub = cable.subscriptions.create({ channel :'RoomChannel', game_id: gameId, user_id: currentUser.id},{
-            initialized() {
-              setChannel(this)              
-              console.log('subscriptions', currentUser)
-            },
-            connected() {
-              console.log('test')
-              this.perform('received', {game_id: gameId})
-            },
-            received(data) {
-              
-              if (!Array.isArray(data)) { 
-                console.log(data)
-                console.log(players)
-                console.log(players.length)
-                history.push('/current_game',{
-                  categories: categories, 
-                  gameId:gameId, 
-                  players: data['players'].length
-                })
-              }
-              else { 
-                setPlayers(data)
-                setAdmin(data[0])
-              }
-            }
-            
-          })
-          
-      }, []);
+  const [admin, setAdmin] = useState("");
+  const cable = actionCable.createConsumer(
+    "wss://api-petitbac.herokuapp.com/cable"
+  );
+  console.log(location);
 
-      console.log(players)
+  useEffect(() => {
+    const sub = cable.subscriptions.create(
+      { channel: "RoomChannel", game_id: gameId, user_id: currentUser.id },
+      {
+        initialized() {
+          setChannel(this);
+          console.log("subscriptions", currentUser);
+        },
+        connected() {
+          console.log("test");
+          this.perform("received", { game_id: gameId });
+        },
+        received(data) {
+          if (!Array.isArray(data)) {
+            console.log(data);
+            console.log(players);
+            console.log(players.length);
+            history.push("/current_game", {
+              categories: categories,
+              gameId: gameId,
+              players: data["players"].length,
+            });
+          } else {
+            setPlayers(data);
+            setAdmin(data[0]);
+          }
+        },
+      }
+    );
+  }, []);
+
+  console.log(players);
 
   return (
     <>
-    
-    <ActionCableProvider cable={cable} >
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Game ID</h5>
+      <ActionCableProvider cable={cable}>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Game ID</h5>
 
-          <p class="card-text">{gameId}</p>
+            <p class="card-text">{gameId}</p>
+          </div>
         </div>
-      </div>
-      {admin &&
-        <p> Admin: {admin.username}</p>
-      }
-      {players &&
-        <ul>
-          {players.slice(1).map((player, i) => (
-            <li key={i}>{player.username} has join the game</li>
-          ))}
-        </ul>
-      }
+        {admin && <p> Admin: {admin.username}</p>}
+        {players && (
+          <ul>
+            {players.slice(1).map((player, i) => (
+              <li key={i}>{player.username} has join the game</li>
+            ))}
+          </ul>
+        )}
 
-      {currentUser.id == admin.id && 
-       <button onClick={()=> channel.perform('starting',{start: true, players: players})}>Let's play</button>
-      }
-     
-    </ActionCableProvider>
-    
+        {currentUser.id == admin.id && (
+          <button
+            onClick={() =>
+              channel.perform("starting", { start: true, players: players })
+            }
+          >
+            Let's play
+          </button>
+        )}
+      </ActionCableProvider>
     </>
   );
 };
