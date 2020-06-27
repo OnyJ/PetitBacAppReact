@@ -15,6 +15,7 @@ import WaitingRoom from "./game/CreateGame/pages/WaitingRoom";
 import CurrentGame from "./game/CurrentGame/pages/CurrentGame";
 import JoinAGame from "./game/JoinGame/pages/JoinAGame";
 import GameMarking from "./game/CurrentGame/pages/GameMarking";
+import GameFinished from './game/CurrentGame/pages/GameFinished'
 
 import "./App.scss";
 
@@ -53,6 +54,9 @@ const App = () => {
             </Route>
             <Route path="/friends">
               <Friends/>
+            </Route>
+            <Route path="/game_finished">
+              <GameFinished/>
             </Route>
             <Route exact path="/">
               <Home />
