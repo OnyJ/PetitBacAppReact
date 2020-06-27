@@ -2,16 +2,17 @@ import React, {useState, useEffect, useReducer} from 'react';
 import uniqid from 'uniqid'
 import history from '../../../history'
 import {Link} from 'react-router-dom'
-//import GameFinished from '../components/GameFinished'
+import GameFinished from './GameFinished'
 import scoreReducer from '../../../scoreReducer'
 import { useDispatch, useSelector } from 'react-redux';
-import {useLocation} from "react-router-dom";
+import {useLocation, useHistory} from "react-router-dom";
 import actionCable from 'actioncable';
 import { ActionCableProvider, ActionCableConsumer } from 'react-actioncable-provider';
 
 const GameMarking = () => {
 
   const location = useLocation();
+  const history = useHistory()
   const [id, setId] = useState(location.state.gameId)
   const currentUser = useSelector(state => state.auth.currentUser)
   const [channel, setChannel] = useState(null);
@@ -23,11 +24,12 @@ const GameMarking = () => {
   const [playerResponseLeft, setPlayerResponseLeft] = useState(location.state.players)
   
   const api_url = process.env.REACT_APP_BASE_URL
-  const cable = actionCable.createConsumer('wss://api-petitbac.herokuapp.com/cable');
+  const cable = actionCable.createConsumer(process.env.REACT_APP_CABLE);
   console.log(location.state.players)
   
   const dispatch = useDispatch()
   const osef = useSelector(state => state.score)
+  console.log(osef)
 
   console.log(playerResponseLeft)
   console.log(id, typeof id)
@@ -40,9 +42,14 @@ const GameMarking = () => {
             received(data) {  
                         
               
-                if (data['stop'])
-                    alert('cassez vous tous mtn')
-                else {
+                if (data['stop']) {
+                  console.log(data)
+                  history.push('/game_finished', {
+                    gameId: id
+                  })
+
+                  
+                } else {
                   console.log(data)
                 }
                 // setSubmitted(true)

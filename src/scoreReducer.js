@@ -7,7 +7,7 @@ const scoreReducer = (state = initialState, action) => {
       case 'ADD_SCORE':
           return {
               ...state,
-              score: action.score
+              score: action.score 
           };
         case 'RESET':
             return {

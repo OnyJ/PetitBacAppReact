@@ -21,6 +21,8 @@ const Home = () => {
   const [gameId, setGameId] = useState("");
   const [launchCreateGame, setLaunchCreateGame] = useState(false);
 
+  console.log(process.env.REACT_APP_CABLE)
+
   const loggedInDisplay = () => {
     const isComputerScreen = () => {
       return window.screen.availWidth > 375;
