@@ -29,7 +29,7 @@ const GameMarking = () => {
 
   const api_url = process.env.REACT_APP_BASE_URL;
   const cable = actionCable.createConsumer(
-    process.env.REACT_APP_CABLE
+    "wss://api-petitbac.herokuapp.com/cable"
   );
   console.log(location.state.players);
 
@@ -174,7 +174,12 @@ const GameMarking = () => {
             ))}
           </div>
           {!responseSent && (
-            <button className="btn btn-warning btn-lg text-dark mt-5" onClick={handleclick}>Send correction</button>
+            <button
+              className="btn btn-warning btn-lg text-dark mt-5"
+              onClick={handleclick}
+            >
+              Send correction
+            </button>
           )}
         </div>
       </ActionCableProvider>

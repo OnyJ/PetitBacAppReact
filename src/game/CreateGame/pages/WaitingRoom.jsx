@@ -22,7 +22,7 @@ const WaitingRoom = () => {
   const [players, setPlayers] = useState([]);
   const [admin, setAdmin] = useState("");
   const cable = actionCable.createConsumer(
-    process.env.REACT_APP_CABLE
+    "wss://api-petitbac.herokuapp.com/cable"
   );
   console.log(location);
 
@@ -63,36 +63,34 @@ const WaitingRoom = () => {
     <>
       <ActionCableProvider cable={cable}>
         <div className="container">
-         <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Game ID</h5>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Game ID</h5>
 
-            <p class="card-text">{gameId}</p>
+              <p class="card-text">{gameId}</p>
+            </div>
           </div>
-        </div>
-        
-        {admin && <p> Admin: {admin.username}</p>}
-        {players && (
-          <ul>
-            {players.slice(1).map((player, i) => (
-              <li key={i}>{player.username} has join the game</li>
-            ))}
-            En attente d'autres joueurs...
-          </ul>
-        )}
 
-        {currentUser.id == admin.id && (
-          
-           
-          <button
-            class="btn btn-warning btn-lg text-dark"
-            onClick={() =>
-              channel.perform("starting", { start: true, players: players })
-            }
-          >
-            Let's play
-          </button>
-        )}
+          {admin && <p> Admin: {admin.username}</p>}
+          {players && (
+            <ul>
+              {players.slice(1).map((player, i) => (
+                <li key={i}>{player.username} has join the game</li>
+              ))}
+              En attente d'autres joueurs...
+            </ul>
+          )}
+
+          {currentUser.id == admin.id && (
+            <button
+              class="btn btn-warning btn-lg text-dark"
+              onClick={() =>
+                channel.perform("starting", { start: true, players: players })
+              }
+            >
+              Let's play
+            </button>
+          )}
         </div>
       </ActionCableProvider>
     </>

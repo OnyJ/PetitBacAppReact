@@ -25,13 +25,12 @@ const GameGrid = ({ gameId, players }) => {
   const [answers, setAnswers] = useState({});
   const [id, setId] = useState(gameId);
   const auth = useSelector((state) => state.auth);
-  const [letter, setLetter] = useState('')
+  const [letter, setLetter] = useState("");
 
   const [test, setTest] = useState(false);
 
-
   const cable = actionCable.createConsumer(
-    process.env.REACT_APP_CABLE
+    "wss://api-petitbac.herokuapp.com/cable"
   );
   console.log(typeof players, typeof nbPlayers, typeof gameId);
   useEffect(() => {
@@ -79,16 +78,14 @@ const GameGrid = ({ gameId, players }) => {
       })
         .then((response) => {
           if (response.ok) {
-            console.log(response)
+            console.log(response);
             return response.json();
           }
         })
-        .then((response) =>  {
-          setCategories(response[1])
-          setLetter(response[0].letter)
-
-        })
-       
+        .then((response) => {
+          setCategories(response[1]);
+          setLetter(response[0].letter);
+        });
     };
     fetchGame();
   }, []);
