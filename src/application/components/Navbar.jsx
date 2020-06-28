@@ -1,7 +1,7 @@
 // Installed
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // Pages and Components
 import { fetchUserLogout } from "../../authentication/fetchUserAuth";
@@ -14,11 +14,15 @@ import imgSettings from "../assets/images/settings-white.png";
 const Navbar = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
+  const history = useHistory()
 
   const logout = () => {
     fetchUserLogout();
     dispatch(logoutSuccess());
     dispatch({ type: "RESET" });
+    history.push('/login')
+    alert('vous êtes bien déconnecté')
+
   };
   return (
     <nav className="navbar navbar-expand-lg navbar-dark navbar-custom bg-primary">

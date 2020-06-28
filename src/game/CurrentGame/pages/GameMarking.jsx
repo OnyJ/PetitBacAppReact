@@ -29,7 +29,7 @@ const GameMarking = () => {
 
   const api_url = process.env.REACT_APP_BASE_URL;
   const cable = actionCable.createConsumer(
-    "wss://api-petitbac.herokuapp.com/cable"
+    process.env.REACT_APP_CABLE
   );
   console.log(location.state.players);
 
@@ -68,35 +68,6 @@ const GameMarking = () => {
         },
       }
     );
-  }, []);
-
-  useEffect(() => {
-    /*const fetchResponses = () => {
-    let tmp = []
-    fetch(`${api_url}responses`, {
-      method: 'get',  
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then(response => {
-      if (response.ok) {
-        return response.json()
-      }
-    })
-    .then(responses => {console.log(responses);
-      responses.map(obj => {
-      if (obj.game_id == id) {
-        tmp.push(obj)
-        console.log(obj)
-      }
-     })
-    })
-    setAnswer( tmp )
-    console.log(tmp)
-     
-  }
-  fetchResponses();*/
   }, []);
 
   useEffect(() => {
@@ -147,8 +118,8 @@ const GameMarking = () => {
   return (
     <>
       <ActionCableProvider cable={cable}>
-        <div className="container">
-          <div className="row">
+        <div className="container text-center">
+          <div className="row pt-5">
             {categories.map((category) => (
               <div className="col-3">
                 <div className="card">
@@ -203,7 +174,7 @@ const GameMarking = () => {
             ))}
           </div>
           {!responseSent && (
-            <button onClick={handleclick}>Send correction</button>
+            <button className="btn btn-warning btn-lg text-dark mt-5" onClick={handleclick}>Send correction</button>
           )}
         </div>
       </ActionCableProvider>

@@ -25,15 +25,44 @@ import imgAdd from "../../../application/assets/images/add-green.png";
   const [isReady, setIsReady] = useState(false)
   const [isSent, setIsSent] = useState(false)
   const [compteur, setCompteur] = useState([])
+  const letter = [
+    "A...",
+    "B...",
+    "C...",
+    "D...",
+    "E...",
+    "F...",
+    "G...",
+    "H...",
+    "I...",
+    "J...",
+    "K...",
+    "L...",
+    "M...",
+    "N...",
+    "O...",
+    "P...",
+    "Q...",
+    "R...",
+    "S...",
+    "T...",
+    "U...",
+    "V...",
+    "W...",
+    "X...",
+    "Y...",
+    "Z...",
+  ];
   console.log(compteur)
   const history = useHistory()
- 
+  
+  
  
 
     const create = async (e) => {
         e.preventDefault()
         setCategories( document.getElementsByClassName("categories")[0].innerText.split("\n") )
-         CreateAGame(currentUser, maxPlayer)
+         CreateAGame(currentUser, maxPlayer, letter)
     }  
     
     const CreateAGame = (currentUser, maxGuests) => {
@@ -42,7 +71,8 @@ import imgAdd from "../../../application/assets/images/add-green.png";
         game: {
           creator_id: currentUser.id, 
           winner_id: null,
-          max_guests: maxGuests
+          max_guests: maxGuests,
+          letter: letter[Math.floor(Math.random() * letter.length)]
         }
       }  
       
@@ -80,9 +110,7 @@ import imgAdd from "../../../application/assets/images/add-green.png";
         .then((response) => {
           if (response.ok === true) {
             setCompteur([...compteur, 'osef'])
-            console.log(compteur)
-            // if (compteur.length === testCateg.length - (testCateg.length - 2))
-              setIsReady(true)
+            setIsReady(true)
             
             return response.json()  
           }
@@ -90,9 +118,6 @@ import imgAdd from "../../../application/assets/images/add-green.png";
         })
 
        }
-      //  testCateg.forEach(categ => { 
-      //   createJoinCategGame(gameId, categ.id)
-      //   })
 
       const testPass = {
         pathname: '/waiting_room', 
@@ -108,14 +133,9 @@ import imgAdd from "../../../application/assets/images/add-green.png";
         
       categAction()
           
-          
-
-
-
-      
-        const isComputerScreen = () => {
-          return window.screen.availWidth > 375;
-        };
+      const isComputerScreen = () => {
+        return window.screen.availWidth > 375;
+      };
 
   return (
     <>

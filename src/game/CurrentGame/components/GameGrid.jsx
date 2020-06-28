@@ -25,41 +25,13 @@ const GameGrid = ({ gameId, players }) => {
   const [answers, setAnswers] = useState({});
   const [id, setId] = useState(gameId);
   const auth = useSelector((state) => state.auth);
+  const [letter, setLetter] = useState('')
 
   const [test, setTest] = useState(false);
 
-  const letter = [
-    "A...",
-    "B...",
-    "C...",
-    "D...",
-    "E...",
-    "F...",
-    "G...",
-    "H...",
-    "I...",
-    "J...",
-    "K...",
-    "L...",
-    "M...",
-    "N...",
-    "O...",
-    "P...",
-    "Q...",
-    "R...",
-    "S...",
-    "T...",
-    "U...",
-    "V...",
-    "W...",
-    "X...",
-    "Y...",
-    "Z...",
-  ];
-  const randomLetter = letter[Math.floor(Math.random() * letter.length)];
 
   const cable = actionCable.createConsumer(
-    "wss://api-petitbac.herokuapp.com/cable"
+    process.env.REACT_APP_CABLE
   );
   console.log(typeof players, typeof nbPlayers, typeof gameId);
   useEffect(() => {
@@ -107,16 +79,21 @@ const GameGrid = ({ gameId, players }) => {
       })
         .then((response) => {
           if (response.ok) {
+            console.log(response)
             return response.json();
           }
         })
-        .then((response) => setCategories(response[1]));
+        .then((response) =>  {
+          setCategories(response[1])
+          setLetter(response[0].letter)
+
+        })
+       
     };
     fetchGame();
   }, []);
 
   const handleReceivedAnswers = (response) => {
-    //e.preventDefault()
     if (response["stop"]) {
       console.log(response);
       console.log(answers);
@@ -134,7 +111,7 @@ const GameGrid = ({ gameId, players }) => {
       {!test && (
         <div className="container">
           <h1>Grille de jeu</h1>
-          <p>Lettre : {randomLetter}</p>
+          <p>Lettre : {letter}</p>
           <form>
             {categories.map((category) => (
               <div key={category.id}>

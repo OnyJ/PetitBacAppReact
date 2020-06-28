@@ -57,6 +57,7 @@ const userAuthReducer = (state = initialState, action) => {
     case LOGOUT_SUCCESS:
       Cookies.remove("token");
       Cookies.remove("user");
+      alert('déco')
       return {
         ...state,
         token: null,
