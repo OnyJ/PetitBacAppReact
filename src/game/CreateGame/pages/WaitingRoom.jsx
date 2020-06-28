@@ -22,7 +22,7 @@ const WaitingRoom = () => {
   const [players, setPlayers] = useState([]);
   const [admin, setAdmin] = useState("");
   const cable = actionCable.createConsumer(
-    "wss://api-petitbac.herokuapp.com/cable"
+    process.env.REACT_APP_CABLE
   );
   console.log(location);
 
@@ -62,24 +62,30 @@ const WaitingRoom = () => {
   return (
     <>
       <ActionCableProvider cable={cable}>
-        <div class="card">
+        <div className="container">
+         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Game ID</h5>
 
             <p class="card-text">{gameId}</p>
           </div>
         </div>
+        
         {admin && <p> Admin: {admin.username}</p>}
         {players && (
           <ul>
             {players.slice(1).map((player, i) => (
               <li key={i}>{player.username} has join the game</li>
             ))}
+            En attente d'autres joueurs...
           </ul>
         )}
 
         {currentUser.id == admin.id && (
+          
+           
           <button
+            class="btn btn-warning btn-lg text-dark"
             onClick={() =>
               channel.perform("starting", { start: true, players: players })
             }
@@ -87,6 +93,7 @@ const WaitingRoom = () => {
             Let's play
           </button>
         )}
+        </div>
       </ActionCableProvider>
     </>
   );

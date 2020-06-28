@@ -11,12 +11,12 @@ const JoinAGame = () => {
 
   return(
     <>
-      <div>
-
-          <input type="number" value={gameId} onChange={(e) => setGameId(e.target.value)}>
+      <div className='container text-center' >
+        <div style={{paddingTop : '300px'}}>
+          <input type="number" value={gameId} required onChange={(e) => setGameId(e.target.value)}>
           </input>
-          <Link to={game}><button>Game</button></Link>
-
+          <Link to={game}><button className='btn btn-warning btn-lg text-dark' >Rejoindre la partie</button></Link>
+          </div>
       </div>
     </>
   )

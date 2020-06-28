@@ -63,7 +63,7 @@ const GameFinished = ({data}) => {
   }
 
   return(
-    <>
+    <div className='container' style={{textAlign: 'center', paddingTop: '100px'}}>
     <ul style={{listStyle: 'none'}}>
         {responses.map(res => (
           <li key={res.id}>{res.content}: {res.status === true ? 'vrai' : 'faux'}</li>
@@ -71,7 +71,7 @@ const GameFinished = ({data}) => {
     </ul>  
 
     <p>ton score pour cette partie est de {scoreCalc()}</p>
-    <div>
+    <div className='pt-5'>
       <Link to='/create_game'><button className='btn btn-warning btn-lg text-dark center mr-5'> REJOUER</button></Link>
       <Link to='/'><button className='btn btn-warning btn-lg text-dark center ml-5'> VOIR LES SCORES FINAUX</button></Link>
     </div>
@@ -93,7 +93,7 @@ const GameFinished = ({data}) => {
             <GameScore score={finalScore}></GameScore>
           }
         </div> */}
-    </>
+    </div>
   )
 }
 
