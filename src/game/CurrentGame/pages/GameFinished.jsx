@@ -30,7 +30,7 @@ const GameFinished = ({ data }) => {
         .then((response) =>
           setResponses(
             response.filter(
-              (res) => res.game_id === gameId && res.user_id === currentUser.id
+              (res) => res.game_id == gameId && res.user_id == currentUser.id
             )
           )
         );

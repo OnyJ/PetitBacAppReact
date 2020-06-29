@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useHistory, Redirect } from "react-router-dom";
 import actionCable from "actioncable";
 import { ActionCableProvider } from "react-actioncable-provider";
+import uniqid from "uniqid";
 
 const GameMarking = () => {
   const location = useLocation();
@@ -56,7 +57,7 @@ const GameMarking = () => {
       const response = await fetch(`${api_url}responses`);
       const array = await response.json();
       array.map((obj) => {
-        if (obj.user_id !== currentUser.id && obj.game_id === id) {
+        if (obj.user_id != currentUser.id && obj.game_id == id) {
           tmp.push(obj);
         }
       });
