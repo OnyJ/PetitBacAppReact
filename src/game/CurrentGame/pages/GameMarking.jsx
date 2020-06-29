@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import GameFinished from "./GameFinished";
 import scoreReducer from "../../../scoreReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Redirect } from "react-router-dom";
 import actionCable from "actioncable";
 import {
   ActionCableProvider,
@@ -117,72 +117,79 @@ const GameMarking = () => {
   console.log(answer);
   return (
     <>
-      <ActionCableProvider cable={cable}>
-        <div className="container text-center">
-          <div className="row pt-5">
-            {categories.map((category) => (
-              <div className="col-3">
-                <div className="card">
-                  <div className="card-header card-title">
-                    <h6 className="text-dark">{category.name}</h6>
+      {currentUser === null ? (
+        <>
+          <Redirect to="/" />
+        </>
+      ) : (
+        <ActionCableProvider cable={cable}>
+          <div className="container text-center">
+            <h1 className="h3 pt-4">Ces mots sont-ils corrects ?</h1>
+            <div className="row pt-5">
+              {categories.map((category) => (
+                <div className="col-3">
+                  <div className="card">
+                    <div className="card-header card-title">
+                      <h6 className="text-dark">{category.name}</h6>
+                    </div>
+                    <div className="card-body text-dark">
+                      <ul>
+                        {answer
+                          .filter((ans) => ans.category_id == category.id)
+                          .map((rep) => (
+                            <li key={rep.id}>
+                              {rep.content} :
+                              <div class="form-check form-check-inline">
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name={"inlineRadioOptions" + rep.id}
+                                  id={"inlineRadio1" + rep.id}
+                                  value={true}
+                                  defaultCheched
+                                />
+                                <label
+                                  class="form-check-label text-dark"
+                                  for={"inlineRadio1" + rep.id}
+                                >
+                                  vrai
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name={"inlineRadioOptions" + rep.id}
+                                  id={"inlineRadio2" + rep.id}
+                                  value={false}
+                                />
+                                <label
+                                  class="form-check-label text-dark"
+                                  for={"inlineRadio2" + rep.id}
+                                >
+                                  faux
+                                </label>
+                              </div>
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
+                    <div className="card-footer"></div>
                   </div>
-                  <div className="card-body text-dark">
-                    <ul>
-                      {answer
-                        .filter((ans) => ans.category_id == category.id)
-                        .map((rep) => (
-                          <li key={rep.id}>
-                            {rep.content} :
-                            <div class="form-check form-check-inline">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name={"inlineRadioOptions" + rep.id}
-                                id={"inlineRadio1" + rep.id}
-                                value={true}
-                                defaultCheched
-                              />
-                              <label
-                                class="form-check-label text-dark"
-                                for={"inlineRadio1" + rep.id}
-                              >
-                                true
-                              </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name={"inlineRadioOptions" + rep.id}
-                                id={"inlineRadio2" + rep.id}
-                                value={false}
-                              />
-                              <label
-                                class="form-check-label text-dark"
-                                for={"inlineRadio2" + rep.id}
-                              >
-                                false
-                              </label>
-                            </div>
-                          </li>
-                        ))}
-                    </ul>
-                  </div>
-                  <div className="card-footer"></div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            {!responseSent && (
+              <button
+                className="btn btn-warning btn-lg text-dark mt-5"
+                onClick={handleclick}
+              >
+                Correction finie
+              </button>
+            )}
           </div>
-          {!responseSent && (
-            <button
-              className="btn btn-warning btn-lg text-dark mt-5"
-              onClick={handleclick}
-            >
-              Send correction
-            </button>
-          )}
-        </div>
-      </ActionCableProvider>
+        </ActionCableProvider>
+      )}
     </>
   );
 };

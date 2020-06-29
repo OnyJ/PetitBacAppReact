@@ -1,5 +1,4 @@
 // Installed
-
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
@@ -8,6 +7,7 @@ import { Button } from "react-bootstrap";
 
 // Pages and components
 import { SelectCategories } from "../components/SelectCategories";
+
 // Assets
 import imgCreategame from "../../../application/assets/images/creategame-palette.png";
 import imgFriends from "../../../application/assets/images/friends.png";
@@ -132,7 +132,7 @@ const CreateGame = () => {
 
   return (
     <>
-      {currentUser == null ? (
+      {currentUser === null ? (
         <>
           {alert("Compte déconnecté")}
           <Redirect to="/" />

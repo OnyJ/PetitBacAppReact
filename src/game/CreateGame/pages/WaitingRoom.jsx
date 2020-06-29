@@ -6,7 +6,7 @@ import {
 } from "react-actioncable-provider";
 import { useSelector } from "react-redux";
 import useSelection from "antd/lib/table/hooks/useSelection";
-import { useLocation, Link, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Redirect } from "react-router-dom";
 
 const WaitingRoom = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -61,39 +61,45 @@ const WaitingRoom = () => {
 
   return (
     <>
-      <ActionCableProvider cable={cable}>
-        <div className="container pt-2">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Numéro de la partie : </h5>
-              <center>
-                <p class="h3 text-success">{gameId}</p>
-              </center>
+      {currentUser === null ? (
+        <>
+          <Redirect to="/" />
+        </>
+      ) : (
+        <ActionCableProvider cable={cable}>
+          <div className="container pt-2">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Numéro de la partie : </h5>
+                <center>
+                  <p class="h3 text-success">{gameId}</p>
+                </center>
+              </div>
             </div>
+
+            {admin && <p> Admin: {admin.username}</p>}
+            {players && (
+              <ul className="p-4">
+                {players.slice(1).map((player, i) => (
+                  <li key={i}>{player.username} a rejoint la partie</li>
+                ))}
+                En attente d'autres joueurs...
+              </ul>
+            )}
+
+            {currentUser.id == admin.id && (
+              <button
+                class="btn btn-warning btn-lg text-dark"
+                onClick={() =>
+                  channel.perform("starting", { start: true, players: players })
+                }
+              >
+                C'est parti !
+              </button>
+            )}
           </div>
-
-          {admin && <p> Admin: {admin.username}</p>}
-          {players && (
-            <ul className="p-4">
-              {players.slice(1).map((player, i) => (
-                <li key={i}>{player.username} a rejoint la partie</li>
-              ))}
-              En attente d'autres joueurs...
-            </ul>
-          )}
-
-          {currentUser.id == admin.id && (
-            <button
-              class="btn btn-warning btn-lg text-dark"
-              onClick={() =>
-                channel.perform("starting", { start: true, players: players })
-              }
-            >
-              C'est parti !
-            </button>
-          )}
-        </div>
-      </ActionCableProvider>
+        </ActionCableProvider>
+      )}
     </>
   );
 };

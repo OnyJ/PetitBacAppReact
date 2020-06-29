@@ -41,9 +41,6 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <Form.Text className="text-muted">
-                  Votre email ne sera pas divulgué.
-                </Form.Text>
               </Form.Group>
 
               <Form.Group controlId="formBasicPassword">

@@ -1,25 +1,29 @@
-// Will display in order each step of the game
-// 1. GameGrid
-// 2. GamerMarking
-// 3. GameFinished
-
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import GameGrid from "../components/GameGrid";
-import {useLocation} from "react-router-dom";
+import { useLocation, Redirect } from "react-router-dom";
 
 const CurrentGame = () => {
   let location = useLocation();
-  const [categories, setCategories] = useState(location.state.categories)
-  const [gameId, setGameId] = useState(location.state.gameId)
-  const [players, setPlayers] = useState(location.state.players)
-  console.log(gameId,players)
+  const [categories, setCategories] = useState(location.state.categories);
+  const [gameId, setGameId] = useState(location.state.gameId);
+  const [players, setPlayers] = useState(location.state.players);
+  const currentUser = useSelector((state) => state.auth.currentUser);
+
+  console.log(gameId, players);
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <GameGrid gameId={gameId} players={players}/>
+      {currentUser === null ? (
+        <>
+          <Redirect to="/" />
+        </>
+      ) : (
+        <div className="container">
+          <div className="row">
+            <GameGrid gameId={gameId} players={players} />
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
