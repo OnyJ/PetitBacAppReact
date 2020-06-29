@@ -14,17 +14,16 @@ import imgFriends from "../../../application/assets/images/friends.png";
 import imgWaiting from "../../../application/assets/images/waiting-sofa.png";
 import imgAdd from "../../../application/assets/images/add-green.png";
 
- const CreateGame = () => {
-
-  const currentUser = useSelector(state => state.auth.currentUser)
-  const auth = useSelector(state => state.auth)
-  const [maxPlayer, setMaxPlayer] = useState('')
-  const [categories, setCategories] = useState([])
-  const [testCateg, setTestCateg] = useState([])
-  const [gameId, setGameId] = useState('')
-  const [isReady, setIsReady] = useState(false)
-  const [isSent, setIsSent] = useState(false)
-  const [compteur, setCompteur] = useState([])
+const CreateGame = () => {
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const auth = useSelector((state) => state.auth);
+  const [maxPlayer, setMaxPlayer] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [testCateg, setTestCateg] = useState([]);
+  const [gameId, setGameId] = useState("");
+  const [isReady, setIsReady] = useState(false);
+  // const [isSent, setIsSent] = useState(false);
+  const [compteur, setCompteur] = useState([]);
   const letter = [
     "A...",
     "B...",
@@ -53,89 +52,83 @@ import imgAdd from "../../../application/assets/images/add-green.png";
     "Y...",
     "Z...",
   ];
-  console.log(compteur)
-  const history = useHistory()
-  
-  
- 
+  console.log(compteur);
+  const history = useHistory();
 
-    const create = async (e) => {
-        e.preventDefault()
-        setCategories( document.getElementsByClassName("categories")[0].innerText.split("\n") )
-         CreateAGame(currentUser, maxPlayer, letter)
-    }  
-    
-    const CreateAGame = (currentUser, maxGuests) => {
-      const api_url = process.env.REACT_APP_BASE_URL;
-      const data = {
-        game: {
-          creator_id: currentUser.id, 
-          winner_id: null,
-          max_guests: maxGuests,
-          letter: letter[Math.floor(Math.random() * letter.length)]
-        }
-      }  
-      
-      fetch(`${api_url}games`, {
-        method: 'post', 
-        headers: {
-          "Content-Type":"application/json", 
-          Authorization: `Bearer ${Cookies.get("token")}`
-        },
-        body: JSON.stringify(data),
-      })
-      .then(response => response.json())
-      .then(response => setGameId(response.id)) 
-      
-    }
-  
-    const createJoinCategGame = (gameId, categId) => {
+  const create = async (e) => {
+    e.preventDefault();
+    setCategories(
+      document.getElementsByClassName("categories")[0].innerText.split("\n")
+    );
+    CreateAGame(currentUser, maxPlayer, letter);
+  };
 
-        const api_url = process.env.REACT_APP_BASE_URL;
-       
-        const dataCategGames = {
-          join_category_game: {
-            game_id: gameId , 
-            category_id: categId
-          }
-        }
-        fetch(`${api_url}join_category_games`, {
-          method: 'post', 
-          headers: {
-            "Content-Type":"application/json", 
-            Authorization: `Bearer ${Cookies.get("token")}`
-          }, 
-          body: JSON.stringify(dataCategGames)
-        })
-        .then((response) => {
-          if (response.ok === true) {
-            setCompteur([...compteur, 'osef'])
-            setIsReady(true)
-            
-            return response.json()  
-          }
-          return response
-        })
+  const CreateAGame = (currentUser, maxGuests) => {
+    const api_url = process.env.REACT_APP_BASE_URL;
+    const data = {
+      game: {
+        creator_id: currentUser.id,
+        winner_id: null,
+        max_guests: maxGuests,
+        letter: letter[Math.floor(Math.random() * letter.length)],
+      },
+    };
 
-       }
+    fetch(`${api_url}games`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => setGameId(response.id));
+  };
 
-      const testPass = {
-        pathname: '/waiting_room', 
-        testId: gameId, 
-        categories: testCateg
+  const createJoinCategGame = (gameId, categId) => {
+    const api_url = process.env.REACT_APP_BASE_URL;
+
+    const dataCategGames = {
+      join_category_game: {
+        game_id: gameId,
+        category_id: categId,
+      },
+    };
+    fetch(`${api_url}join_category_games`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+      body: JSON.stringify(dataCategGames),
+    }).then((response) => {
+      if (response.ok === true) {
+        setCompteur([...compteur, "osef"]);
+        setIsReady(true);
+
+        return response.json();
       }
-     const categAction = () => {
-      testCateg.forEach(categ => { 
-        createJoinCategGame(gameId, categ.id)
-        })
-        
-     }
-        
-      categAction()
-          
-      const isComputerScreen = () => {
-        return window.screen.availWidth > 375;
-      };
+      return response;
+    });
+  };
+
+  const testPass = {
+    pathname: "/waiting_room",
+    testId: gameId,
+    categories: testCateg,
+  };
+  const categAction = () => {
+    testCateg.forEach((categ) => {
+      createJoinCategGame(gameId, categ.id);
+    });
+  };
+
+  categAction();
+
+  const isComputerScreen = () => {
+    return window.screen.availWidth > 375;
+  };
 
   return (
     <>
@@ -216,6 +209,12 @@ import imgAdd from "../../../application/assets/images/add-green.png";
                   role="tabpanel"
                   aria-labelledby="home-tab-ex"
                 >
+                  <center>
+                    <p className="h5 text-success">
+                      Très chers utilisateurs, l'onglet "Invités" est encore en
+                      cours d'élaboration pour le grand public ;)
+                    </p>
+                  </center>
                   {isComputerScreen() && <h2>Invités</h2>}
                   <input
                     type="number"
@@ -278,7 +277,7 @@ import imgAdd from "../../../application/assets/images/add-green.png";
                               />
                               <span className="pt-2"> harry</span>
                             </div>
-                          </button>                      
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -318,7 +317,6 @@ import imgAdd from "../../../application/assets/images/add-green.png";
                           <span class="badge badge-pill badge-success">Ok</span>
                           <span> BgDu22</span>
                         </div>
-
                         {/* End of invited friends loop */}
                       </div>
                     </div>
@@ -329,39 +327,38 @@ import imgAdd from "../../../application/assets/images/add-green.png";
                   id="tab-categories"
                   role="tabpanel"
                   aria-labelledby="profile-tab-ex"
-                >   {/* End of friends loop */}
+                >
+                  {" "}
+                  {/* End of friends loop */}
                   <div className="row">
                     <SelectCategories
                       tg={(selectCategories) => setTestCateg(selectCategories)}
                     />
                   </div>
+                  <center>
+                    <Button
+                      variant="warning text-dark play-button mt-5"
+                      type="submit"
+                    >
+                      Jouer
+                    </Button>
+                  </center>
                 </div>
               </div>
               {/* End of content display */}
-
-              <center>
-                {/* A conditionnal button possibility : */}
-                {/* Render [a gray button type=""] if !selectionComplete */}
-                {/* Render [a yellow button type="submit"] if selectionComplete */}
-                <Button
-                  variant="warning text-dark play-button mt-5"
-                  type="submit"
-                >
-                  Jouer
-                </Button>
-              </center>
             </form>
           </div>
         </section>
       )}
-      {isReady && 
-        <Redirect to={{
-          pathname: '/waiting_room',
-          testId: gameId, 
-          categ: categories
-
-        }}/>
-    }
+      {isReady && (
+        <Redirect
+          to={{
+            pathname: "/waiting_room",
+            testId: gameId,
+            categ: categories,
+          }}
+        />
+      )}
     </>
   );
 };
