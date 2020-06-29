@@ -21,8 +21,7 @@ const Login = () => {
       Cookies.set("token", result.token);
       Cookies.set("user", result.user);
     });
-
-    user.catch((error) => console.log(error));
+    user.catch((error) => console.error(error));
   };
 
   return (
@@ -41,9 +40,6 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <Form.Text className="text-muted">
-                  Votre email ne sera pas divulgué.
-                </Form.Text>
               </Form.Group>
 
               <Form.Group controlId="formBasicPassword">

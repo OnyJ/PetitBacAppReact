@@ -20,12 +20,11 @@ const Home = () => {
   const [gameIsReady, setGameIsReady] = useState();
   const [gameId, setGameId] = useState("");
   const [launchCreateGame, setLaunchCreateGame] = useState(false);
-
-  console.log("wss://api-petitbac.herokuapp.com/cable");
+  // wss link : wss://api-petitbac.herokuapp.com/cable
 
   const loggedInDisplay = () => {
     const isComputerScreen = () => {
-      return window.screen.availWidth > 375;
+      return window.screen.availWidth > 500;
     };
 
     return (

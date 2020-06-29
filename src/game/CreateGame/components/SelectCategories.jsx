@@ -30,7 +30,7 @@ export const SelectCategories = ({ tg }) => {
   }, [selectCategories]);
 
   const isComputerScreen = () => {
-    return window.screen.availWidth > 375;
+    return window.screen.availWidth > 500;
   };
 
   const renderCategories = () => {
@@ -88,7 +88,13 @@ export const SelectCategories = ({ tg }) => {
             </div>
           </div>
 
-          <div className="categories-container ml-5">
+          <div
+            className={
+              isComputerScreen()
+                ? "categories-container ml-5"
+                : "categories-container"
+            }
+          >
             <div className="categories-title">
               {isComputerScreen() ? (
                 <h2>Catégories</h2>

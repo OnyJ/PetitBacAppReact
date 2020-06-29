@@ -15,7 +15,8 @@ $primary-button-color-pressed: #e0a800;
 
 // Sizes
 
-$screen-small: 375px;
+// $screen-small: 375px;
+$screen-small: 500px;
 $screen-large: 1200px;
 
 // Global
@@ -219,5 +220,17 @@ nav {
     .guests-main-div {
       height: 380px;
     }
+  }
+}
+
+// Join A Game
+
+.join-a-game {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  .card {
+    width: 350px;
   }
 }
