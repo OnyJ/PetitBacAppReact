@@ -29,7 +29,7 @@ const GameMarking = () => {
 
   const api_url = process.env.REACT_APP_BASE_URL;
   const cable = actionCable.createConsumer(
-    "wss://api-petitbac.herokuapp.com/cable"
+    process.env.REACT_APP_CABLE
   );
   console.log(location.state.players);
 

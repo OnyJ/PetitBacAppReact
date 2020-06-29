@@ -22,7 +22,7 @@ const WaitingRoom = () => {
   const [players, setPlayers] = useState([]);
   const [admin, setAdmin] = useState("");
   const cable = actionCable.createConsumer(
-    "wss://api-petitbac.herokuapp.com/cable"
+    process.env.REACT_APP_CABLE
   );
   console.log(location);
 
