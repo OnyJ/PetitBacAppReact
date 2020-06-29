@@ -12,6 +12,9 @@ const History = () => {
   const [launchCreateGame, setLaunchCreateGame] = useState(false);
   const currentUser = useSelector((state) => state.auth.currentUser);
   const finalScore = useSelector((state) => state.score.score);
+  const isComputerScreen = () => {
+    return window.screen.availWidth > 375;
+  };
 
   return (
     <>
@@ -32,7 +35,13 @@ const History = () => {
                   height="50px"
                   className="ml-4 mt-1"
                 />
-                <h1 className="ml-3 text-light h2">
+                <h1
+                  className={
+                    isComputerScreen()
+                      ? "ml-3 text-light h2"
+                      : "ml-3 text-light h4"
+                  }
+                >
                   Historique de <br />
                   parties
                 </h1>

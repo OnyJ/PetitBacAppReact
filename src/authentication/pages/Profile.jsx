@@ -15,6 +15,9 @@ import imgMedal4 from "../../application/assets/images/medal4.png";
 const Profile = () => {
   const [launchCreateGame, setLaunchCreateGame] = useState(false);
   const currentUser = useSelector((state) => state.auth.currentUser);
+  const isComputerScreen = () => {
+    return window.screen.availWidth > 375;
+  };
 
   return (
     <>
@@ -35,7 +38,13 @@ const Profile = () => {
                   height="50px"
                   className="ml-4 mt-1"
                 />
-                <h1 className="ml-3 text-light h2">
+                <h1
+                  className={
+                    isComputerScreen()
+                      ? "ml-3 text-light h2"
+                      : "ml-3 text-light h3"
+                  }
+                >
                   Profil de <br />
                   {currentUser.username}
                 </h1>

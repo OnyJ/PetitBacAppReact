@@ -126,7 +126,7 @@ const CreateGame = () => {
   categAction();
 
   const isComputerScreen = () => {
-    return window.screen.availWidth > 375;
+    return window.screen.availWidth > 500;
   };
 
   return (

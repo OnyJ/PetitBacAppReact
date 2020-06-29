@@ -24,7 +24,7 @@ const Home = () => {
 
   const loggedInDisplay = () => {
     const isComputerScreen = () => {
-      return window.screen.availWidth > 375;
+      return window.screen.availWidth > 500;
     };
 
     return (
