@@ -221,3 +221,15 @@ nav {
     }
   }
 }
+
+// Join A Game
+
+.join-a-game {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  .card {
+    width: 350px;
+  }
+}
