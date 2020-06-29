@@ -1,19 +1,8 @@
-// First part of a game
-// We see the random chosen Letter
-// Everyone is filling the categories form
-// There is a "Stop" button for the first player who finishes
 import React, { useEffect, useState } from "react";
 import actionCable from "actioncable";
-import {
-  ActionCableProvider,
-  ActionCableConsumer,
-} from "react-actioncable-provider";
+import { ActionCableProvider } from "react-actioncable-provider";
 import { useSelector } from "react-redux";
-import { fetchGame } from "../fetchCurrentGame";
-import { createPortal } from "react-dom";
-import GameMarking from "../pages/GameMarking";
-import Cookies from "js-cookie";
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 const GameGrid = ({ gameId, players }) => {
@@ -26,13 +15,11 @@ const GameGrid = ({ gameId, players }) => {
   const [id, setId] = useState(gameId);
   const auth = useSelector((state) => state.auth);
   const [letter, setLetter] = useState("");
-
   const [test, setTest] = useState(false);
-
   const cable = actionCable.createConsumer(
     "wss://api-petitbac.herokuapp.com/cable"
   );
-  console.log(typeof players, typeof nbPlayers, typeof gameId);
+
   useEffect(() => {
     const sub = cable.subscriptions.create(
       { channel: "GameChannel", game_id: gameId, user_id: currentUser.id },
@@ -48,10 +35,8 @@ const GameGrid = ({ gameId, players }) => {
             for (let item of test) {
               tmp[item.name] = item.value;
             }
-            console.log(data);
             this.perform("received", { answers: tmp, stop: false });
           } else {
-            console.log(data);
             setTimeout(
               () =>
                 history.push("/game_marking", {
@@ -78,7 +63,6 @@ const GameGrid = ({ gameId, players }) => {
       })
         .then((response) => {
           if (response.ok) {
-            console.log(response);
             return response.json();
           }
         })
@@ -92,14 +76,10 @@ const GameGrid = ({ gameId, players }) => {
 
   const handleReceivedAnswers = (response) => {
     if (response["stop"]) {
-      console.log(response);
-      console.log(answers);
       channel.perform("received", answers);
     }
   };
-
   const handleClick = () => {
-    console.log(answers);
     channel.perform("stopping", { stop: true });
   };
 

@@ -52,7 +52,6 @@ const CreateGame = () => {
     "Y...",
     "Z...",
   ];
-  console.log(compteur);
   const history = useHistory();
 
   const create = async (e) => {

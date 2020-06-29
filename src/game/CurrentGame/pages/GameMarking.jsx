@@ -1,16 +1,8 @@
 import React, { useState, useEffect, useReducer } from "react";
-import uniqid from "uniqid";
-import history from "../../../history";
-import { Link } from "react-router-dom";
-import GameFinished from "./GameFinished";
-import scoreReducer from "../../../scoreReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useHistory, Redirect } from "react-router-dom";
 import actionCable from "actioncable";
-import {
-  ActionCableProvider,
-  ActionCableConsumer,
-} from "react-actioncable-provider";
+import { ActionCableProvider } from "react-actioncable-provider";
 
 const GameMarking = () => {
   const location = useLocation();
@@ -26,19 +18,11 @@ const GameMarking = () => {
   const [playerResponseLeft, setPlayerResponseLeft] = useState(
     location.state.players
   );
-
   const api_url = process.env.REACT_APP_BASE_URL;
   const cable = actionCable.createConsumer(
     "wss://api-petitbac.herokuapp.com/cable"
   );
-  console.log(location.state.players);
-
   const dispatch = useDispatch();
-  const osef = useSelector((state) => state.score);
-  console.log(osef);
-
-  console.log(playerResponseLeft);
-  console.log(id, typeof id);
 
   useEffect(() => {
     const sub = cable.subscriptions.create(
@@ -54,7 +38,6 @@ const GameMarking = () => {
         },
         received(data) {
           if (data["stop"]) {
-            console.log(data);
             history.push("/game_finished", {
               gameId: id,
             });
@@ -62,9 +45,6 @@ const GameMarking = () => {
             console.log(data);
           }
           // setSubmitted(true)
-          // console.log(data)
-
-          //this.perform('stop', {...data, count: data['osef'] + count})
         },
       }
     );
@@ -76,7 +56,7 @@ const GameMarking = () => {
       const response = await fetch(`${api_url}responses`);
       const array = await response.json();
       array.map((obj) => {
-        if (obj.user_id != currentUser.id && obj.game_id == id) {
+        if (obj.user_id !== currentUser.id && obj.game_id === id) {
           tmp.push(obj);
         }
       });
@@ -94,11 +74,6 @@ const GameMarking = () => {
     fetchData();
   }, []);
 
-  // const sendGlobalScore = (score) => {
-  //   dispatch({type: 'ADD_SCORE', score: score})
-  // }
-  console.log(answer);
-
   const handleclick = () => {
     let tmp = [];
     let score = 0;
@@ -114,7 +89,7 @@ const GameMarking = () => {
     setSubmitted(true);
     channel.perform("received", { answers: tmp });
   };
-  console.log(answer);
+
   return (
     <>
       {currentUser === null ? (

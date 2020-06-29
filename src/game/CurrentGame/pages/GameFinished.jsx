@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import history from "../../../history";
 import { Link, useLocation, Redirect } from "react-router-dom";
-//import GameScore from '../components/GameScore';
-import useSelection from "antd/lib/table/hooks/useSelection";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Form } from "react-bootstrap";
 import { useEffect } from "react";
 
 const GameFinished = ({ data }) => {
@@ -17,8 +13,6 @@ const GameFinished = ({ data }) => {
   const [score, setScore] = useState(data);
   const [goToScore, setGoToScore] = useState(false);
   const api_url = process.env.REACT_APP_BASE_URL;
-
-  console.log(responses, gameId, currentUser.id);
 
   useEffect(() => {
     const fetchScore = () => {
@@ -36,17 +30,15 @@ const GameFinished = ({ data }) => {
         .then((response) =>
           setResponses(
             response.filter(
-              (res) => res.game_id == gameId && res.user_id === currentUser.id
+              (res) => res.game_id === gameId && res.user_id === currentUser.id
             )
           )
         );
-      //
     };
     fetchScore();
   }, []);
 
   const scoreCalc = () => {
-    console.log(responses);
     let score = 0;
     responses.forEach((res) => {
       if (res.status === true) {
@@ -56,7 +48,6 @@ const GameFinished = ({ data }) => {
     //sendGlobalScore(score)
     return score;
   };
-  console.log(finalScore);
 
   const sendGlobalScore = (score) => {
     dispatch({ type: "ADD_SCORE", score: score });

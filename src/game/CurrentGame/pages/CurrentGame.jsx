@@ -10,7 +10,6 @@ const CurrentGame = () => {
   const [players, setPlayers] = useState(location.state.players);
   const currentUser = useSelector((state) => state.auth.currentUser);
 
-  console.log(gameId, players);
   return (
     <>
       {currentUser === null ? (

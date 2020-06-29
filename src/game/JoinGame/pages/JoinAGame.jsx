@@ -5,7 +5,6 @@ import { Link, Redirect } from "react-router-dom";
 const JoinAGame = () => {
   const [gameId, setGameId] = useState("");
   const currentUser = useSelector((state) => state.auth.currentUser);
-
   const game = {
     pathname: "/waiting_room",
     testId: gameId,

@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import actionCable from "actioncable";
-import {
-  ActionCableProvider,
-  ActionCableConsumer,
-} from "react-actioncable-provider";
+import { ActionCableProvider } from "react-actioncable-provider";
 import { useSelector } from "react-redux";
-import useSelection from "antd/lib/table/hooks/useSelection";
 import { useLocation, useHistory, Redirect } from "react-router-dom";
 
 const WaitingRoom = () => {
@@ -15,7 +11,6 @@ const WaitingRoom = () => {
   const [gameId, setGameId] = useState(location.testId);
   const [categories, setCategories] = useState(location.categories);
   const [channel, setChannel] = useState(null);
-  //const [test, setTest] = useState("rien");
   const [data, setData] = useState("kedal");
   const [stop, setStop] = useState(false);
   const [start, setStart] = useState(false);
@@ -24,7 +19,6 @@ const WaitingRoom = () => {
   const cable = actionCable.createConsumer(
     "wss://api-petitbac.herokuapp.com/cable"
   );
-  console.log(location);
 
   useEffect(() => {
     const sub = cable.subscriptions.create(
@@ -32,17 +26,12 @@ const WaitingRoom = () => {
       {
         initialized() {
           setChannel(this);
-          console.log("subscriptions", currentUser);
         },
         connected() {
-          console.log("test");
           this.perform("received", { game_id: gameId });
         },
         received(data) {
           if (!Array.isArray(data)) {
-            console.log(data);
-            console.log(players);
-            console.log(players.length);
             history.push("/current_game", {
               categories: categories,
               gameId: gameId,
@@ -56,8 +45,6 @@ const WaitingRoom = () => {
       }
     );
   }, []);
-
-  console.log(players);
 
   return (
     <>

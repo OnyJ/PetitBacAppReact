@@ -21,8 +21,7 @@ const Login = () => {
       Cookies.set("token", result.token);
       Cookies.set("user", result.user);
     });
-
-    user.catch((error) => console.log(error));
+    user.catch((error) => console.error(error));
   };
 
   return (

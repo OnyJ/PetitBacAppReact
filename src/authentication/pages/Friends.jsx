@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import "../../App.scss";
-import Cookies from "js-cookie";
 import { Link, Redirect } from "react-router-dom";
-import { Button } from "react-bootstrap";
 
 // Assets
 import imgFriends from "../../application/assets/images/friendship.png";
 import imgFriends2 from "../../application/assets/images/friends.png";
-import imgGame from "../../application/assets/images/vr-gaming.png";
-import imgMedal3 from "../../application/assets/images/medal3.png";
-import imgMedal4 from "../../application/assets/images/medal4.png";
 
 const Friends = () => {
   const [launchCreateGame, setLaunchCreateGame] = useState(false);

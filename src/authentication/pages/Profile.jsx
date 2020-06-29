@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import Cookies from "js-cookie";
 import { Link, Redirect } from "react-router-dom";
-import { Button } from "react-bootstrap";
 
 // Pages and components
 import "../../App.scss";
-import LoggedOutDisplay from "../../application/components/LoggedOutDisplay";
 
 // Assets
 import imgProfile from "../../application/assets/images/login.png";
