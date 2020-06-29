@@ -80,7 +80,7 @@ const Profile = () => {
                   <h4>
                     <br />
                     Votre email :<br />
-                    -> {currentUser.email}{" "}
+                    {currentUser.email}{" "}
                   </h4>
                   <div className="row mt-5">
                     <div className="col">

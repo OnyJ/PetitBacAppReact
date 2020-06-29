@@ -348,6 +348,13 @@ const CreateGame = () => {
               {/* End of content display */}
             </form>
           </div>
+          <div className="row mt-5">
+            <div className="col">
+              <Link to="/" className="btn btn-warning btn-lg text-dark">
+                Retour
+              </Link>
+            </div>
+          </div>
         </section>
       )}
       {isReady && (
