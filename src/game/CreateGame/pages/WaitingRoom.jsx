@@ -62,20 +62,21 @@ const WaitingRoom = () => {
   return (
     <>
       <ActionCableProvider cable={cable}>
-        <div className="container">
+        <div className="container pt-2">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Game ID</h5>
-
-              <p class="card-text">{gameId}</p>
+              <h5 class="card-title">Numéro de la partie : </h5>
+              <center>
+                <p class="h3 text-success">{gameId}</p>
+              </center>
             </div>
           </div>
 
           {admin && <p> Admin: {admin.username}</p>}
           {players && (
-            <ul>
+            <ul className="p-4">
               {players.slice(1).map((player, i) => (
-                <li key={i}>{player.username} has join the game</li>
+                <li key={i}>{player.username} a rejoint la partie</li>
               ))}
               En attente d'autres joueurs...
             </ul>
@@ -88,7 +89,7 @@ const WaitingRoom = () => {
                 channel.perform("starting", { start: true, players: players })
               }
             >
-              Let's play
+              C'est parti !
             </button>
           )}
         </div>
