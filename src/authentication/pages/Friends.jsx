@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import "../../App.scss";
 import Cookies from "js-cookie";
@@ -14,8 +14,61 @@ import imgMedal4 from "../../application/assets/images/medal4.png";
 
 const Friends = () => {
   const [launchCreateGame, setLaunchCreateGame] = useState(false);
+  const [username, setUsername] = useState("");
+  const [users, setUsers] = useState([]);
   const currentUser = useSelector((state) => state.auth.currentUser);
   const finalScore = useSelector((state) => state.score.score);
+  const api_url = process.env.REACT_APP_BASE_URL
+  
+  useEffect(() => {
+    async function fetchData() {
+      let tmp = [];
+      const response = await fetch(`${api_url}users`, {
+        method: 'get', 
+        headers: {
+          "Content-Type":"application/json", 
+          Authorization: `Bearer ${Cookies.get("token")}`
+        },
+      });
+      console.log(response)
+      const array = await response.json();
+      
+      array.map((obj) => {
+        if (obj.username.includes(username)) {
+          tmp.push(obj);
+        }
+      });
+      setUsers(tmp)
+      console.log(tmp)
+    }
+    fetchData();
+  },[username])
+  
+  const CreateAFriendship = (currentUser, friend) => {
+      const data = {
+        friendship: {
+          user_id: currentUser.id, 
+          friend_id: friend.id
+        }
+      }  
+      
+      fetch(`${api_url}friendships`, {
+        method: 'post', 
+        headers: {
+          "Content-Type":"application/json", 
+          Authorization: `Bearer ${Cookies.get("token")}`
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(response => console.log(response)) 
+      
+    }
+  
+  
+  const findUserByUsername = (username) => {
+    
+  }
 
   return (
     <>
@@ -62,9 +115,26 @@ const Friends = () => {
         <center className="w-100 mt-5">
           <p className="h2">Vous n'avez pas d'amis pour le moment :)</p>
         </center>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Rechercher des amis:</label>
+            <input type="text" onChange={(e) => setUsername(e.target.value)} value={username} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+          </div>
+          <ul>
+            {users.slice(0,1).map((user,i) => ( 
+              <div>
+                <li key={i}>{user.username}</li>
+                <button onClick={() => CreateAFriendship(currentUser,user)} className="btn btn-warning btn-lg text-dark">Ajouter</button>
+              </div>
+              
+            ))
+            }
+          </ul>
+
+        
         <div>
           <Link to="/" className="btn btn-warning btn-lg text-dark">
-            JOUER
+            Back
           </Link>
         </div>
       </div>
