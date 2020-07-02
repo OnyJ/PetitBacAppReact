@@ -28,7 +28,7 @@ export const fetchUserRegister = (
 };
 
 export const fetchUserLogin = async (email, password) => {
-  const api_url = process.env.REACT_APP_BASE_URL;
+  const api_url = process.env.REACT_APP_BASE_URL
   const data = {
     user: {
       email: email,
@@ -42,7 +42,7 @@ export const fetchUserLogin = async (email, password) => {
     },
     body: JSON.stringify(data),
   });
-
+  console.log(api_url)
   try {
     const token = await response.headers.get("authorization").split(" ")[1];
     const user = await response.json();

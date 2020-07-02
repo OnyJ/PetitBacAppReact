@@ -17,7 +17,7 @@ const GameGrid = ({ gameId, players }) => {
   const [letter, setLetter] = useState("");
   const [test, setTest] = useState(false);
   const cable = actionCable.createConsumer(
-    "wss://api-petitbac.herokuapp.com/cable"
+    process.env.REACT_APP_CABLE
   );
 
   useEffect(() => {

@@ -26,7 +26,8 @@ const Home = () => {
     const isComputerScreen = () => {
       return window.screen.availWidth > 500;
     };
-
+    
+    
     return (
       <>
         <div className="menu-header-div pt-4">
