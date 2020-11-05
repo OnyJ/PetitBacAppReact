@@ -23,7 +23,7 @@
     "redux-thunk": "^2.3.0",
     "uniqid": "^5.2.0"
   },
-  "homepage": "https://onyj.github.io/PetitBackAppReact",
+  "homepage": "https://onyj.github.io/PetitBacAppReact",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
